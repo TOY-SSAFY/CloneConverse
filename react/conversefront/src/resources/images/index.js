@@ -1,1 +1,1 @@
-export const converse_logo = require("./converse_logo.png")
+export const converse_logo = require("./converse_logo.png");
