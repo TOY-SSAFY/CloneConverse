@@ -1,12 +1,14 @@
-import React from 'react'
+import React from "react";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
 
 const NoticeBar = () => {
   return (
-    <>
-      NoticeBar
-    </>
-  )
+    <Container maxWidth="xl">
+      <div>123</div>
+    </Container>
+  );
+};
 
-}
-
-export default NoticeBar
+export default NoticeBar;
