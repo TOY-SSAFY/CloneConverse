@@ -4,12 +4,14 @@ import Container from "@material-ui/core/Container";
 
 const MainPage = () => {
   return (
-    <Container maxWidth="xl">
+    <>
       <Header />
-      {/* <ContentBlock /> */}
-      {/* <Explore/> */}
-      {/* <Footer/> */}
-    </Container>
+      <Container maxWidth="xl">
+        {/* <ContentBlock /> */}
+        {/* <Explore/> */}
+        {/* <Footer/> */}
+      </Container>
+    </>
   );
 };
 
