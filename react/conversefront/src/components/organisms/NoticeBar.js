@@ -20,6 +20,7 @@ const top_banner_box = {
 };
 const bannerTitle = {
   fontFamily: "proxima, NanumGothic, Arial, sans-serif",
+  zIndex: 13,
 };
 
 const NoticeBar = () => {
