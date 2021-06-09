@@ -1,7 +1,6 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
 import styled from 'styled-components'
@@ -24,14 +23,20 @@ function ElevationScroll(props) {
 }
 
 const Img = styled.img`
-  width : 120px;
+  height : 60px;
 `
 
 const RowBox = styled.ul`
   display : flex;
-  flex-direction:row;
+  flex-direction : row;
   height : 60px;
   line-height: 60px;
+  align-items : center;
+  margin : 0 0 0 -30px;
+
+  :hover {
+
+  }
 `
 
 const MenuList = styled.li`
@@ -47,11 +52,12 @@ const NavBar = (props) => {
           style={{
             "box-shadow": "none",
             "background-color": "white",
-            "color" : "black"
+            "color": "black",
+            "top": "70px"
           }}
         >
           <Toolbar
-            style={{"minHeight":"60px"}}
+            style={{"height":"60px"}}
           >
             <Img src={converse_logo} alt="converse" />
             <RowBox>
