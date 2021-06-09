@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "proxima";
+  src: url("/src/styles/fonts/proxima_nova_font-webfont.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NanumGothic";
+  src: url("/src/styles/fonts/NanumGothic.eot");
+  font-weight: normal;
+  font-style: normal;
+}
