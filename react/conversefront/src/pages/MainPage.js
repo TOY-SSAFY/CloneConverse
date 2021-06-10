@@ -7,7 +7,7 @@ const MainPage = () => {
   return (
     <>
       <Header />
-      <Container maxWidth="xl" style={{"top":"300px"}}>
+      <Container maxWidth="xl" style={{"paddingTop":"43px"}}>
         <ContentBlock  />
         <Explore/>
       </Container>
