@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Grid from '@material-ui/core/Grid';
 import styled from "styled-components";
-import { ProductCard, VideoCard } from "../molecules";
+import { ProductCard, VideoCard, PosterCard } from "../molecules";
 
 import chuck70pink from "../../resources/images/chuck_70_seasonal_canvas_pink.jpg"
 import chuck70pink2 from "../../resources/images/chuck_70_seasonal_canvas_pink2.jpg"
@@ -14,10 +14,6 @@ const RowBox = styled.div`
   flex-direction : row;
 `
 
-const Img = styled.img`
-  width:100%;
-  height:100%;
-`
 
 const ProductBlock = () => {
   return (
@@ -37,19 +33,32 @@ const ProductBlock = () => {
                 <ProductCard
                   image1={chuck70pink}
                   image2={chuck70pink2}
+                  title1="BEST SELLER"
+                  title2="NEW ARRIVAL"
+                  name="척 70 시즈널 캔버스"
+                  price="99,000원"
                 />
               </Grid>
               <Grid item xs={6}>
                 <ProductCard
                   image1={chuck70mint}
                   image2={chuck70mint2}
+                  title1="BEST SELLER"
+                  name="척 70 시즈널 캔버스"
+                  price="99,000원"
                 />
               </Grid>
             </RowBox>
           </Grid>
         </Grid>
         <Grid item xs={6}>
-          <Img src={chuck70poster} />
+          <PosterCard
+            image={chuck70poster}
+            title1="CHUCK 70"
+            title2="SEASONAL CANVAS"
+            desc1="느긋한 여름 날의 태양을 떠오르게 하는"
+            desc2="새로운 색상의 척 70을 만나보세요."
+          />
         </Grid>
       </Grid>
     </>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const RelativeBox = styled.div`
   position : relative;
+  cursor : pointer;
 `
 const TextBox = styled.div`
   position: absolute;
