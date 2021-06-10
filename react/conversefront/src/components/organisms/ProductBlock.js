@@ -8,6 +8,7 @@ import chuck70pink2 from "../../resources/images/chuck_70_seasonal_canvas_pink2.
 import chuck70mint from "../../resources/images/chuck_70_seasonal_canvas_mint.jpg"
 import chuck70mint2 from "../../resources/images/chuck_70_seasonal_canvas_mint2.jpg"
 import chuck70poster from "../../resources/images/chuck70_seasonal_canvas_poster.jpg"
+import converseVideo from "../../resources/videos/converseVideo.mp4"
 
 const RowBox = styled.div`
   display : flex;
@@ -23,7 +24,7 @@ const ProductBlock = () => {
           <Grid item xs={12}
           >
             <VideoCard
-              videoSrc="https://video.bbsclub.kr/%5BSHANA%5DSU21_SEASONAL_COLOR_RSH_LOW_YELLOW_170778C_MOTION_6 (1).mp4"
+              videoSrc={converseVideo}
               text="척 70 시즈널 캔버스 샴페인"
             />
           </Grid>
