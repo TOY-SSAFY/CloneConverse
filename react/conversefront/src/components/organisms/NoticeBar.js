@@ -15,7 +15,7 @@ const top_banner_box = {
   background: "#e5e5e5",
   height: "70px",
   position: "relative",
-  paddingTop: "19px",
+  // paddingTop: "19px",
 };
 const swiper_style = {
   fontFamily: "proxima, NanumGothic, Arial, sans-serif",
@@ -37,7 +37,7 @@ const Swiper_title = styled.div`
 const NoticeBar = () => {
   return (
     <div style={top_banner_box}>
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" style={{"paddingTop":"19px"}}>
         <Swiper
           className="banner"
           spaceBetween={500}

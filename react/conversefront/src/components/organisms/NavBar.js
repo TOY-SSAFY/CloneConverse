@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
@@ -11,22 +11,6 @@ import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import styled from 'styled-components'
 import converse_logo from "../../resources/images/converse_logo.png"
 import { Typography } from '@material-ui/core';
-
-function ElevationScroll(props) {
-  const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-    target: window ? window() : undefined,
-  });
-
-  return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0,
-  });
-}
 
 const FlexBox = styled.div`
   display : flex;
@@ -51,9 +35,9 @@ const RowBox = styled.ul`
     color : gray;
     transition-duration:0.2s;
   }
-  `
+`
 
-  const MenuList = styled.li`
+const MenuList = styled.li`
   list-style:none;
   margin : 0 5px;
   font-weight: 600;
@@ -78,15 +62,33 @@ const SearchBox = styled.div`
 `
 
 const NavBar = (props) => {
+
+  function ElevationScroll (props) {
+    const { children, window } = props;
+    const trigger = useScrollTrigger({
+      disableHysteresis: true,
+      threshold: 0,
+      target: window ? window() : undefined,
+    });
+
+    console.log(trigger)
+
+    return React.cloneElement(children, {
+      elevation: trigger ? 4 : 0,
+      position: trigger ? "fixed" : "static"
+    });
+  }
+
   return (
     <>
       <ElevationScroll {...props}>
         <AppBar
           style={{
-            "box-shadow": "none",
+            // "box-shadow": "none",
             "background-color": "white",
             "color": "black",
-            "top": "70px"
+            // "top": "70px"
+            // "position": `${appBarPosition}`
           }}
         >
           <Toolbar
