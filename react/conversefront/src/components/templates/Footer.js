@@ -29,7 +29,7 @@ const F_innersec02 = styled.div`
 `;
 const F_innersec02_left = styled.div`
   max-width: 705px;
-  margin-left: -14px;
+  margin-left: -50px;
   padding: 0 10px 0 0;
   text-align: left;
 `;
@@ -183,7 +183,8 @@ const Footer = () => {
         </F_innersec01>
         <F_innersec02>
           <Grid container spacing={1}>
-            <Grid item xs={8}>
+            <Grid item xs={1}></Grid>
+            <Grid item xs={7}>
               <F_innersec02_left>
                 <span>
                   <a>(유)컨버스코리아 | </a>
