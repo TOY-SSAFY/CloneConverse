@@ -15,7 +15,7 @@ const top_banner_box = {
   background: "#e5e5e5",
   height: "70px",
   position: "relative",
-  paddingTop: "15px",
+  paddingTop: "19px",
 };
 const swiper_style = {
   fontFamily: "proxima, NanumGothic, Arial, sans-serif",
