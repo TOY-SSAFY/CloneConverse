@@ -21,8 +21,7 @@ const ProductBlock = () => {
     <>
       <Grid container spacing={0}>
         <Grid item xs={6}>
-          <Grid item xs={12}
-          >
+          <Grid item xs={12}>
             <VideoCard
               videoSrc={converseVideo}
               text="척 70 시즈널 캔버스 샴페인"

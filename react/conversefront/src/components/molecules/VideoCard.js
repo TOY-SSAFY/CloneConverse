@@ -20,7 +20,7 @@ const HoverBox = styled.div`
   }
 `
 const Video = styled.video`
-  display : inline-block;
+  display : block;
   width : 100%;
   height : 100%;
 `
@@ -36,7 +36,7 @@ const VideoCard = ({
           <video
             autoplay="autoplay" loop="loop" muted="" id="videoBanner" playsinline="" poster="#"
             style={{
-              "display": "inline-block",
+              "display": "block",
               "width": "100%",
               "height": "100%"
             }}
