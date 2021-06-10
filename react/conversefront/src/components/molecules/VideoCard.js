@@ -4,8 +4,13 @@ import styled from "styled-components";
 const RelativeBox = styled.div`
   position : relative;
 `
-const TextBox = styled.span`
-  
+const TextBox = styled.div`
+  position: absolute;
+  zIndex: 1;
+  left: 25px;
+  top: 25px;
+  color: white;
+  fontSize :14px;
 `
 const HoverBox = styled.div`
   :hover {
@@ -38,16 +43,9 @@ const VideoCard = ({
             <source src={videoSrc} type="audio/mp4"/>
           </video>
         </HoverBox>
-        <span style={{
-          "position": "absolute",
-          "zIndex": "1",
-          "left": "25px",
-          "top": "25px",
-          "color": "white",
-          "fontSize" :"14px"
-        }}>
+        <TextBox>
           {text}
-        </span>
+        </TextBox>
       </RelativeBox>
     </>
   );
