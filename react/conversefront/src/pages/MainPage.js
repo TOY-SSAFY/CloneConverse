@@ -7,9 +7,9 @@ const MainPage = () => {
     <>
       <Header />
       <Container maxWidth="xl">
-        {/* <ContentBlock /> */}
-        {/* <Explore/> */}
-        {/* <Footer/> */}
+        <ContentBlock />
+        <Explore/>
+        <Footer/>
       </Container>
     </>
   );
