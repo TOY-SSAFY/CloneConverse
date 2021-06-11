@@ -12,7 +12,7 @@ const MainPage = () => {
   return (
     <>
       <Header />
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" style={{ flexDirection: "column" }}>
         <ContentBlock />
         <Explore />
         <Marketing />
