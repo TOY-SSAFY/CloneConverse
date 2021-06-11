@@ -11,12 +11,9 @@ const Img = styled.img`
   width:100%;
   height:100%;
 `
-const TextBox = styled.div`
+const TextBoxRight = styled.div`
   position: absolute;
   zIndex: 1;
-  right: 25px;
-  top: 25px;
-  text-align : right;
 `
 const TitleBox = styled.div`
   font-weight : bold;
@@ -32,13 +29,17 @@ const PosterCard = ({
   title1,
   title2,
   desc1,
-  desc2
+  desc2,
+  buttonText,
+  textStyle
 }) => {
   return (
     <>
       <RelativeBox>
         <Img src={image} />
-        <TextBox>
+        <TextBoxRight
+          style={textStyle}
+        >
           <TitleBox>
             <span>{title1}<br/>{title2? title2 : ""}</span>
           </TitleBox>
@@ -47,10 +48,10 @@ const PosterCard = ({
           </DescBox>
           <div style={{'padding':"15px 0"}}>
             <SquareButton
-              text="구매하기"
+              text={buttonText}
             />
           </div>
-        </TextBox>
+        </TextBoxRight>
       </RelativeBox>
     </>
   );

@@ -8,10 +8,7 @@ const RelativeBox = styled.div`
 const TextBox = styled.div`
   position: absolute;
   zIndex: 1;
-  left: 25px;
-  top: 25px;
   color: white;
-  fontSize :14px;
 `
 const HoverBox = styled.div`
   :hover {
@@ -27,14 +24,15 @@ const Video = styled.video`
 
 const VideoCard = ({
   videoSrc,
-  text
+  text,
+  textStyle
 }) => {
   return (
     <>
       <RelativeBox>
         <HoverBox>
           <video
-            autoplay="autoplay" loop="loop" muted="" id="videoBanner" playsinline="" poster="#"
+            autoplay="autoplay" loop="loop" muted="true" id="videoBanner" playsinline="" poster="#"
             style={{
               "display": "block",
               "width": "100%",
@@ -44,7 +42,9 @@ const VideoCard = ({
             <source src={videoSrc} type="audio/mp4"/>
           </video>
         </HoverBox>
-        <TextBox>
+        <TextBox
+          style={textStyle}
+        >
           {text}
         </TextBox>
       </RelativeBox>

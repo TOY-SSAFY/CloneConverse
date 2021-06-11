@@ -25,6 +25,7 @@ const ProductBlock = () => {
             <VideoCard
               videoSrc={converseVideo}
               text="척 70 시즈널 캔버스 샴페인"
+              textStyle={{left:"25px", top:"25px", fontSize:"14px"}}
             />
           </Grid>
           <Grid item xs={12}>
@@ -58,6 +59,8 @@ const ProductBlock = () => {
             title2="SEASONAL CANVAS"
             desc1="느긋한 여름 날의 태양을 떠오르게 하는"
             desc2="새로운 색상의 척 70을 만나보세요."
+            buttonText="구매하기"
+            textStyle={{ right : "25px", top : "25px", textAlign:"right" }}
           />
         </Grid>
       </Grid>

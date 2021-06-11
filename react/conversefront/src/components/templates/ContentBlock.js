@@ -1,10 +1,12 @@
 import React from "react";
-import { ProductBlock } from "../organisms";
+import { ProductBlock, ProductBlock2, ProductBlock3 } from "../organisms";
 
 const ContentBlock = () => {
   return (
     <>
-      <ProductBlock/>
+      <ProductBlock />
+      <ProductBlock2 />
+      <ProductBlock3/>
     </>
   );
 };
