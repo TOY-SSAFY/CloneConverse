@@ -67,8 +67,10 @@ const Marketing = () => {
         <Grid item xs={3} md style={Box_border}>
           <Img src={change_logo}></Img>
           <M_box_title>교환/반품 서비스</M_box_title>
-          <M_box_content>사이즈를 잘못 선택하셨나요?</M_box_content>
-          <M_box_content>교환/반품 서비스에 대해 더 알아보세요.</M_box_content>
+          <M_box_content>
+            사이즈를 잘못 선택하셨나요? <br></br>교환/반품 서비스에 대해 더
+            알아보세요.
+          </M_box_content>
           <M_box_link>자세히 보기</M_box_link>
         </Grid>
         <Grid item xs={3} md style={Box_border}>
@@ -80,7 +82,15 @@ const Marketing = () => {
           </M_box_content>
           <M_box_link>회원 가입 하기</M_box_link>
         </Grid>
-        <Grid item xs={3} md style={Box_border}>
+        <Grid
+          item
+          xs={3}
+          md
+          style={{
+            borderTop: "1px solid #e5e5e5",
+            borderBottom: "1px solid #e5e5e5",
+          }}
+        >
           <Img
             src={instagram_logo}
             style={{
