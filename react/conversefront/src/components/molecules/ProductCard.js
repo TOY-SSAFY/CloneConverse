@@ -32,7 +32,7 @@ const TitleBox = styled.div`
   z-index : 1;
   font-weight : bold;
   font-size : 13px;
-  `
+`
 const ProductInfoBox = styled.div`
   position : absolute;
   left : 20px;
