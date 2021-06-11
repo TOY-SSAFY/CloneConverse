@@ -35,14 +35,13 @@ const PosterCard = ({
   textStyle
 }) => {
   return (
-    <div>
+    <>
       <RelativeBox>
         <Img src={image} />
         <TextBoxRight
           style={textStyle}
         >
           <TitleBox>
-            {/* <span>{title1}<br />{title2 ? title2 : ""}<br />{ title3? title3 : "" }</span> */}
             <span>{title1}</span>
             {
               title2 ? <span><br />{title2}</span> : ""
@@ -64,7 +63,7 @@ const PosterCard = ({
           </div>
         </TextBoxRight>
       </RelativeBox>
-    </div>
+    </>
   );
 };
 
