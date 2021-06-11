@@ -3,11 +3,15 @@ import Grid from '@material-ui/core/Grid';
 import styled from "styled-components";
 import { ProductCard, VideoCard, PosterCard } from "../molecules";
 
-import whiteConversePack from "../../resources/images/white_converse_pack.jpg"
-import whiteConversePack2 from "../../resources/images/white_converse_pack2.jpg"
-import whiteConverseSplatter from "../../resources/images/white_converse_splatter.jpg"
-import whiteConverseSplatter2 from "../../resources/images/white_converse_splatter2.jpg"
-import whiteConversePoster from "../../resources/images/white_converse_poster.jpg"
+import muleFestival from "../../resources/images/chuck_tailer_allstar_mule_festival.jpg"
+import muleFestival2 from "../../resources/images/chuck_tailer_allstar_mule_festival2.jpg"
+import muleFestivalPink from "../../resources/images/chuck_tailer_allstar_mule_festival_pink.jpg"
+import muleFestivalPink2 from "../../resources/images/chuck_tailer_allstar_mule_festival_pink2.jpg"
+import muleCroche from "../../resources/images/chuck_tailer_allstar_mule_croche.jpg"
+import muleCroche2 from "../../resources/images/chuck_tailer_allstar_mule_croche2.jpg"
+import muleCrochePink from "../../resources/images/chuck_tailer_allstar_mule_croche_pink.jpg"
+import muleCrochePink2 from "../../resources/images/chuck_tailer_allstar_mule_croche_pink2.jpg"
+import muleCollectionPoster from "../../resources/images/mule_collection_poster.jpg"
 import converseVideo2 from "../../resources/videos/converseVideo2.mp4"
 
 const RowBox = styled.div`
@@ -22,40 +26,63 @@ const ProductBlock3 = () => {
       <Grid container spacing={0} style={{marginTop:"50px"}}>
         <Grid item xs={6}>
           <PosterCard
-            image={whiteConversePoster}
-            title1="WHITE CANVAS"
-            desc1="올 여름, 나만이 담아낼 수 있는 스타일을"
-            desc2="화이트 캔버스 컬렉션과 함께 표현해보세요."
-            buttonText="더 알아보기"
-            textStyle={{ left : "25px", top : "35%", textAlign:"left" }}
+            image={muleCollectionPoster}
+            title1="MULE COLLECTION"
+            desc1="가벼운 소재, 오픈 힐 디자인으로"
+            desc2="여름을 위한 스타일이 완벽한 조화를 이룹니다."
+            buttonText="구매하기"
+            textStyle={{ left : "25px", top : "25px", textAlign:"left" }}
           />
         </Grid> 
         <Grid item xs={6}>
           <Grid item xs={12}>
-            <VideoCard
-              videoSrc={converseVideo2}
-              text="더 알아보기"
-              textStyle={{right:"30px", bottom:"30px", fontSize:"40px", fontWeight:"bold"}}
-            />
+            <RowBox>
+              <Grid item xs={6}>
+                <ProductCard
+                  image1={muleFestival}
+                  image2={muleFestival2}
+                  title1="BEST SELLER"
+                  title2="NEW ARRIVAL"
+                  name="척테일러 올스타 데인티 뮬 페스티벌"
+                  price="75,000원"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <ProductCard
+                  image1={muleFestivalPink}
+                  image2={muleFestivalPink2}
+                  title1="BEST SELLER"
+                  title2="NEW ARRIVAL"
+                  name="척테일러 올스타 데인티 뮬 페스티벌"
+                  price="75,000원"
+                />
+              </Grid>
+            </RowBox>
           </Grid>
           <Grid item xs={12}>
             <RowBox>
               <Grid item xs={6}>
                 <ProductCard
-                  image1={whiteConversePack}
-                  image2={whiteConversePack2}
-                  title1="NEW ARRIVAL"
-                  name="척 70 화이트 팩"
-                  price="99,000원"
+                  image1={muleCroche}
+                  image2={muleCroche2}
+                  title1="BEST SELLER"
+                  title2="NEW ARRIVAL"
+                  title3="ONLINE ONLY"
+                  name="척테일러 올스타 데인티 뮬 라피아 크로셰"
+                  price="79,000원"
+                  membersOnly={true}
                 />
               </Grid>
               <Grid item xs={6}>
                 <ProductCard
-                  image1={whiteConverseSplatter}
-                  image2={whiteConverseSplatter2}
-                  title1="NEW ARRIVAL"
-                  name="척 70 페인트 스플래터"
-                  price="105,000원"
+                  image1={muleCrochePink}
+                  image2={muleCrochePink2}
+                  title1="BEST SELLER"
+                  title2="NEW ARRIVAL"
+                  title3="ONLINE ONLY"
+                  name="척테일러 올스타 데인티 뮬 라피아 크로셰"
+                  price="79,000원"
+                  membersOnly={true}
                 />
               </Grid>
             </RowBox>

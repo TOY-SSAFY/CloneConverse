@@ -54,8 +54,10 @@ const ProductCard = ({
   image2,
   title1,
   title2,
+  title3,
   name,
-  price
+  price,
+  membersOnly
 }) => {
   const [imageSrc, setImageSrc] = useState(image1)
 
@@ -68,22 +70,25 @@ const ProductCard = ({
 
   return (
     <>
-      <RelativeBox>
+      <RelativeBox
+        onMouseOver={onImageHover}
+        onMouseOut={onImageOut}
+      >
         <Img
           src={imageSrc} 
-          onMouseOver={onImageHover}
-          onMouseOut={onImageOut}
         />
         <Heart>
           <FavoriteBorderOutlinedIcon style={{ "fontSize": "20px" }}/>
         </Heart>
         <TitleBox>
           <span>{ title1 }</span><br/>
-          <span>{ title2 ? title2 : "" }</span>
+          <span>{title2 ? title2 : ""}</span><br />
+          <span>{title3 ? title3 : ""}</span>
         </TitleBox>
         <ProductInfoBox>
           <NameBox>{name}</NameBox><br />
-          <span>{price}</span>
+          <div>{price}</div>
+          <div style={{color:"#00c3d7", marginTop:"3px"}}>{membersOnly? "MEMBERS ONLY" : ""}</div>
         </ProductInfoBox>
       </RelativeBox>
     </>
