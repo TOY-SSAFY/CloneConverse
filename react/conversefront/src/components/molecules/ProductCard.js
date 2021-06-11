@@ -81,9 +81,13 @@ const ProductCard = ({
           <FavoriteBorderOutlinedIcon style={{ "fontSize": "20px" }}/>
         </Heart>
         <TitleBox>
-          <span>{ title1 }</span><br/>
-          <span>{title2 ? title2 : ""}</span><br />
-          <span>{title3 ? title3 : ""}</span>
+          <span>{title1}</span>
+          {
+            title2 ? <span><br/>{title2}</span> : ""
+          }
+          {
+            title3 ? <span><br />{title3}</span> : ""
+          }
         </TitleBox>
         <ProductInfoBox>
           <NameBox>{name}</NameBox><br />

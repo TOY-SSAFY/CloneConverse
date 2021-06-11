@@ -28,23 +28,34 @@ const PosterCard = ({
   image,
   title1,
   title2,
+  title3,
   desc1,
   desc2,
   buttonText,
   textStyle
 }) => {
   return (
-    <>
+    <div>
       <RelativeBox>
         <Img src={image} />
         <TextBoxRight
           style={textStyle}
         >
           <TitleBox>
-            <span>{title1}<br/>{title2? title2 : ""}</span>
+            {/* <span>{title1}<br />{title2 ? title2 : ""}<br />{ title3? title3 : "" }</span> */}
+            <span>{title1}</span>
+            {
+              title2 ? <span><br />{title2}</span> : ""
+            }
+            {
+              title3 ? <span><br />{title3}</span> : ""
+            }
           </TitleBox>
           <DescBox>
-            <span>{desc1}<br/>{desc2? desc2 : ""}</span>
+            <span>{desc1}</span>
+            {
+              desc2 ? <span><br />{desc2}</span> : ""
+            }
           </DescBox>
           <div style={{'padding':"15px 0"}}>
             <SquareButton
@@ -53,7 +64,7 @@ const PosterCard = ({
           </div>
         </TextBoxRight>
       </RelativeBox>
-    </>
+    </div>
   );
 };
 

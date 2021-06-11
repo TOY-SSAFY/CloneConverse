@@ -3,16 +3,15 @@ import Grid from '@material-ui/core/Grid';
 import styled from "styled-components";
 import { ProductCard, VideoCard, PosterCard } from "../molecules";
 
-import muleFestival from "../../resources/images/chuck_tailer_allstar_mule_festival.jpg"
-import muleFestival2 from "../../resources/images/chuck_tailer_allstar_mule_festival2.jpg"
-import muleFestivalPink from "../../resources/images/chuck_tailer_allstar_mule_festival_pink.jpg"
-import muleFestivalPink2 from "../../resources/images/chuck_tailer_allstar_mule_festival_pink2.jpg"
-import muleCroche from "../../resources/images/chuck_tailer_allstar_mule_croche.jpg"
-import muleCroche2 from "../../resources/images/chuck_tailer_allstar_mule_croche2.jpg"
-import muleCrochePink from "../../resources/images/chuck_tailer_allstar_mule_croche_pink.jpg"
-import muleCrochePink2 from "../../resources/images/chuck_tailer_allstar_mule_croche_pink2.jpg"
+import muleFestival from "../../resources/images/chuck_taylor_allstar_mule_festival.jpg"
+import muleFestival2 from "../../resources/images/chuck_taylor_allstar_mule_festival2.jpg"
+import muleFestivalPink from "../../resources/images/chuck_taylor_allstar_mule_festival_pink.jpg"
+import muleFestivalPink2 from "../../resources/images/chuck_taylor_allstar_mule_festival_pink2.jpg"
+import muleCroche from "../../resources/images/chuck_taylor_allstar_mule_croche.jpg"
+import muleCroche2 from "../../resources/images/chuck_taylor_allstar_mule_croche2.jpg"
+import muleCrochePink from "../../resources/images/chuck_taylor_allstar_mule_croche_pink.jpg"
+import muleCrochePink2 from "../../resources/images/chuck_taylor_allstar_mule_croche_pink2.jpg"
 import muleCollectionPoster from "../../resources/images/mule_collection_poster.jpg"
-import converseVideo2 from "../../resources/videos/converseVideo2.mp4"
 
 const RowBox = styled.div`
   display : flex;
