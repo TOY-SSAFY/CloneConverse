@@ -1,6 +1,6 @@
 import React from "react";
 import { PosterCard } from "../molecules";
-import { PosterBlock, ProductBlock, ProductBlock2, ProductBlock3 } from "../organisms";
+import { PosterBlock, ProductBlock, ProductBlock2, ProductBlock3, ShopByStyle, Explore, Marketing } from "../organisms";
 import daintyPoster from "../../resources/images/chuck_taylor_allstar_dainty_poster.jpg"
 import hikePoster from "../../resources/images/run_star_hike_poster.jpg"
 import pridePoster from "../../resources/images/pride_collection_poster.jpg"
@@ -9,6 +9,7 @@ const ContentBlock = () => {
   return (
     <>
       <ProductBlock />
+      <ShopByStyle />
       <PosterBlock
         image={hikePoster}
         title1="RUN STAR HIKE"
@@ -37,6 +38,8 @@ const ContentBlock = () => {
         buttonText="더 알아보기"
         textStyle={{ left : "30px", bottom : "30px", textAlign:"left" }}
       />
+      <Explore />
+      <Marketing />
     </>
   );
 };
