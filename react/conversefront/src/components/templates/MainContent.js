@@ -5,7 +5,7 @@ import daintyPoster from "../../resources/images/chuck_taylor_allstar_dainty_pos
 import hikePoster from "../../resources/images/run_star_hike_poster.jpg"
 import pridePoster from "../../resources/images/pride_collection_poster.jpg"
 
-const ContentBlock = () => {
+const MainContent = () => {
   return (
     <>
       <ProductBlock />
@@ -44,4 +44,4 @@ const ContentBlock = () => {
   );
 };
 
-export default ContentBlock;
+export default MainContent;

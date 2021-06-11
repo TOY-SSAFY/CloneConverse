@@ -1,15 +1,15 @@
 import React from "react";
-import {MainContent} from "../components/templates";
+import {ShoeContent} from "../components/templates";
 import Container from "@material-ui/core/Container";
 
-const MainPage = () => {
+const ShoePage = () => {
   return (
     <>
       <Container maxWidth="xl" style={{ flexDirection: "column" }}>
-        <MainContent />
+        <ShoeContent />
       </Container>
     </>
   );
 };
 
-export default MainPage;
+export default ShoePage;
