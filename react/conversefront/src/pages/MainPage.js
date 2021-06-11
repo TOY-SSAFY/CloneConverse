@@ -5,6 +5,7 @@ import {
   Footer,
   Header,
   Marketing,
+  ShopByStyle,
 } from "../components/templates";
 import Container from "@material-ui/core/Container";
 
@@ -14,6 +15,7 @@ const MainPage = () => {
       <Header />
       <Container maxWidth="xl" style={{ flexDirection: "column" }}>
         <ContentBlock />
+        <ShopByStyle />
         <Explore />
         <Marketing />
       </Container>
