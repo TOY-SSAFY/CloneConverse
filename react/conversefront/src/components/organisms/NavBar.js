@@ -16,7 +16,11 @@ import Grid from "@material-ui/core/Grid";
 import { ProductCard, VideoCard, PosterCard } from "../molecules";
 import banner_right from "../../resources/images/banner_search_right.gif";
 import banner_mule from "../../resources/images/banner_muleCollection.jpg";
+import banner_memberonly from "../../resources/images/banner_memberonly.jpg";
+import icon_magglass from "../../resources/images/magglass.png";
 import Container from "@material-ui/core/Container";
+import converseDance from "../../resources/videos/conversedance.mp4";
+import TextField from "@material-ui/core/TextField";
 
 const FlexBox = styled.div`
   display: flex;
@@ -67,6 +71,7 @@ const SearchBox = styled.div`
   line-heigth: 60px;
   transition: width 426ms cubic-bezier(0.4, 0.9, 0.3, 1);
 `;
+
 const Drawer_Box = styled.div`
   position: fixed;
   top: 130px;
@@ -87,7 +92,7 @@ const Search_Inner_Img = styled.img`
   width: 100%;
   height: 100%;
   max-height: 400px;
-  object-fit: cover;
+  object-fit: fill;
 `;
 
 const Inner_RowBox = styled.div`
@@ -96,7 +101,7 @@ const Inner_RowBox = styled.div`
 `;
 
 const SearchBox_FAQ = styled.div`
-  position: absolute;
+  // position: absolute;
   top: 180px;
   bottom: 0;
   left: -60px;
@@ -104,28 +109,66 @@ const SearchBox_FAQ = styled.div`
   padding: 5%;
   text-align: left;
   display: flex;
+  height: 130px;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
   fontfamily: "proxima, NanumGothic, Arial, sans-serif";
 `;
-const SearchBox_OVER = styled.div`
-  position: absolute;
-  top: 0;
+const SearchBox_Search = styled.div`
+  // position: absolute;
+  // top: 0px;
   bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 3;
-  width: 100%;
-  height: 100%;
+  left: -60px;
+  z-index: 2;
+  padding: 5%;
+  text-align: left;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 130px;
+  align-items: flex-start;
+  // justify-content: center;
   flex-direction: column;
-  transition: opacity 0.6s cubic-bezier(0.4, 0.9, 0.3, 1),
-    background-color 0.6s cubic-bezier(0.4, 0.9, 0.3, 1);
-  opacity: 0;
-  color: #fff;
+  fontfamily: "proxima, NanumGothic, Arial, sans-serif";
+`;
+const SearchBox_Title = styled.div`
+  font-size: 40px;
+  font-weight: 700;
+  color: #000;
+  line-height: 1;
+  padding-top: 50px;
+`;
+
+const SearchBox_Input = styled.input`
+  border: 0;
+  width: calc(100% - 38px);
+  height: 48px;
+  line-height: 48px;
+  font-size: 20px;
+  padding: 0 0 0 10px;
+  margin: 0;
+  font-weight: 700;
+  display: inline-block;
+`;
+const SearchBox_Btn = styled.span`
+  display: inline-block;
+  cursor: pointer;
+  width: 38px;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+`;
+const SearchBox_popularWord = styled.ul`
+  // margin: 0 0 0 50px;
+  padding: 0px 0 0 15px;
+`;
+const SearchBox_popularWordOl = styled.ol`
+  margin-top: 24px;
+`;
+const SearchBox_popularWordList = styled.a`
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  line-height: 1;
 `;
 
 const useStyles = makeStyles((theme) => ({
@@ -141,7 +184,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     overflowY: "auto",
     top: 134,
-    height: "800px",
+    height: "680px",
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
@@ -268,29 +311,88 @@ const NavBar = (props) => {
           paper: classes.drawerPaper,
         }}
       >
-        <Grid
-          container
-          spacing={0}
-          style={{ width: "100%", height: "100%" }}
-          direction="row"
-          justify="center"
-          alignItems="stretch"
-        >
+        <Container fixed>
           <Grid
-            item
-            xs={3}
-            md
-            style={{
-              borderTop: "1px solid #e5e5e5",
-              borderRight: "1px solid #e5e5e5",
-            }}
+            container
+            spacing={0}
+            style={{ width: "100%", height: "100%" }}
+            direction="row"
+            justify="center"
+            alignItems="stretch"
           >
-            <Grid item xs={12}>
-              <Search_Inner_Img src={banner_right} alt="Search_Inner" />
-            </Grid>
-            <Grid item xs={12}>
+            <Grid
+              item
+              xs={3}
+              md
+              style={{
+                borderTop: "1px solid #e5e5e5",
+                borderRight: "1px solid #e5e5e5",
+              }}
+            >
               <Grid item xs={12}>
-                <SearchBox_FAQ>
+                <Search_Inner_Img
+                  src={banner_right}
+                  alt="Search_Inner"
+                  style={{ height: "353px" }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Grid item xs={12}>
+                  <SearchBox_FAQ>
+                    <div
+                      style={{
+                        fontSize: "30px",
+                        fontWeight: "700",
+                        lineHeight: "1.4",
+                        marginBottom: "14px",
+                        fontFamily: "NanumGothic, Arial, sans-serif",
+                      }}
+                    >
+                      무엇을 도와드릴까요?
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: "700",
+                        lineHeight: "1.4",
+                        marginBottom: "14px",
+                        fontFamily: "NanumGothic, Arial, sans-serif",
+                      }}
+                    >
+                      -> FAQ에서 궁금한 내용을 찾아보세요
+                    </div>
+                  </SearchBox_FAQ>
+                </Grid>
+                <Grid item xs={12}>
+                  <Search_Inner_Img
+                    src={banner_mule}
+                    alt="Search_Inner"
+                    style={{
+                      top: 0,
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      zIndex: 3,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexDirection: "column",
+                    }}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid
+              item
+              xs={3}
+              md
+              style={{
+                borderTop: "1px solid #e5e5e5",
+                borderRight: "1px solid #e5e5e5",
+              }}
+            >
+              <Grid item xs={12}>
+                <SearchBox_FAQ style={{ height: "161px" }}>
                   <div
                     style={{
                       fontSize: "30px",
@@ -300,7 +402,7 @@ const NavBar = (props) => {
                       fontFamily: "NanumGothic, Arial, sans-serif",
                     }}
                   >
-                    무엇을 도와드릴까요?
+                    베스트셀러
                   </div>
                   <div
                     style={{
@@ -311,43 +413,86 @@ const NavBar = (props) => {
                       fontFamily: "NanumGothic, Arial, sans-serif",
                     }}
                   >
-                    -> FAQ에서 궁금한 내용을 찾아보세요
+                    -> 구매하기
                   </div>
                 </SearchBox_FAQ>
               </Grid>
               <Grid item xs={12}>
-                123
+                <Search_Inner_Img
+                  src={banner_memberonly}
+                  alt="Search_Inner"
+                  style={{ height: "100%" }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <VideoCard
+                  videoSrc={converseDance}
+                  text="더 알아보기"
+                  textStyle={{
+                    left: "25px",
+                    top: "45px",
+                    fontSize: "30px",
+                    fontFamily: "proxima, NanumGothic, Arial, sans-serif",
+                  }}
+                />
+              </Grid>
+            </Grid>
+            <Grid item xs={6}>
+              <Grid item xs={12}>
+                <SearchBox_Search style={{ height: "279px", width: "100%" }}>
+                  <SearchBox_Title style={{ marginBottom: "50px" }}>
+                    검색
+                  </SearchBox_Title>
+                  <TextField
+                    id="standard-basic"
+                    placeholder="검색어를 입력해주세요."
+                    size="large"
+                    style={{
+                      border: 0,
+                      width: "80%",
+                      height: "48px",
+                      lineHeight: "48px",
+                      padding: "0 0 0 10px",
+                      margin: 0,
+                      fontWeight: 700,
+                    }}
+                  />
+                </SearchBox_Search>
+              </Grid>
+              <Grid item xs={12}>
+                <SearchBox_Search style={{ height: "279px", width: "100%" }}>
+                  <SearchBox_Title
+                    style={{ marginBottom: "20px", paddingTop: "0px" }}
+                  >
+                    인기검색어
+                  </SearchBox_Title>
+                  <SearchBox_popularWord>
+                    <SearchBox_popularWordOl>
+                      <SearchBox_popularWordList>
+                        척테일러
+                      </SearchBox_popularWordList>
+                    </SearchBox_popularWordOl>
+                    <SearchBox_popularWordOl>
+                      <SearchBox_popularWordList>
+                        잭퍼셀
+                      </SearchBox_popularWordList>
+                    </SearchBox_popularWordOl>
+                    <SearchBox_popularWordOl>
+                      <SearchBox_popularWordList>
+                        척 70
+                      </SearchBox_popularWordList>
+                    </SearchBox_popularWordOl>
+                    <SearchBox_popularWordOl>
+                      <SearchBox_popularWordList>
+                        원스타
+                      </SearchBox_popularWordList>
+                    </SearchBox_popularWordOl>
+                  </SearchBox_popularWord>
+                </SearchBox_Search>
               </Grid>
             </Grid>
           </Grid>
-          <Grid
-            item
-            xs={3}
-            md
-            style={{
-              borderTop: "1px solid #e5e5e5",
-              borderRight: "1px solid #e5e5e5",
-            }}
-          ></Grid>
-          <Grid
-            item
-            xs={3}
-            md
-            style={{
-              borderTop: "1px solid #e5e5e5",
-              borderRight: "1px solid #e5e5e5",
-            }}
-          ></Grid>
-          <Grid
-            item
-            xs={3}
-            md
-            style={{
-              borderTop: "1px solid #e5e5e5",
-              borderRight: "1px solid #e5e5e5",
-            }}
-          ></Grid>
-        </Grid>
+        </Container>
       </Drawer>
     </>
   );
