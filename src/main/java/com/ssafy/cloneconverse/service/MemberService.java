@@ -28,23 +28,23 @@ public class MemberService implements UserDetailsService {
     public Long joinMember(MemberDto memberDto) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
-        return memberRepository.save(memberDto.toEntity()).getCode();
+        return memberRepository.save(memberDto.toEntity()).getId();
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-        Optional<MemberEntity> userEntityWrapper = memberRepository.findByEmail(userEmail);
-        MemberEntity userEntity = userEntityWrapper.get();
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<MemberEntity> memberEntityWrapper = memberRepository.findByEmail(email);
+        MemberEntity memberEntity = memberEntityWrapper.get();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        if (("admin@example.com").equals(userEmail)) {
+        if (("admin@example.com").equals(email)) {
             authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
         } else {
             authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
         }
 
-        return new User(userEntity.getEmail(), userEntity.getPassword(), authorities);
+        return new User(memberEntity.getEmail(), memberEntity.getPassword(), authorities);
     }
 
 }

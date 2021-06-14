@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 public class MemberDto {
-    private String id;
+    private Long id;
     private String email;
     private String password;
     private String name;
@@ -33,7 +33,7 @@ public class MemberDto {
     }
 
     @Builder
-    public MemberDto(String id, String email, String password, String name, String phone, String bday, String gender) {
+    public MemberDto(Long id, String email, String password, String name, String phone, String bday, String gender) {
         this.id = id;
         this.email = email;
         this.password = password;

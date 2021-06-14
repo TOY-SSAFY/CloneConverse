@@ -19,45 +19,45 @@ public class MemberController {
     }
 
     // 회원가입 페이지
-    @GetMapping("/user/signup")
+    @GetMapping("/member/signup")
     public String dispSignup() {
         return "/signup";
     }
 
     // 회원가입 처리
-    @PostMapping("/user/signup")
+    @PostMapping("/member/signup")
     public String execSignup(MemberDto memberDto) {
         memberService.joinMember(memberDto);
 
-        return "redirect:/user/login";
+        return "redirect:/member/login";
     }
 
     // 로그인 페이지
-    @GetMapping("/user/login")
+    @GetMapping("/member/login")
     public String dispLogin() {
         return "/login";
     }
 
     // 로그인 결과 페이지
-    @GetMapping("/user/login/result")
+    @GetMapping("/member/login/result")
     public String dispLoginResult() {
         return "/loginSuccess";
     }
 
     // 로그아웃 결과 페이지
-    @GetMapping("/user/logout/result")
+    @GetMapping("/member/logout/result")
     public String dispLogout() {
         return "/logout";
     }
 
     // 접근 거부 페이지
-    @GetMapping("/user/denied")
+    @GetMapping("/member/denied")
     public String dispDenied() {
         return "/denied";
     }
 
     // 내 정보 페이지
-    @GetMapping("/user/info")
+    @GetMapping("/member/info")
     public String dispMyInfo() {
         return "/myinfo";
     }

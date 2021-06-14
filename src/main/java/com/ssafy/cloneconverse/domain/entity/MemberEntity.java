@@ -14,15 +14,12 @@ import javax.persistence.*;
 public class MemberEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long code;
-
-    @Column(length = 20, unique = true)
-    private String id;
+    private Long id;
 
     @Column(length = 20, nullable = false)
     private String email;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 100, nullable = false)
     private String password;
 
     @Column(length = 20, nullable = false)
@@ -38,7 +35,7 @@ public class MemberEntity {
     private String gender;
 
     @Builder
-    public MemberEntity(String id, String email, String password, String name, String phone, String bday, String gender) {
+    public MemberEntity(Long id, String email, String password, String name, String phone, String bday, String gender) {
         this.id = id;
         this.email = email;
         this.password = password;
