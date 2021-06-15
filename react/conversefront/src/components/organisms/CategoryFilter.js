@@ -4,6 +4,11 @@ import "../../styles/Headers/CategoryFilter.scss";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
+import icon_high from "../../resources/images/하이.png";
+import icon_low from "../../resources/images/로우.png";
+import icon_slip from "../../resources/images/슬립.png";
+import icon_platform from "../../resources/images/플랫폼.png";
+import icon_mid from "../../resources/images/미드.png";
 
 const List_Box = styled.div`
   display: flex;
@@ -73,6 +78,20 @@ const Filter_Size_ul = styled.ul`
   border-left: 1px solid #e5e5e5;
   padding-left: 0px;
 `;
+const Filter_Silhouette_ul = styled.ul`
+  border-left: 1px solid #e5e5e5;
+  border-top: 1px solid #e5e5e5;
+  padding-left: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap;
+  margin: 0;
+  font-size: 0;
+  line-height: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+`;
 const Filter_Size_li = styled.li`
   display: inline-block;
   width: 20%;
@@ -85,6 +104,20 @@ const Filter_Size_li = styled.li`
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+`;
+const Filter_Silhouette_li = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 6px;
+  min-width: 50%;
+  max-width: 100%;
+  vertical-align: top;
+  border-bottom: 1px solid #e5e5e5;
+  border-right: 1px solid #e5e5e5;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 `;
 const Filter_Size_Btn = styled.button`
   display: inline-block;
@@ -102,6 +135,20 @@ const Filter_Size_Btn = styled.button`
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   font-family: "proxima-nova", "Nanum Gothic", sans-serif;
+`;
+const Filter_Silhouette_Btn = styled.button`
+  display: inline-block;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  outline: 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000;
+  word-break: break-all;
+  word-wrap: break-word;
+  background: #fff;
+  cursor: pointer;
 `;
 
 const CategoryFilter = () => {
@@ -373,6 +420,47 @@ const CategoryFilter = () => {
                 <Filter_Size_Btn>305</Filter_Size_Btn>
               </Filter_Size_li>
             </Filter_Size_ul>
+            <Filter_Search_Title
+              style={{
+                borderTop: "1px solid #e5e5e5",
+                paddingTop: "30px",
+                marginBottom: "5px",
+              }}
+            >
+              실루엣
+            </Filter_Search_Title>
+            <Filter_Silhouette_ul>
+              <Filter_Silhouette_li>
+                <Filter_Silhouette_Btn>
+                  <img src={icon_high}></img>
+                  하이
+                </Filter_Silhouette_Btn>
+              </Filter_Silhouette_li>
+              <Filter_Silhouette_li>
+                <Filter_Silhouette_Btn>
+                  <img src={icon_low}></img>
+                  로우
+                </Filter_Silhouette_Btn>
+              </Filter_Silhouette_li>
+              <Filter_Silhouette_li>
+                <Filter_Silhouette_Btn>
+                  <img src={icon_mid}></img>
+                  미드
+                </Filter_Silhouette_Btn>
+              </Filter_Silhouette_li>
+              <Filter_Silhouette_li>
+                <Filter_Silhouette_Btn>
+                  <img src={icon_platform}></img>
+                  플랫폼
+                </Filter_Silhouette_Btn>
+              </Filter_Silhouette_li>
+              <Filter_Silhouette_li>
+                <Filter_Silhouette_Btn>
+                  <img src={icon_slip}></img>
+                  슬립
+                </Filter_Silhouette_Btn>
+              </Filter_Silhouette_li>
+            </Filter_Silhouette_ul>
           </div>
         </div>
         <div id="mcontent">123</div>
