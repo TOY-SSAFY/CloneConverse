@@ -17,6 +17,10 @@ import { ProductCard, VideoCard, PosterCard } from "../molecules";
 import banner_right from "../../resources/images/banner_search_right.gif";
 import banner_mule from "../../resources/images/banner_muleCollection.jpg";
 import banner_memberonly from "../../resources/images/banner_memberonly.jpg";
+import banner_bigsize from "../../resources/images/banner_bigsize.jpg";
+import banner_denim from "../../resources/images/banner_denim.jpg";
+import banner_espard from "../../resources/images/banner_espard.jpg";
+import banner_summerdays from "../../resources/images/banner_summerdays.jpg";
 import icon_magglass from "../../resources/images/magglass.png";
 import Container from "@material-ui/core/Container";
 import converseDance from "../../resources/videos/conversedance.mp4";
@@ -170,9 +174,63 @@ const SearchBox_popularWordList = styled.a`
   color: #000;
   line-height: 1;
 `;
+const LeftDrawer_Box = styled.div`
+  position: absolute;
+  left: 100px;
+  top: 30px;
+  width: 841px;
+  height: calc(100vh - 130px);
+  overflow: auto;
+  padding: 0;
+`;
+const LeftDrawer_ul = styled.ul`
+  // margin: 0 0 0 50px;
+  padding: 0px 0 0 40px;
+`;
+const LeftDrawer_ol = styled.ol`
+  margin-top: 24px;
+`;
+const LeftDrawer_recommend_li = styled.ol`
+  margin: 0 0 0 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: #000;
+  word-break: break-word;
+  -webkit-flex-basis: 22%;
+  -ms-flex-preferred-size: 22%;
+  flex-basis: 22%;
+  max-width: 20%;
+`;
+const LeftDrawer_list = styled.a`
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1;
+  color: #000;
+  transition: all 0.3s;
+`;
+const LeftDrawer_SubTitle = styled.div`
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  color: #000;
+  margin-bottom: 15px;
+  margin-left: 23px;
+`;
+const LeftDrawer_Img = styled.img`
+  width: 100%;
+  margin-bottom: 15px;
+`;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
+    width: "100%",
+    flexShrink: 0,
+    // overflowY: "auto",
+    // display: "flex",
+    // flexWrap: "wrap",
+    // flexDirection: "row",
+  },
+  drawer2: {
     width: "100%",
     flexShrink: 0,
     // overflowY: "auto",
@@ -185,6 +243,15 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "auto",
     top: 134,
     height: "680px",
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
+  },
+  drawerPaper2: {
+    width: "50%",
+    overflowY: "auto",
+    top: 134,
+    height: "100%",
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
@@ -208,17 +275,25 @@ const NavBar = (props) => {
     });
   }
   const [open, setOpen] = React.useState(false);
+  const [leftopen, setLeftOpen] = React.useState(false);
   const classes = useStyles();
   const theme = useTheme();
 
   const closeDrawer = (open) => (event) => {
     setOpen(false);
+    setLeftOpen(false);
   };
 
   const SearchClick = () => {
     if (!open) {
       setOpen(true);
       alert("안");
+    }
+  };
+  const ShoeClick = () => {
+    if (!open) {
+      setLeftOpen(true);
+      alert("신발");
     }
   };
 
@@ -246,7 +321,7 @@ const NavBar = (props) => {
             <FlexBox>
               <Img src={converse_logo} alt="converse" />
               <RowBox>
-                <MenuList>신발</MenuList>
+                <MenuList onClick={ShoeClick}>신발</MenuList>
                 <MenuList>의류</MenuList>
                 <MenuList>아동</MenuList>
                 <MenuList>런칭캘린더</MenuList>
@@ -301,6 +376,87 @@ const NavBar = (props) => {
           </Toolbar>
         </AppBar>
       </ElevationScroll>
+      <Drawer
+        variant="temporary"
+        anchor="left"
+        open={leftopen}
+        onClose={closeDrawer(false)}
+        className={classes.drawer2}
+        classes={{
+          paper: classes.drawerPaper2,
+        }}
+      >
+        <LeftDrawer_Box>
+          <LeftDrawer_ul>
+            <LeftDrawer_ol>
+              <LeftDrawer_list>전체보기</LeftDrawer_list>
+            </LeftDrawer_ol>
+            <LeftDrawer_ol>
+              <LeftDrawer_list>베스트셀러</LeftDrawer_list>
+            </LeftDrawer_ol>
+            <LeftDrawer_ol>
+              <LeftDrawer_list>클래식 척</LeftDrawer_list>
+            </LeftDrawer_ol>
+            <LeftDrawer_ol>
+              <LeftDrawer_list>척 70</LeftDrawer_list>
+            </LeftDrawer_ol>
+            <LeftDrawer_ol>
+              <LeftDrawer_list>척테일러 올스타</LeftDrawer_list>
+            </LeftDrawer_ol>
+            <LeftDrawer_ol>
+              <LeftDrawer_list>스케이트보딩</LeftDrawer_list>
+            </LeftDrawer_ol>
+            <LeftDrawer_ol>
+              <LeftDrawer_list>잭퍼셀</LeftDrawer_list>
+            </LeftDrawer_ol>
+            <LeftDrawer_ol>
+              <LeftDrawer_list>배스킷볼</LeftDrawer_list>
+            </LeftDrawer_ol>
+            <LeftDrawer_ol>
+              <LeftDrawer_list>회원전용</LeftDrawer_list>
+            </LeftDrawer_ol>
+          </LeftDrawer_ul>
+          <div
+            style={{
+              margin: "80px 0 0 59px",
+              position: "relative",
+              maxWidth: "560px",
+            }}
+          >
+            <LeftDrawer_SubTitle>추천상품</LeftDrawer_SubTitle>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              flexDirection: "row",
+            }}
+          >
+            <ul
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                flexDirection: "row",
+              }}
+            >
+              <LeftDrawer_recommend_li>
+                <LeftDrawer_Img src={banner_bigsize}></LeftDrawer_Img>빅 사이즈
+              </LeftDrawer_recommend_li>
+              <LeftDrawer_recommend_li>
+                <LeftDrawer_Img src={banner_summerdays}></LeftDrawer_Img>서머
+                데이즈
+              </LeftDrawer_recommend_li>
+              <LeftDrawer_recommend_li>
+                <LeftDrawer_Img src={banner_espard}></LeftDrawer_Img>에스파드류
+              </LeftDrawer_recommend_li>
+              <LeftDrawer_recommend_li>
+                <LeftDrawer_Img src={banner_denim}></LeftDrawer_Img>서머 데님
+              </LeftDrawer_recommend_li>
+            </ul>
+          </div>
+        </LeftDrawer_Box>
+      </Drawer>
+
       <Drawer
         variant="temporary"
         anchor="left"
