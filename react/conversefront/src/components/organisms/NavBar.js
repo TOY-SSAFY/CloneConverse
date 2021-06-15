@@ -515,7 +515,7 @@ const NavBar = (props) => {
                         fontFamily: "NanumGothic, Arial, sans-serif",
                       }}
                     >
-                      -> FAQ에서 궁금한 내용을 찾아보세요
+                      -&gt; FAQ에서 궁금한 내용을 찾아보세요
                     </div>
                   </SearchBox_FAQ>
                 </Grid>
@@ -569,7 +569,7 @@ const NavBar = (props) => {
                       fontFamily: "NanumGothic, Arial, sans-serif",
                     }}
                   >
-                    -> 구매하기
+                    -&gt; 구매하기
                   </div>
                 </SearchBox_FAQ>
               </Grid>
