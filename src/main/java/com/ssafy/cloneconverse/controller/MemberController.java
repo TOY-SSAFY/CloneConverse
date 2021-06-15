@@ -17,6 +17,7 @@ public class MemberController {
     // 메인 페이지
     @GetMapping("/")
     public String index() {
+        System.out.println("main");
         return "/index";
     }
 

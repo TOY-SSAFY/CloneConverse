@@ -37,11 +37,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception{
+        http.csrf().disable();
         http.authorizeRequests()
                 // page 권한 설정
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/member/myinfo").hasRole("MEMBER")
-                .antMatchers("/join").permitAll().anyRequest().authenticated()
+                .antMatchers("/**").permitAll()
             .and()
                 .formLogin()
                 .loginPage("/member/login")
