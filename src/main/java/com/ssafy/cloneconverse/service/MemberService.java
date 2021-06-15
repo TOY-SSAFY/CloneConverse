@@ -4,7 +4,8 @@ import com.ssafy.cloneconverse.domain.Role;
 import com.ssafy.cloneconverse.domain.entity.MemberEntity;
 import com.ssafy.cloneconverse.domain.repository.MemberRepository;
 import com.ssafy.cloneconverse.dto.MemberDto;
-import lombok.AllArgsConstructor;
+import com.ssafy.cloneconverse.util.JwtTokenProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,17 +18,23 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor     //클래스에 존재하는 모든 필드에 대한 생성자 자동 생성
 public class MemberService implements UserDetailsService {
+    @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
+    public String passwordEncoder(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password);
+    }
     @Transactional
     public Long joinMember(MemberDto memberDto) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
+        memberDto.setPassword(passwordEncoder(memberDto.getPassword()));
         return memberRepository.save(memberDto.toEntity()).getId();
     }
 
@@ -45,6 +52,14 @@ public class MemberService implements UserDetailsService {
         }
 
         return new User(memberEntity.getEmail(), memberEntity.getPassword(), authorities);
+    }
+
+    public String login(Map<String, String> param) {
+        UserDetails userDetails = loadUserByUsername(param.get("email"));
+        if (!passwordEncoder(param.get("password")).equals(userDetails.getPassword())) {
+            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+        }
+        return jwtTokenProvider.createToken(userDetails.getUsername(), userDetails.getAuthorities());
     }
 
 }

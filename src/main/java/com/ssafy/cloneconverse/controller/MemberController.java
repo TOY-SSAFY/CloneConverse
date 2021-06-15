@@ -2,15 +2,17 @@ package com.ssafy.cloneconverse.controller;
 
 import com.ssafy.cloneconverse.dto.MemberDto;
 import com.ssafy.cloneconverse.service.MemberService;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-@AllArgsConstructor
 public class MemberController {
-    private MemberService memberService;
+    private final MemberService memberService;
+
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
+    }
 
     // 메인 페이지
     @GetMapping("/")
@@ -28,7 +30,6 @@ public class MemberController {
     @PostMapping("/member/signup")
     public String execSignup(MemberDto memberDto) {
         memberService.joinMember(memberDto);
-
         return "redirect:/member/login";
     }
 
