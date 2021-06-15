@@ -6,6 +6,7 @@ import com.ssafy.cloneconverse.domain.repository.MemberRepository;
 import com.ssafy.cloneconverse.dto.MemberDto;
 import com.ssafy.cloneconverse.util.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,6 +29,13 @@ public class MemberService implements UserDetailsService {
     private MemberRepository memberRepository;
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
     public String passwordEncoder(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -56,7 +65,7 @@ public class MemberService implements UserDetailsService {
 
     public String login(Map<String, String> param) {
         UserDetails userDetails = loadUserByUsername(param.get("email"));
-        if (!passwordEncoder(param.get("password")).equals(userDetails.getPassword())) {
+        if (!passwordEncoder.matches(param.get("password"), userDetails.getPassword())) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
         return jwtTokenProvider.createToken(userDetails.getUsername(), userDetails.getAuthorities());

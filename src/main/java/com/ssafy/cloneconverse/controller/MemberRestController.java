@@ -20,7 +20,6 @@ public class MemberRestController {
     // 회원가입
     @PostMapping("/join")
     public Long join(@RequestBody MemberDto memberDto) {
-        System.out.println("조인");
         return memberService.joinMember(memberDto);
     }
 
