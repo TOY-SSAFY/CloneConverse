@@ -1,35 +1,36 @@
 import React from "react";
 import styled from "styled-components";
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Link from '@material-ui/core/Link';
-import shoeBanner from "../../resources/images/shoe_banner.jpg"
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import Link from "@material-ui/core/Link";
+import shoeBanner from "../../resources/images/shoe_banner.jpg";
 
 const Img = styled.img`
-  width : 100%;
-`
+  width: 100%;
+`;
 const RelativeBox = styled.div`
-  position : relative;
-  width:100%;
-  height:100%;
-`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
 const TitleBox = styled.div`
-  font-size : 40px;
-  color : #000;
-  line-height : 1;
-  font-wiehgt: 900;
-  position : absolute;
-  top : 0;
-  width : calc(100% - 40px);
-  height : 100%;
-  display : flex;
-  align-items : center;
-  justify-content : center;
-  flex-direction : column;
-`
+  font-size: 40px;
+  color: #000;
+  line-height: 1;
+  font-weight: 1000;
+  position: absolute;
+  top: 0;
+  width: calc(100% - 40px);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "NanumGothic", sans-serif;
+`;
 const CategoryBanner = () => {
   return (
     <>
-      <Breadcrumbs aria-label="breadcrumb" style={{fontSize : "14px"}}>
+      <Breadcrumbs aria-label="breadcrumb" style={{ fontSize: "14px" }}>
         <Link color="inherit" href="/" onClick="">
           Home
         </Link>
