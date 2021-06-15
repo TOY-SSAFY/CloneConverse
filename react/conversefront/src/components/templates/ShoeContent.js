@@ -1,11 +1,12 @@
 import { Grid } from "@material-ui/core";
 import React from "react";
-import { CategoryBanner } from "../organisms";
+import { CategoryBanner, CategoryFilter } from "../organisms";
 
 const ShoeContent = () => {
   return (
     <>
       <CategoryBanner />
+      <CategoryFilter></CategoryFilter>
       <Grid container spacing={0}>
         <Grid item xs={2}>
           asdf
