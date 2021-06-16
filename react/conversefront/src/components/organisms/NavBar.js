@@ -25,6 +25,7 @@ import icon_magglass from "../../resources/images/magglass.png";
 import Container from "@material-ui/core/Container";
 import converseDance from "../../resources/videos/conversedance.mp4";
 import TextField from "@material-ui/core/TextField";
+import "../../styles/Headers/NavBar.scss";
 
 const FlexBox = styled.div`
   display: flex;
@@ -207,6 +208,7 @@ const LeftDrawer_list = styled.a`
   line-height: 1;
   color: #000;
   transition: all 0.3s;
+  text-decoration: none;
 `;
 const LeftDrawer_SubTitle = styled.div`
   font-size: 14px;
@@ -280,21 +282,24 @@ const NavBar = (props) => {
   const theme = useTheme();
 
   const closeDrawer = (open) => (event) => {
+    document.querySelector("#topSearch").classList.toggle("on");
     setOpen(false);
     setLeftOpen(false);
   };
 
   const SearchClick = () => {
+    document.querySelector("#topSearch").classList.toggle("on");
     if (!open) {
       setOpen(true);
-      alert("안");
     }
   };
   const ShoeClick = () => {
     if (!open) {
       setLeftOpen(true);
-      alert("신발");
     }
+  };
+  const MoveHome = () => {
+    window.location.href = "/";
   };
 
   return (
@@ -319,7 +324,7 @@ const NavBar = (props) => {
           >
             {/* LEFT BOX */}
             <FlexBox>
-              <Img src={converse_logo} alt="converse" />
+              <Img src={converse_logo} alt="converse" onClick={MoveHome} />
               <RowBox>
                 <MenuList onClick={ShoeClick}>신발</MenuList>
                 <MenuList>의류</MenuList>
@@ -353,7 +358,7 @@ const NavBar = (props) => {
                   />
                 </MenuList>
               </RowBox>
-              <SearchBox onClick={SearchClick}>
+              <SearchBox onClick={SearchClick} id="topSearch">
                 <div
                   style={{
                     color: "white",
@@ -389,7 +394,9 @@ const NavBar = (props) => {
         <LeftDrawer_Box>
           <LeftDrawer_ul>
             <LeftDrawer_ol>
-              <LeftDrawer_list>전체보기</LeftDrawer_list>
+              <LeftDrawer_list href={"/category/shoes"}>
+                전체보기
+              </LeftDrawer_list>
             </LeftDrawer_ol>
             <LeftDrawer_ol>
               <LeftDrawer_list>베스트셀러</LeftDrawer_list>
