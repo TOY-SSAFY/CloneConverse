@@ -4,3 +4,4 @@ export { default as BasketContent } from "./BasketContent";
 export { default as LoginContent } from "./LoginContent";
 export { default as Footer } from "./Footer";
 export { default as Header } from "./Header";
+export { default as WishListContent } from "./WishListContent";

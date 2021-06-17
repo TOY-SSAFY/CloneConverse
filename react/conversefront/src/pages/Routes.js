@@ -1,6 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { MainPage, ShoePage, Test, BasketPage, LoginPage } from ".";
+import {
+  MainPage,
+  ShoePage,
+  Test,
+  BasketPage,
+  LoginPage,
+  WishListPage,
+} from ".";
 
 export default () => {
   return (
@@ -10,6 +17,7 @@ export default () => {
       <Route exact path="/BasketPage" component={BasketPage} />
       <Route exact path="/test" component={Test} />
       <Route exact path="/login" component={LoginPage} />
+      <Route exact path="/wishlist" component={WishListPage} />
     </Router>
   );
 };
