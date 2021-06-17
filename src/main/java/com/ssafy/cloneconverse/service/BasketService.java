@@ -1,7 +1,7 @@
 package com.ssafy.cloneconverse.service;
 
 import com.ssafy.cloneconverse.domain.entity.BasketEntity;
-import com.ssafy.cloneconverse.domain.repository.BasketRespository;
+import com.ssafy.cloneconverse.domain.repository.BasketRepository;
 import com.ssafy.cloneconverse.dto.BasketDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,36 +13,36 @@ import java.util.Optional;
 @Service
 public class BasketService {
     @Autowired
-    private BasketRespository basketRespository;
+    private BasketRepository basketRepository;
 
     @Transactional
     public Long addItem(BasketDto basketDto){
-        return basketRespository.save(basketDto.toEntity()).getId();
+        return basketRepository.save(basketDto.toEntity()).getId();
     }
 
     @Transactional
     public void deleteItem(Long id){
-        Optional<BasketEntity> basketEntity = basketRespository.findById(id);
+        Optional<BasketEntity> basketEntity = basketRepository.findById(id);
         basketEntity.ifPresent(selectItem ->{
-            basketRespository.delete(selectItem);
+            basketRepository.delete(selectItem);
         });
     }
 
     @Transactional
     public Optional<BasketEntity> updateItem(BasketDto basketDto, Long id){
-        Optional<BasketEntity> basketEntity = basketRespository.findById(id);
+        Optional<BasketEntity> basketEntity = basketRepository.findById(id);
 
         basketEntity.ifPresent(selectItem -> {
             selectItem.setItem(basketDto.getItem());
             selectItem.setUserid(basketDto.getUserid());
-            basketRespository.save(selectItem);
+            basketRepository.save(selectItem);
         });
 
         return basketEntity;
     }
 
     public List<BasketEntity> allItems(){
-        return basketRespository.findAll();
+        return basketRepository.findAll();
     }
 
 }
