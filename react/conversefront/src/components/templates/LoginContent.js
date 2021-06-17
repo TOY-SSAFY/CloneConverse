@@ -88,6 +88,7 @@ const LoginContent = () => {
             />
           </OuterBox_Option_Inner_Box> */}
           <OuterBox_Login_Button>로그인</OuterBox_Login_Button>
+          <OuterBox_Login_Button>회원가입</OuterBox_Login_Button>
         </OuterBox_OptionBox>
       </OuterBox>
     </>
