@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -25,7 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http.csrf().disable();
+//        http.csrf().disable();
+        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
         http.authorizeRequests()
                 // page 권한 설정
                 .antMatchers("/admin/**").hasRole("ADMIN")
