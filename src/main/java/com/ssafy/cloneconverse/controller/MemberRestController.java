@@ -2,12 +2,14 @@ package com.ssafy.cloneconverse.controller;
 
 import com.ssafy.cloneconverse.dto.MemberDto;
 import com.ssafy.cloneconverse.service.MemberService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 public class MemberRestController {
 

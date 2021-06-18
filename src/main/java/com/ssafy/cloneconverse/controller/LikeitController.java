@@ -5,8 +5,10 @@ import com.ssafy.cloneconverse.dto.LikeitDto;
 import com.ssafy.cloneconverse.service.LikeitService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Column;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 //@RequestMapping("/likeit")
 public class LikeitController {

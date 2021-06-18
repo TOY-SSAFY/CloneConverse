@@ -3,9 +3,11 @@ package com.ssafy.cloneconverse.controller;
 import com.ssafy.cloneconverse.dto.MemberDto;
 import com.ssafy.cloneconverse.service.MemberService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+@CrossOrigin
 @Controller
 public class MemberController {
     private final MemberService memberService;

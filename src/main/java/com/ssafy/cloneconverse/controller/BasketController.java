@@ -6,9 +6,9 @@ import com.ssafy.cloneconverse.service.BasketService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/basket")
 public class BasketController {
