@@ -1,15 +1,8 @@
-// import { observable, computed } from "mobx";
+import counterStore from "./CounterStore";
+import authStore from "./AuthStore";
 
-// import AuthStore from "./AuthStore";
+const store = () => {
+  return { counterStore, authStore };
+};
 
-// export { AuthStore };
-
-// export class Store {
-//   @observable handlerObj = {};
-
-//   authStore = AuthStore;
-
-//   constructor(hydrateCallback) {
-//     this.authStore = new AuthStore();
-//   }
-// }
+export default store;

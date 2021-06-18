@@ -1,22 +1,22 @@
-import React, { Component } from "react";
-import { observer } from "mobx-react";
+import React from "react";
 import { useObserver } from "mobx-react";
-import useStore from "../utils/hooks/useStore";
+// import useStore from "../utils/hooks/useStore";
+import store from "../stores";
 
 const Test = () => {
-  const { CounterStore } = useStore();
+  const { counterStore } = store();
 
   const increase = () => {
-    CounterStore.increase();
+    counterStore.increase();
   };
 
   const decrease = () => {
-    CounterStore.decrease();
+    counterStore.decrease();
   };
 
   return useObserver(() => (
     <div>
-      <h1>{CounterStore.number}</h1>
+      <h1>{counterStore.number}</h1>
       <button onClick={increase}>+1</button>
       <button onClick={decrease}>-1</button>
     </div>

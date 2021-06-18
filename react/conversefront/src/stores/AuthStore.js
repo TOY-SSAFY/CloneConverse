@@ -1,13 +1,22 @@
 import { observable } from "mobx";
+import { axiosApi } from "../utils/axios";
 
-const AuthStore = observable({
-  number: 1,
-  increase() {
-    this.number++;
+const authStore = observable({
+  token: null,
+  user: {
+    email: "stranger",
+    password: "stranger",
   },
-  decrease() {
-    this.number--;
+
+  async login(email, password) {
+    const data = {
+      email: email,
+      password: password,
+    };
+
+    this.token = await axiosApi("/login", "POST", data);
+    console.log(this.token);
   },
 });
 
-export { AuthStore };
+export default authStore;

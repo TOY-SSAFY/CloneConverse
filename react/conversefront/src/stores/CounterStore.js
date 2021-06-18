@@ -1,7 +1,8 @@
 import { observable } from "mobx";
 
-const CounterStore = observable({
+const counterStore = observable({
   number: 1,
+
   increase() {
     this.number++;
   },
@@ -10,4 +11,4 @@ const CounterStore = observable({
   },
 });
 
-export { CounterStore };
+export default counterStore;

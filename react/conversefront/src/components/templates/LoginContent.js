@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import store from "../../stores";
 
 const OuterBox = styled.div`
   margin: 80px auto;
@@ -61,33 +62,41 @@ const OuterBox_Login_Button = styled.button`
 `;
 
 const LoginContent = () => {
+  const { authStore } = store();
   const [state, setState] = React.useState({
-    keep: false,
+    email: "",
+    password: "",
   });
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setState({ ...state, [event.target.name]: event.target.value });
+    console.log(state);
+  };
+  const LoginClick = () => {
+    alert("로그인");
+    // console.log(email);
+    authStore.login(state.email, state.password);
+    console.log("token", authStore.token);
   };
   return (
     <>
       <OuterBox>
         <OuterBox_Title>로그인</OuterBox_Title>
-        <OuterBox_Input placeholder="이메일"></OuterBox_Input>
-        <OuterBox_Input placeholder="패스워드"></OuterBox_Input>
+        <OuterBox_Input
+          placeholder="이메일"
+          name="email"
+          value={state.email}
+          onChange={handleChange}
+        ></OuterBox_Input>
+        <OuterBox_Input
+          placeholder="패스워드"
+          name="password"
+          value={state.password}
+          onChange={handleChange}
+        ></OuterBox_Input>
         <OuterBox_OptionBox>
-          {/* <OuterBox_Option_Inner_Box>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={state.man}
-                  color="default"
-                  onChange={handleChange}
-                  name="keep"
-                />
-              }
-              label="로그인 상태 유지"
-            />
-          </OuterBox_Option_Inner_Box> */}
-          <OuterBox_Login_Button>로그인</OuterBox_Login_Button>
+          <OuterBox_Login_Button onClick={LoginClick}>
+            로그인
+          </OuterBox_Login_Button>
           <OuterBox_Login_Button>회원가입</OuterBox_Login_Button>
         </OuterBox_OptionBox>
       </OuterBox>
