@@ -6,7 +6,7 @@ const BasketPage = () => {
   return (
     <>
       <Container maxWidth="xl" style={{ flexDirection: "column" }}>
-        <>123</>
+        <BasketContent />
       </Container>
     </>
   );

@@ -11,3 +11,4 @@ export { default as Marketing } from "./Marketing";
 export { default as ShopByStyle } from "./ShopByStyle";
 export { default as CategoryBanner } from "./CategoryBanner";
 export { default as CategoryFilter } from "./CategoryFilter";
+export { default as BasketTable } from "./BasketTable";
