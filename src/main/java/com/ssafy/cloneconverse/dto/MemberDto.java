@@ -1,6 +1,6 @@
 package com.ssafy.cloneconverse.dto;
 
-import com.ssafy.cloneconverse.domain.entity.MemberEntity;
+import com.ssafy.cloneconverse.domain.entity.Member;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -20,8 +20,8 @@ public class MemberDto {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
-    public MemberEntity toEntity(){
-        return MemberEntity.builder()
+    public Member toEntity(){
+        return Member.builder()
                 .id(id)
                 .email(email)
                 .password(password)

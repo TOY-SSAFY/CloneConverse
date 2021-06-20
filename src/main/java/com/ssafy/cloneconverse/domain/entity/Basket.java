@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "basket")
-public class BasketEntity {
+public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +22,7 @@ public class BasketEntity {
 
 
     @Builder
-    public BasketEntity(Long id, String userid, String item) {
+    public Basket(Long id, String userid, String item) {
         this.id = id;
         this.userid = userid;
         this.item = item;

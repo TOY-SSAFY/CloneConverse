@@ -1,6 +1,6 @@
 package com.ssafy.cloneconverse.service;
 
-import com.ssafy.cloneconverse.domain.entity.BasketEntity;
+import com.ssafy.cloneconverse.domain.entity.Basket;
 import com.ssafy.cloneconverse.domain.repository.BasketRepository;
 import com.ssafy.cloneconverse.dto.BasketDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +22,15 @@ public class BasketService {
 
     @Transactional
     public void deleteItem(Long id){
-        Optional<BasketEntity> basketEntity = basketRepository.findById(id);
+        Optional<Basket> basketEntity = basketRepository.findById(id);
         basketEntity.ifPresent(selectItem ->{
             basketRepository.delete(selectItem);
         });
     }
 
     @Transactional
-    public Optional<BasketEntity> updateItem(BasketDto basketDto, Long id){
-        Optional<BasketEntity> basketEntity = basketRepository.findById(id);
+    public Optional<Basket> updateItem(BasketDto basketDto, Long id){
+        Optional<Basket> basketEntity = basketRepository.findById(id);
 
         basketEntity.ifPresent(selectItem -> {
             selectItem.setItem(basketDto.getItem());
@@ -41,7 +41,7 @@ public class BasketService {
         return basketEntity;
     }
 
-    public List<BasketEntity> allItems(){
+    public List<Basket> allItems(){
         return basketRepository.findAll();
     }
 

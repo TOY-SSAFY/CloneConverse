@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "member")
-public class MemberEntity {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,7 +35,7 @@ public class MemberEntity {
     private String gender;
 
     @Builder
-    public MemberEntity(Long id, String email, String password, String name, String phone, String bday, String gender) {
+    public Member(Long id, String email, String password, String name, String phone, String bday, String gender) {
         this.id = id;
         this.email = email;
         this.password = password;

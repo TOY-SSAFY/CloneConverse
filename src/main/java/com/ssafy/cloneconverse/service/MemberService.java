@@ -1,7 +1,7 @@
 package com.ssafy.cloneconverse.service;
 
 import com.ssafy.cloneconverse.domain.Role;
-import com.ssafy.cloneconverse.domain.entity.MemberEntity;
+import com.ssafy.cloneconverse.domain.entity.Member;
 import com.ssafy.cloneconverse.domain.repository.MemberRepository;
 import com.ssafy.cloneconverse.dto.MemberDto;
 import com.ssafy.cloneconverse.util.JwtTokenProvider;
@@ -49,8 +49,8 @@ public class MemberService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<MemberEntity> memberEntityWrapper = memberRepository.findByEmail(email);
-        MemberEntity memberEntity = memberEntityWrapper.get();
+        Optional<Member> memberEntityWrapper = memberRepository.findByEmail(email);
+        Member member = memberEntityWrapper.get();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
@@ -60,7 +60,7 @@ public class MemberService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
         }
 
-        return new User(memberEntity.getEmail(), memberEntity.getPassword(), authorities);
+        return new User(member.getEmail(), member.getPassword(), authorities);
     }
 
     public String login(Map<String, String> param) {

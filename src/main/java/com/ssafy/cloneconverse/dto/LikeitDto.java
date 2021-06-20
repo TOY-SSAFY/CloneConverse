@@ -1,6 +1,6 @@
 package com.ssafy.cloneconverse.dto;
 
-import com.ssafy.cloneconverse.domain.entity.LikeitEntity;
+import com.ssafy.cloneconverse.domain.entity.Likeit;
 import lombok.*;
 
 @NoArgsConstructor
@@ -12,8 +12,8 @@ public class LikeitDto {
     private String item;
     private String userid;
 
-    public LikeitEntity toEntity() {
-        return LikeitEntity.builder()
+    public Likeit toEntity() {
+        return Likeit.builder()
                 .id(id)
                 .item(item)
                 .userid(userid)
