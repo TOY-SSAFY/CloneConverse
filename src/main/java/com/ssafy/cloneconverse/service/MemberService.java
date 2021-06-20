@@ -31,6 +31,8 @@ public class MemberService implements UserDetailsService {
     private JwtTokenProvider jwtTokenProvider;
     @Autowired
     private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private MemberRepository2 memberRepository2;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -51,7 +53,8 @@ public class MemberService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Member> memberEntityWrapper = memberRepository.findByEmail(email);
         Member member = memberEntityWrapper.get();
-
+//        QueryDSL 테스트
+//        Member member = memberRepository2.findByEmail(email);
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         if (("admin@example.com").equals(email)) {
