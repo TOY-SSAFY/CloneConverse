@@ -42,4 +42,19 @@ public class MemberDto {
         this.bday = bday;
         this.gender = gender;
     }
+
+    @Override
+    public String toString() {
+        return "MemberDto{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", bday='" + bday + '\'' +
+                ", gender='" + gender + '\'' +
+                ", createdDate=" + createdDate +
+                ", modifiedDate=" + modifiedDate +
+                '}';
+    }
 }
