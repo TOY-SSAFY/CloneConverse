@@ -7,17 +7,6 @@ const ShoeContent = () => {
     <>
       <CategoryBanner />
       <CategoryFilter></CategoryFilter>
-      <Grid container spacing={0}>
-        <Grid item xs={2}>
-          asdf
-        </Grid>
-        <Grid item xs={8}>
-          asdf
-        </Grid>
-        <Grid item xs={2}>
-          asdf
-        </Grid>
-      </Grid>
     </>
   );
 };
