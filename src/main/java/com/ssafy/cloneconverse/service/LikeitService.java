@@ -1,6 +1,6 @@
 package com.ssafy.cloneconverse.service;
 
-import com.ssafy.cloneconverse.domain.entity.LikeitEntity;
+import com.ssafy.cloneconverse.domain.entity.Likeit;
 import com.ssafy.cloneconverse.domain.repository.LikeitRepository;
 import com.ssafy.cloneconverse.dto.LikeitDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,13 @@ public class LikeitService {
 
     @Transactional
     public void deleteItem(Long id){
-        Optional<LikeitEntity> likeitEntity = likeitRepository.findById(id);
+        Optional<Likeit> likeitEntity = likeitRepository.findById(id);
         likeitEntity.ifPresent(selectItem ->{
             likeitRepository.delete(selectItem);
         });
     }
 
-    public List<LikeitEntity> allItems(){
+    public List<Likeit> allItems(){
         return likeitRepository.findAll();
     }
 }

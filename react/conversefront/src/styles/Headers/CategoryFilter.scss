@@ -58,3 +58,13 @@
   width: 60px;
   justify-content: center;
 }
+
+#rcontent.over {
+  width: 100%;
+  max-width: 100%;
+  flex-basis: 100%;
+}
+
+#lcontent.over {
+  display: none;
+}

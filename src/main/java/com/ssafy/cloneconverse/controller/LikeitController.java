@@ -1,11 +1,10 @@
 package com.ssafy.cloneconverse.controller;
 
-import com.ssafy.cloneconverse.domain.entity.LikeitEntity;
+import com.ssafy.cloneconverse.domain.entity.Likeit;
 import com.ssafy.cloneconverse.dto.LikeitDto;
 import com.ssafy.cloneconverse.service.LikeitService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Column;
 import java.util.List;
 
 @CrossOrigin
@@ -26,7 +25,7 @@ public class LikeitController {
 
     // 위시리스트 조회
     @GetMapping("/likeit")
-    public List<LikeitEntity> allItems() {
+    public List<Likeit> allItems() {
         return likeitService.allItems();
     }
 

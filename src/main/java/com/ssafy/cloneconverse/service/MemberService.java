@@ -1,74 +1,47 @@
 package com.ssafy.cloneconverse.service;
 
-import com.ssafy.cloneconverse.domain.Role;
-import com.ssafy.cloneconverse.domain.entity.MemberEntity;
+import com.ssafy.cloneconverse.domain.entity.Member;
 import com.ssafy.cloneconverse.domain.repository.MemberRepository;
 import com.ssafy.cloneconverse.dto.MemberDto;
-import com.ssafy.cloneconverse.util.JwtTokenProvider;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 @Service
-public class MemberService implements UserDetailsService {
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+public class MemberService {
+    private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
+        this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public String passwordEncoder(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(password);
-    }
-    @Transactional
-    public Long joinMember(MemberDto memberDto) {
-        memberDto.setPassword(passwordEncoder(memberDto.getPassword()));
-        return memberRepository.save(memberDto.toEntity()).getId();
+    public MemberDto readMember(MemberDto param) {
+        Member member = memberRepository.findByEmail(param.getEmail()).get();
+        return new MemberDto(member.getId(), member.getEmail(), member.getPassword(), member.getName(), member.getPhone(), member.getBday(), member.getGender());
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<MemberEntity> memberEntityWrapper = memberRepository.findByEmail(email);
-        MemberEntity memberEntity = memberEntityWrapper.get();
-
-        List<GrantedAuthority> authorities = new ArrayList<>();
-
-        if (("admin@example.com").equals(email)) {
-            authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-        } else {
-            authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
-        }
-
-        return new User(memberEntity.getEmail(), memberEntity.getPassword(), authorities);
+    public void updateMember(MemberDto param) {
+        Member member = memberRepository.findByEmail(param.getEmail()).get();
+        // 이거 원래 이렇게 다 체크해줘야함??
+        if(param.getId() == null) param.setId(member.getId());
+        if(param.getPassword() == null) param.setPassword(member.getPassword());
+        if(param.getName() == null) param.setName(member.getName());
+        if(param.getPhone() == null) param.setPhone(member.getPhone());
+        if(param.getBday() == null) param.setBday(member.getBday());
+        if(param.getGender() == null) param.setGender(member.getGender());
+        memberRepository.save(new Member(param.getId(), param.getEmail(), param.getPassword(), param.getName(), param.getPhone(), param.getBday(), param.getGender()));
+    }
+    public void deleteMember(MemberDto param) {
+        memberRepository.delete(memberRepository.findByEmail(param.getEmail()).get());
     }
 
-    public String login(Map<String, String> param) {
-        UserDetails userDetails = loadUserByUsername(param.get("email"));
-        if (!passwordEncoder.matches(param.get("password"), userDetails.getPassword())) {
-            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
-        }
-        return jwtTokenProvider.createToken(userDetails.getUsername(), userDetails.getAuthorities());
+    public void joinMember(MemberDto memberDto) {
+        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
+        memberRepository.save(dtoToEntity(memberDto));
     }
 
+    public Member dtoToEntity(MemberDto memberDto){
+        return new Member(memberDto.getId(), memberDto.getEmail(), memberDto.getPassword(), memberDto.getName(), memberDto.getPhone(), memberDto.getBday(), memberDto.getGender());
+    }
 }

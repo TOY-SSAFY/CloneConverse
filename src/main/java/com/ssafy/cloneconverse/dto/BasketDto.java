@@ -1,6 +1,6 @@
 package com.ssafy.cloneconverse.dto;
 
-import com.ssafy.cloneconverse.domain.entity.BasketEntity;
+import com.ssafy.cloneconverse.domain.entity.Basket;
 import lombok.*;
 
 @Getter
@@ -12,8 +12,8 @@ public class BasketDto {
     private String item;
     private String userid;
 
-    public BasketEntity toEntity(){
-        return BasketEntity.builder()
+    public Basket toEntity(){
+        return Basket.builder()
                 .id(id)
                 .item(item)
                 .userid(userid)

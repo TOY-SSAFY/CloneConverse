@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "likeit")
-public class LikeitEntity {
+public class Likeit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +22,7 @@ public class LikeitEntity {
 
 
     @Builder
-    public LikeitEntity(Long id, String userid, String item) {
+    public Likeit(Long id, String userid, String item) {
         this.id = id;
         this.userid = userid;
         this.item = item;

@@ -1,6 +1,6 @@
 package com.ssafy.cloneconverse.controller;
 
-import com.ssafy.cloneconverse.domain.entity.BasketEntity;
+import com.ssafy.cloneconverse.domain.entity.Basket;
 import com.ssafy.cloneconverse.dto.BasketDto;
 import com.ssafy.cloneconverse.service.BasketService;
 import org.springframework.web.bind.annotation.*;
@@ -33,13 +33,13 @@ public class BasketController {
 
     // 장바구니 수정
     @PostMapping("/update")
-    public Optional<BasketEntity> updateItem(@RequestBody BasketDto basketDto, @RequestParam Long id){
+    public Optional<Basket> updateItem(@RequestBody BasketDto basketDto, @RequestParam Long id){
         return basketService.updateItem(basketDto, id);
     }
 
     // 장바구니 조회
     @GetMapping("/list")
-    public List<BasketEntity> allItems(){
+    public List<Basket> allItems(){
         return basketService.allItems();
     }
 }
