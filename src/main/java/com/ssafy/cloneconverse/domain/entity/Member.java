@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -14,6 +15,7 @@ import javax.persistence.*;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long id;
 
     @Column(length = 30, nullable = false, unique = true)
@@ -33,6 +35,16 @@ public class Member {
 
     @Column(length = 20, nullable = false)
     private String gender;
+
+    @Column(name = "activated")
+    private boolean activated;
+
+    @ManyToMany
+    @JoinTable(
+            name = "member_authority",
+            joinColumns = {@JoinColumn(name = "member_id", referencedColumnName = "member_id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
+    private Set<Authority> authorities;
 
     @Builder
     public Member(Long id, String email, String password, String name, String phone, String bday, String gender) {

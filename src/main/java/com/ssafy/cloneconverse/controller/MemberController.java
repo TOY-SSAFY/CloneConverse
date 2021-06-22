@@ -1,11 +1,9 @@
 package com.ssafy.cloneconverse.controller;
 
-import com.ssafy.cloneconverse.dto.MemberDto;
 import com.ssafy.cloneconverse.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @CrossOrigin
 @Controller
@@ -29,12 +27,12 @@ public class MemberController {
         return "/signup";
     }
 
-    // 회원가입 처리
-    @PostMapping("/member/signup")
-    public String execSignup(MemberDto memberDto) {
-        memberService.joinMember(memberDto);
-        return "redirect:/member/login";
-    }
+//    // 회원가입 처리
+//    @PostMapping("/member/signup")
+//    public String execSignup(MemberDto memberDto) {
+//        memberService.joinMember(memberDto);
+//        return "redirect:/member/login";
+//    }
 
     // 로그인 페이지
     @GetMapping("/member/login")
