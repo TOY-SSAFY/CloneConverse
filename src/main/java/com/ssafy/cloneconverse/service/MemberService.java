@@ -20,6 +20,7 @@ public class MemberService {
         Member member = memberRepository.findByEmail(param.getEmail()).get();
         return new MemberDto(member.getId(), member.getEmail(), member.getPassword(), member.getName(), member.getPhone(), member.getBday(), member.getGender());
     }
+
     public void updateMember(MemberDto param) {
         Member member = memberRepository.findByEmail(param.getEmail()).get();
         // 이거 원래 이렇게 다 체크해줘야함??

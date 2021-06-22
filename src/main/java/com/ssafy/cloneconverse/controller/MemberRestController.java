@@ -21,12 +21,6 @@ public class MemberRestController {
         memberService.joinMember(memberDto);
     }
 
-//  로그인
-//    @PostMapping("/login")
-//    public String login(@RequestBody MemberDto param) {
-//        return memberService.login(param);
-//    }
-
     @PostMapping("/update")
     public void update(@RequestBody MemberDto param){
         memberService.updateMember(param);
