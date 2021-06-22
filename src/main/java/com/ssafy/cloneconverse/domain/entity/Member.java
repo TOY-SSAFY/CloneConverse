@@ -49,7 +49,6 @@ public class Member {
 
     @Builder
     public Member(Long id, String email, String password, String name, String phone, String bday, String gender) {
-
         this(id, email, password, name, phone, bday, gender, true, Collections.singleton(Authority.builder().authorityName("ROLE_USER").build()));
     }
 

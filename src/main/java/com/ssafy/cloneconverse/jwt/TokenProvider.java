@@ -61,7 +61,6 @@ public class TokenProvider implements InitializingBean {
               .signWith(key, SignatureAlgorithm.HS512)
               .setExpiration(validity)
               .compact();
-      System.out.println("create token: " + s);
       return s;
    }
 
@@ -84,7 +83,6 @@ public class TokenProvider implements InitializingBean {
    }
 
    public boolean validateToken(String token) {
-      System.out.println("validateToken: " + token);
       try {
          Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
          return true;
