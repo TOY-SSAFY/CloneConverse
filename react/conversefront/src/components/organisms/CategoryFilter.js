@@ -243,6 +243,8 @@ const CategoryFilter = () => {
     document.querySelector("#mside").classList.toggle("over");
     document.querySelector("#listfilter").classList.toggle("over");
     document.querySelector("#mcontent").classList.toggle("over");
+    document.querySelector("#rcontent").classList.toggle("over");
+    document.querySelector("#lcontent").classList.toggle("over");
   };
 
   return (
@@ -250,387 +252,399 @@ const CategoryFilter = () => {
       <List_Box>
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <Filter_MenuBar>
-              <div
-                style={{
-                  padding: "0 20px",
-                  height: "58px",
-                  lineHeight: "60px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Filter_List_filter id="listfilter" onClick={filterToggle}>
-                  <span>필터 숨기기</span>
-                  <Filter_List_Img src={icon_filter}></Filter_List_Img>
-                </Filter_List_filter>
-                <div style={{ display: "flex", margin: "0 auto 0 0" }}>
-                  <span
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Filter_MenuBar>
+                  <div
                     style={{
-                      display: "block",
-                      width: "100%",
-                      textAlign: "left",
-                      float: "left",
-                      fontSize: "14px",
-                      color: "#000",
-                      fontWeight: 600,
-                      padding: "0 16px",
-                      margin: 0,
+                      padding: "0 20px",
+                      height: "58px",
+                      lineHeight: "60px",
+                      display: "flex",
+                      justifyContent: "space-between",
                     }}
                   >
-                    총 322개의 상품
-                  </span>
+                    <Filter_List_filter id="listfilter" onClick={filterToggle}>
+                      <span>필터 숨기기</span>
+                      <Filter_List_Img src={icon_filter}></Filter_List_Img>
+                    </Filter_List_filter>
+                    <div style={{ display: "flex", margin: "0 auto 0 0" }}>
+                      <span
+                        style={{
+                          display: "block",
+                          width: "100%",
+                          textAlign: "left",
+                          float: "left",
+                          fontSize: "14px",
+                          color: "#000",
+                          fontWeight: 600,
+                          padding: "0 16px",
+                          margin: 0,
+                        }}
+                      >
+                        총 322개의 상품
+                      </span>
+                    </div>
+                    <Filter_List_Select>
+                      <Filter_List_Option>신상품순</Filter_List_Option>
+                      <Filter_List_Option>낮은가격순</Filter_List_Option>
+                      <Filter_List_Option>높은가격순</Filter_List_Option>
+                      <Filter_List_Option>인기상품순</Filter_List_Option>
+                    </Filter_List_Select>
+                  </div>
+                </Filter_MenuBar>
+              </Grid>
+
+              <Grid item xs={2} id="lcontent">
+                <div id="mside">
+                  <div style={{ position: "relative" }}>
+                    <Filter_Search_Title>구분</Filter_Search_Title>
+                    <Filter_Search_Content>
+                      <Grid container spacing={0}>
+                        <Grid item xs={12}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={state.man}
+                                color="default"
+                                onChange={handleChange}
+                                name="man"
+                              />
+                            }
+                            label="남성"
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={state.woman}
+                                color="default"
+                                onChange={handleChange}
+                                name="woman"
+                              />
+                            }
+                            label="여성"
+                          />
+                        </Grid>
+                      </Grid>
+                    </Filter_Search_Content>
+                    <Filter_Search_Title
+                      style={{
+                        borderTop: "1px solid #e5e5e5",
+                        paddingTop: "30px",
+                      }}
+                    >
+                      제품타입
+                    </Filter_Search_Title>
+                    <Filter_Search_Content>
+                      <Grid container spacing={0}>
+                        <Grid item xs={12}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={state.mule}
+                                color="default"
+                                onChange={handleChange}
+                                name="mule"
+                              />
+                            }
+                            label="뮬"
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={state.snikers}
+                                color="default"
+                                onChange={handleChange}
+                                name="snikers"
+                              />
+                            }
+                            label="스니커즈"
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                checked={state.sliper}
+                                color="default"
+                                onChange={handleChange}
+                                name="sliper"
+                              />
+                            }
+                            label="슬리퍼"
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                fontSize="small"
+                                // checkedIcon={<CheckBoxIcon fontSize="small" />}
+                                checked={state.platform}
+                                color="default"
+                                onChange={handleChange}
+                                name="platform"
+                              />
+                            }
+                            label="플랫폼"
+                          />
+                        </Grid>
+                      </Grid>
+                    </Filter_Search_Content>
+                    <Filter_Search_Title
+                      style={{
+                        borderTop: "1px solid #e5e5e5",
+                        paddingTop: "30px",
+                        marginBottom: "5px",
+                      }}
+                    >
+                      색상
+                    </Filter_Search_Title>
+                    <ul
+                      style={{
+                        margin: "0px 0 0 5px",
+                        paddingLeft: "0px",
+                        paddingBottom: "15px",
+                      }}
+                    >
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#000000" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#0000ff" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#009900" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#131936" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#6600CC" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#996633" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#999999" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#A39264" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#F0E4D2" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#FF0000" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#FF6600" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#FFB6C1" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#FFCC00" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                      <Filter_Color_li>
+                        <Filter_Color_Btn
+                          style={{ background: "#ffffff" }}
+                        ></Filter_Color_Btn>
+                      </Filter_Color_li>
+                    </ul>
+                    <Filter_Search_Title
+                      style={{
+                        borderTop: "1px solid #e5e5e5",
+                        paddingTop: "30px",
+                        marginBottom: "5px",
+                      }}
+                    >
+                      사이즈
+                    </Filter_Search_Title>
+                    <Filter_Size_ul>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>210</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>215</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>220</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>225</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>230</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>235</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>240</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>245</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>250</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>255</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>260</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>265</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>270</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>275</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>280</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>285</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>290</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>295</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>300</Filter_Size_Btn>
+                      </Filter_Size_li>
+                      <Filter_Size_li>
+                        <Filter_Size_Btn>305</Filter_Size_Btn>
+                      </Filter_Size_li>
+                    </Filter_Size_ul>
+                    <Filter_Search_Title
+                      style={{
+                        borderTop: "1px solid #e5e5e5",
+                        paddingTop: "30px",
+                        marginBottom: "5px",
+                      }}
+                    >
+                      실루엣
+                    </Filter_Search_Title>
+                    <Filter_Silhouette_ul>
+                      <Filter_Silhouette_li>
+                        <Filter_Silhouette_Btn>
+                          <img src={icon_high}></img>
+                          하이
+                        </Filter_Silhouette_Btn>
+                      </Filter_Silhouette_li>
+                      <Filter_Silhouette_li>
+                        <Filter_Silhouette_Btn>
+                          <img src={icon_low}></img>
+                          로우
+                        </Filter_Silhouette_Btn>
+                      </Filter_Silhouette_li>
+                      <Filter_Silhouette_li>
+                        <Filter_Silhouette_Btn>
+                          <img src={icon_mid}></img>
+                          미드
+                        </Filter_Silhouette_Btn>
+                      </Filter_Silhouette_li>
+                      <Filter_Silhouette_li>
+                        <Filter_Silhouette_Btn>
+                          <img src={icon_platform}></img>
+                          플랫폼
+                        </Filter_Silhouette_Btn>
+                      </Filter_Silhouette_li>
+                      <Filter_Silhouette_li>
+                        <Filter_Silhouette_Btn>
+                          <img src={icon_slip}></img>
+                          슬립
+                        </Filter_Silhouette_Btn>
+                      </Filter_Silhouette_li>
+                    </Filter_Silhouette_ul>
+                  </div>
                 </div>
-                <Filter_List_Select>
-                  <Filter_List_Option>신상품순</Filter_List_Option>
-                  <Filter_List_Option>낮은가격순</Filter_List_Option>
-                  <Filter_List_Option>높은가격순</Filter_List_Option>
-                  <Filter_List_Option>인기상품순</Filter_List_Option>
-                </Filter_List_Select>
-              </div>
-            </Filter_MenuBar>
-          </Grid>
-          <div id="mside">
-            <div style={{ position: "relative" }}>
-              <Filter_Search_Title>구분</Filter_Search_Title>
-              <Filter_Search_Content>
-                <Grid container spacing={0}>
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={state.man}
-                          color="default"
-                          onChange={handleChange}
-                          name="man"
-                        />
-                      }
-                      label="남성"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={state.woman}
-                          color="default"
-                          onChange={handleChange}
-                          name="woman"
-                        />
-                      }
-                      label="여성"
-                    />
-                  </Grid>
-                </Grid>
-              </Filter_Search_Content>
-              <Filter_Search_Title
-                style={{ borderTop: "1px solid #e5e5e5", paddingTop: "30px" }}
-              >
-                제품타입
-              </Filter_Search_Title>
-              <Filter_Search_Content>
-                <Grid container spacing={0}>
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={state.mule}
-                          color="default"
-                          onChange={handleChange}
-                          name="mule"
-                        />
-                      }
-                      label="뮬"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={state.snikers}
-                          color="default"
-                          onChange={handleChange}
-                          name="snikers"
-                        />
-                      }
-                      label="스니커즈"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={state.sliper}
-                          color="default"
-                          onChange={handleChange}
-                          name="sliper"
-                        />
-                      }
-                      label="슬리퍼"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          fontSize="small"
-                          // checkedIcon={<CheckBoxIcon fontSize="small" />}
-                          checked={state.platform}
-                          color="default"
-                          onChange={handleChange}
-                          name="platform"
-                        />
-                      }
-                      label="플랫폼"
-                    />
-                  </Grid>
-                </Grid>
-              </Filter_Search_Content>
-              <Filter_Search_Title
-                style={{
-                  borderTop: "1px solid #e5e5e5",
-                  paddingTop: "30px",
-                  marginBottom: "5px",
-                }}
-              >
-                색상
-              </Filter_Search_Title>
-              <ul
-                style={{
-                  margin: "0px 0 0 5px",
-                  paddingLeft: "0px",
-                  paddingBottom: "15px",
-                }}
-              >
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#000000" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#0000ff" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#009900" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#131936" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#6600CC" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#996633" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#999999" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#A39264" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#F0E4D2" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#FF0000" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#FF6600" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#FFB6C1" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#FFCC00" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-                <Filter_Color_li>
-                  <Filter_Color_Btn
-                    style={{ background: "#ffffff" }}
-                  ></Filter_Color_Btn>
-                </Filter_Color_li>
-              </ul>
-              <Filter_Search_Title
-                style={{
-                  borderTop: "1px solid #e5e5e5",
-                  paddingTop: "30px",
-                  marginBottom: "5px",
-                }}
-              >
-                사이즈
-              </Filter_Search_Title>
-              <Filter_Size_ul>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>210</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>215</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>220</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>225</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>230</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>235</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>240</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>245</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>250</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>255</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>260</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>265</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>270</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>275</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>280</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>285</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>290</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>295</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>300</Filter_Size_Btn>
-                </Filter_Size_li>
-                <Filter_Size_li>
-                  <Filter_Size_Btn>305</Filter_Size_Btn>
-                </Filter_Size_li>
-              </Filter_Size_ul>
-              <Filter_Search_Title
-                style={{
-                  borderTop: "1px solid #e5e5e5",
-                  paddingTop: "30px",
-                  marginBottom: "5px",
-                }}
-              >
-                실루엣
-              </Filter_Search_Title>
-              <Filter_Silhouette_ul>
-                <Filter_Silhouette_li>
-                  <Filter_Silhouette_Btn>
-                    <img src={icon_high}></img>
-                    하이
-                  </Filter_Silhouette_Btn>
-                </Filter_Silhouette_li>
-                <Filter_Silhouette_li>
-                  <Filter_Silhouette_Btn>
-                    <img src={icon_low}></img>
-                    로우
-                  </Filter_Silhouette_Btn>
-                </Filter_Silhouette_li>
-                <Filter_Silhouette_li>
-                  <Filter_Silhouette_Btn>
-                    <img src={icon_mid}></img>
-                    미드
-                  </Filter_Silhouette_Btn>
-                </Filter_Silhouette_li>
-                <Filter_Silhouette_li>
-                  <Filter_Silhouette_Btn>
-                    <img src={icon_platform}></img>
-                    플랫폼
-                  </Filter_Silhouette_Btn>
-                </Filter_Silhouette_li>
-                <Filter_Silhouette_li>
-                  <Filter_Silhouette_Btn>
-                    <img src={icon_slip}></img>
-                    슬립
-                  </Filter_Silhouette_Btn>
-                </Filter_Silhouette_li>
-              </Filter_Silhouette_ul>
-            </div>
-          </div>
-          <div id="mcontent">
-            <Grid container spacing={3}>
-              <Grid item xs={3} md>
-                <ProductCard
-                  image1={chuck70pink}
-                  image2={chuck70pink2}
-                  title1="BEST SELLER"
-                  title2="NEW ARRIVAL"
-                  name="척 70 시즈널 캔버스"
-                  price="99,000원"
-                />
               </Grid>
-              <Grid item xs={3} md>
-                <ProductCard
-                  image1={chuck70pink}
-                  image2={chuck70pink2}
-                  title1="BEST SELLER"
-                  title2="NEW ARRIVAL"
-                  name="척 70 시즈널 캔버스"
-                  price="99,000원"
-                />
-              </Grid>
-              <Grid item xs={3} md>
-                <ProductCard
-                  image1={chuck70pink}
-                  image2={chuck70pink2}
-                  title1="BEST SELLER"
-                  title2="NEW ARRIVAL"
-                  name="척 70 시즈널 캔버스"
-                  price="99,000원"
-                />
-              </Grid>
-              <Grid item xs={3} md>
-                <ProductCard
-                  image1={chuck70pink}
-                  image2={chuck70pink2}
-                  title1="BEST SELLER"
-                  title2="NEW ARRIVAL"
-                  name="척 70 시즈널 캔버스"
-                  price="99,000원"
-                />
+              <Grid item xs={10} id="rcontent">
+                <div id="mcontent">
+                  <Grid container spacing={3}>
+                    <Grid item xs={3} md>
+                      <ProductCard
+                        image1={chuck70pink}
+                        image2={chuck70pink2}
+                        title1="BEST SELLER"
+                        title2="NEW ARRIVAL"
+                        name="척 70 시즈널 캔버스"
+                        price="99,000원"
+                      />
+                    </Grid>
+                    <Grid item xs={3} md>
+                      <ProductCard
+                        image1={chuck70pink}
+                        image2={chuck70pink2}
+                        title1="BEST SELLER"
+                        title2="NEW ARRIVAL"
+                        name="척 70 시즈널 캔버스"
+                        price="99,000원"
+                      />
+                    </Grid>
+                    <Grid item xs={3} md>
+                      <ProductCard
+                        image1={chuck70pink}
+                        image2={chuck70pink2}
+                        title1="BEST SELLER"
+                        title2="NEW ARRIVAL"
+                        name="척 70 시즈널 캔버스"
+                        price="99,000원"
+                      />
+                    </Grid>
+                    <Grid item xs={3} md>
+                      <ProductCard
+                        image1={chuck70pink}
+                        image2={chuck70pink2}
+                        title1="BEST SELLER"
+                        title2="NEW ARRIVAL"
+                        name="척 70 시즈널 캔버스"
+                        price="99,000원"
+                      />
+                    </Grid>
+                  </Grid>
+                </div>
               </Grid>
             </Grid>
-          </div>
+          </Grid>
         </Grid>
       </List_Box>
     </>

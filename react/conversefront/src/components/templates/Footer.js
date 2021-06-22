@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
-import instagram_logo from "../../resources/images/facebook.png";
-import facebook_logo from "../../resources/images/instagram.png";
+import React from 'react';
+import styled from 'styled-components';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+import instagram_logo from '../../resources/images/facebook.png';
+import facebook_logo from '../../resources/images/instagram.png';
 
 const F_section = styled.div`
   width: 100%;
@@ -87,24 +87,24 @@ const Footer = () => {
     <>
       <F_section>
         <F_innersec01>
-          <Container maxWidth="xl">
+          <Container maxWidth='xl'>
             <Grid container spacing={3}>
               <Grid
                 item
                 xs={2}
                 md
                 style={{
-                  borderTop: "1px solid #e5e5e5",
-                  borderRight: "1px solid #e5e5e5",
+                  borderTop: '1px solid #e5e5e5',
+                  borderRight: '1px solid #e5e5e5',
                 }}
               >
                 <Bt_innerBox>
                   <Bt_box_title>FOLLOW US</Bt_box_title>
                   <Bt_button>
-                    <Img src={instagram_logo} alt="converse" />
+                    <Img src={instagram_logo} alt='converse' />
                   </Bt_button>
                   <Bt_button>
-                    <Img src={facebook_logo} alt="converse" />
+                    <Img src={facebook_logo} alt='converse' />
                   </Bt_button>
                 </Bt_innerBox>
               </Grid>
@@ -113,8 +113,8 @@ const Footer = () => {
                 xs={2}
                 md
                 style={{
-                  borderTop: "1px solid #e5e5e5",
-                  borderRight: "1px solid #e5e5e5",
+                  borderTop: '1px solid #e5e5e5',
+                  borderRight: '1px solid #e5e5e5',
                 }}
               >
                 <Bt_innerBox>
@@ -131,8 +131,8 @@ const Footer = () => {
                 xs={2}
                 md
                 style={{
-                  borderTop: "1px solid #e5e5e5",
-                  borderRight: "1px solid #e5e5e5",
+                  borderTop: '1px solid #e5e5e5',
+                  borderRight: '1px solid #e5e5e5',
                 }}
               >
                 <Bt_innerBox>
@@ -150,8 +150,8 @@ const Footer = () => {
                 xs={2}
                 md
                 style={{
-                  borderTop: "1px solid #e5e5e5",
-                  borderRight: "1px solid #e5e5e5",
+                  borderTop: '1px solid #e5e5e5',
+                  borderRight: '1px solid #e5e5e5',
                 }}
               >
                 <Bt_innerBox>
@@ -167,7 +167,7 @@ const Footer = () => {
                 xs={2}
                 md
                 style={{
-                  borderTop: "1px solid #e5e5e5",
+                  borderTop: '1px solid #e5e5e5',
                 }}
               >
                 <Bt_innerBox>
@@ -198,14 +198,11 @@ const Footer = () => {
                   <a>통신판매업자 신원정보 확인</a>
                 </span>
                 <br />
-                <span>
-                  주소 서울특별시 강남구 테헤란로 152 (역삼동) 강남파이낸스센터
-                  32층
-                </span>
+                <span>주소 서울특별시 강남구 테헤란로 152 (역삼동) 강남파이낸스센터 32층</span>
                 <br />
                 <span>
-                  고객상담팀: 080-987-0182 <div></div>(상담시간 월-금 : AM 09:00
-                  - PM 05:30, 주말/공휴일 휴무) |
+                  고객상담팀: 080-987-0182 <div></div>(상담시간 월-금 : AM 09:00 - PM 05:30,
+                  주말/공휴일 휴무) |
                 </span>
                 <span>
                   <a> conversekorea@converse.co.kr</a>
@@ -218,9 +215,8 @@ const Footer = () => {
               <F_innersec02_right>
                 소비자피해 보증보험
                 <br />
-                고객님은 안전거래를 위해 현금 등으로 결제시 저희 쇼핑몰에서
-                가입한 구매안전서비스 소비자피해보증보험 서비스를 이용하실 수
-                있습니다. <br />
+                고객님은 안전거래를 위해 현금 등으로 결제시 저희 쇼핑몰에서 가입한 구매안전서비스
+                소비자피해보증보험 서비스를 이용하실 수 있습니다. <br />
                 보증대상: 미배송, 반품/환불거부, 쇼핑몰 부도
                 <br />
                 <a>보증보험 가입사실 확인하기</a>
