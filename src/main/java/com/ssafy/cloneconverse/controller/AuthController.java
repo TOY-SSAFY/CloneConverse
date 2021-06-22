@@ -1,5 +1,6 @@
 package com.ssafy.cloneconverse.controller;
 
+import com.ssafy.cloneconverse.domain.repository.MemberRepository;
 import com.ssafy.cloneconverse.dto.MemberDto;
 import com.ssafy.cloneconverse.dto.TokenDto;
 import com.ssafy.cloneconverse.jwt.JwtFilter;
@@ -14,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -21,14 +24,16 @@ import javax.validation.Valid;
 public class AuthController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final MemberRepository memberRepository;
 
-    public AuthController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder) {
+    public AuthController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, MemberRepository memberRepository) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
+        this.memberRepository = memberRepository;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> authorize(@Valid @RequestBody MemberDto member) {
+    public Object authorize(@Valid @RequestBody MemberDto member) {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(member.getEmail(), member.getPassword());
 
@@ -40,6 +45,9 @@ public class AuthController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
+        Map<String, Object> map = new HashMap<>();
+//        map.put("Token", new TokenDto(jwt));
+//        map.put("member", memberRepository.findByEmail())
         return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
     }
 }
