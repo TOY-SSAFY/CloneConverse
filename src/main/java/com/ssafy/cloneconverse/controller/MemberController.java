@@ -1,12 +1,14 @@
 package com.ssafy.cloneconverse.controller;
 
-import com.ssafy.cloneconverse.domain.entity.Member;
 import com.ssafy.cloneconverse.dto.MemberDto;
 import com.ssafy.cloneconverse.service.AuthorityService;
 import com.ssafy.cloneconverse.service.MemberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -23,30 +25,39 @@ public class MemberController {
 
     //  회원가입
     @PostMapping("/join")
-    public void join(@RequestBody MemberDto memberDto) {
-        memberService.joinMember(memberDto);
+    public Object join(@RequestBody MemberDto memberDto) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("member", memberService.joinMember(memberDto));
+        return map;
     }
 
     @PostMapping("/update")
-    public void update(@RequestBody MemberDto param){
-        memberService.updateMember(param);
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public Object update(@RequestBody MemberDto param){
+        Map<String, Object> map = new HashMap<>();
+        map.put("member", memberService.updateMember(param));
+        return map;
     }
 
     @GetMapping("/read")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public ResponseEntity<Member> readMember(){
-        return ResponseEntity.ok(authorityService.getMyMemberWithAuthorities().get());
+    public Object readMember(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("member", ResponseEntity.ok(authorityService.getMyMemberWithAuthorities()));
+        return map;
     }
 
     @GetMapping("/read/{email}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<Member> readMember(@PathVariable String email){
-        return ResponseEntity.ok(authorityService.getMemberWithAuthorities(email).get());
+    public Object readMember(@PathVariable String email){
+        Map<String, Object> map = new HashMap<>();
+        map.put("member", ResponseEntity.ok(authorityService.getMemberWithAuthorities(email)));
+        return map;
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/{email}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public void deleteMember(@RequestBody MemberDto param){
-        memberService.deleteMember(param);
+    public void deleteMember(@PathVariable String email){
+        memberService.deleteMember(email);
     }
 }

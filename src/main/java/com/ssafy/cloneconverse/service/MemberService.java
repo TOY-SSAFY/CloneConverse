@@ -21,9 +21,9 @@ public class MemberService {
     }
 
     @Transactional
-    public void joinMember(MemberDto memberDto) {
+    public Member joinMember(MemberDto memberDto) {
         memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
-        memberRepository.save(dtoToEntity(memberDto));
+        return memberRepository.save(dtoToEntity(memberDto));
     }
     @Transactional
     public MemberDto readMember(MemberDto param) {
@@ -32,7 +32,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void updateMember(MemberDto param) {
+    public Member updateMember(MemberDto param) {
         Member member = memberRepository.findByEmail(param.getEmail()).get();
         // 이거 원래 이렇게 다 체크해줘야함??
         if(param.getId() == null) param.setId(member.getId());
@@ -41,11 +41,11 @@ public class MemberService {
         if(param.getPhone() == null) param.setPhone(member.getPhone());
         if(param.getBday() == null) param.setBday(member.getBday());
         if(param.getGender() == null) param.setGender(member.getGender());
-        memberRepository.save(new Member(param.getId(), param.getEmail(), param.getPassword(), param.getName(), param.getPhone(), param.getBday(), param.getGender()));
+        return memberRepository.save(new Member(param.getId(), param.getEmail(), param.getPassword(), param.getName(), param.getPhone(), param.getBday(), param.getGender()));
     }
     @Transactional
-    public void deleteMember(MemberDto param) {
-        memberRepository.delete(memberRepository.findByEmail(param.getEmail()).get());
+    public void deleteMember(String email) {
+        memberRepository.delete(this.memberRepository.findByEmail(email).get());
     }
 
     public Member dtoToEntity(MemberDto memberDto){

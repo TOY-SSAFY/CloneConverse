@@ -6,8 +6,6 @@ import com.ssafy.cloneconverse.dto.TokenDto;
 import com.ssafy.cloneconverse.jwt.JwtFilter;
 import com.ssafy.cloneconverse.jwt.TokenProvider;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -46,8 +44,8 @@ public class AuthController {
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
         Map<String, Object> map = new HashMap<>();
-//        map.put("Token", new TokenDto(jwt));
-//        map.put("member", memberRepository.findByEmail())
-        return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
+        map.put("Token", new TokenDto(jwt));
+        map.put("member", memberRepository.findByEmail(member.getEmail()));
+        return map;
     }
 }
