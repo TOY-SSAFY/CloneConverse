@@ -31,20 +31,14 @@ public class AuthController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<TokenDto> authorize(@Valid @RequestBody MemberDto member) {
-        System.out.println("authenticate controller");
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(member.getEmail(), member.getPassword());
 
-        System.out.println("authenticationToken: "+ authenticationToken);
-
         // 여기서 CustomUserDetailsService - loadUserByUserName 실행
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        System.out.println("autentication: " + authentication);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        System.out.println("SecurityContextHolder set");
 
         String jwt = tokenProvider.createToken(authentication);
-        System.out.println("jwt: " + jwt);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 

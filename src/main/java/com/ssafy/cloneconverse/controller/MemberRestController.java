@@ -2,13 +2,11 @@ package com.ssafy.cloneconverse.controller;
 
 import com.ssafy.cloneconverse.dto.MemberDto;
 import com.ssafy.cloneconverse.service.MemberService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/member")
 public class MemberRestController {
 
     private final MemberService memberService;
@@ -17,13 +15,13 @@ public class MemberRestController {
         this.memberService = memberService;
     }
 
-    // 회원가입
-//    @PostMapping("/join")
-//    public ResponseEntity<User> join(@RequestBody MemberDto memberDto) {
-//        return ResponseEntity.ok(memberService.joinMember(memberDto));
-//    }
+//  회원가입
+    @PostMapping("/join")
+    public void join(@RequestBody MemberDto memberDto) {
+        memberService.joinMember(memberDto);
+    }
 
-    // 로그인
+//  로그인
 //    @PostMapping("/login")
 //    public String login(@RequestBody MemberDto param) {
 //        return memberService.login(param);

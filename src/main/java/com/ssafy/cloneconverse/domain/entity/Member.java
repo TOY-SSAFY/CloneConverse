@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.Set;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -48,6 +49,12 @@ public class Member {
 
     @Builder
     public Member(Long id, String email, String password, String name, String phone, String bday, String gender) {
+
+        this(id, email, password, name, phone, bday, gender, false, Collections.singleton(Authority.builder().authorityName("ROLE_USER").build()));
+    }
+
+    @Builder
+    public Member(Long id, String email, String password, String name, String phone, String bday, String gender, boolean activated, Set<Authority> authorities) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -55,5 +62,7 @@ public class Member {
         this.phone = phone;
         this.bday = bday;
         this.gender = gender;
+        this.activated = activated;
+        this.authorities = authorities;
     }
 }

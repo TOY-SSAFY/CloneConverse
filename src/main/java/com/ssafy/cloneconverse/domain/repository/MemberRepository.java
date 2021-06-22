@@ -12,4 +12,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @EntityGraph(attributePaths = "authorities")
     Optional<Member> findOneWithAuthoritiesByEmail(String email);
     Optional<Member> findByEmail(String email);
+    Member save(Member member);
 }
