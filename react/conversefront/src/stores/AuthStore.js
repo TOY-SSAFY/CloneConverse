@@ -13,8 +13,11 @@ const authStore = observable({
       email: email,
       password: password,
     };
+    console.log("data", data);
 
-    this.token = await axiosApi("/login", "POST", data);
+    this.token = await axiosApi("/auth/login", "POST", data);
+    localStorage.setItem("userinfo", this.token);
+    // window.location.href("/");
     console.log(this.token);
   },
 });

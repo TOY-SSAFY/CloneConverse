@@ -227,18 +227,10 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: "100%",
     flexShrink: 0,
-    // overflowY: "auto",
-    // display: "flex",
-    // flexWrap: "wrap",
-    // flexDirection: "row",
   },
   drawer2: {
     width: "100%",
     flexShrink: 0,
-    // overflowY: "auto",
-    // display: "flex",
-    // flexWrap: "wrap",
-    // flexDirection: "row",
   },
   drawerPaper: {
     width: "100%",
@@ -298,6 +290,9 @@ const NavBar = (props) => {
       setLeftOpen(true);
     }
   };
+  const MoveMyPage = () => {
+    window.location.href = "/login";
+  };
   const MoveHome = () => {
     window.location.href = "/";
   };
@@ -307,11 +302,8 @@ const NavBar = (props) => {
       <ElevationScroll {...props}>
         <AppBar
           style={{
-            // "box-shadow": "none",
             "background-color": "white",
             color: "black",
-            // "top": "70px"
-            // "position": `${appBarPosition}`
           }}
         >
           <Toolbar
@@ -340,6 +332,7 @@ const NavBar = (props) => {
                 <MenuList>
                   <PersonOutlineOutlinedIcon
                     style={{ verticalAlign: "middle", fontSize: "20px" }}
+                    onClick={MoveMyPage}
                   />
                 </MenuList>
                 <MenuList>

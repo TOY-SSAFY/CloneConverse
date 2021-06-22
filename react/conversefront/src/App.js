@@ -1,11 +1,12 @@
-import './App.css';
-import { Footer, Header } from './components/templates';
-import Routes from './pages/Routes';
+import "./App.css";
+import { Footer, Header } from "./components/templates";
+import Routes from "./pages/Routes";
+import PrivateRoute from "./helpers/PrivateRoute";
 
 function App() {
   return (
     <div className="App">
-      <Header/>
+      <Header />
       <Routes />
       <Footer />
     </div>

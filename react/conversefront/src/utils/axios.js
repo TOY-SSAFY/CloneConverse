@@ -10,6 +10,7 @@ const apiHandler = axios.create({
   headers: {
     Accept: "application/json",
     "Content-type": "application/json",
+    "Access-Control-Allow-Origin": "*",
   },
   validateStatus: (status) => {
     return status >= 200 && status < 300;
