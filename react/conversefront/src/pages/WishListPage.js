@@ -1,14 +1,12 @@
-import React from 'react';
-import { WishListContent } from '../components/templates';
-import Container from '@material-ui/core/Container';
+import React from "react";
+import { WishListContent } from "../components/templates";
+import Container from "@material-ui/core/Container";
 
 const WishListPage = () => {
   return (
-    <>
-      <Container maxWidth='xl' style={{ flexDirection: 'column' }}>
-        <WishListContent />
-      </Container>
-    </>
+    <Container maxWidth="xl" style={{ flexDirection: "column" }}>
+      <WishListContent />
+    </Container>
   );
 };
 
