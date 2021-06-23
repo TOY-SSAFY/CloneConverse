@@ -29,7 +29,7 @@ public class ShoesRepositoryImpl implements ShoesRepository{
                 .offset(page-1).limit(pagingSize)
                 .fetch();
         for (ShoesColor shoesColor : temp) {
-            result.add(new ShoesDto(shoesColor.getShoes(), shoesColor));
+            result.add(new ShoesDto(shoesColor.getShoes(), shoesColor.getColor(), shoesColor));
         }
         return result;
     }
