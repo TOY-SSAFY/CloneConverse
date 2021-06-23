@@ -291,7 +291,10 @@ const NavBar = (props) => {
     }
   };
   const MoveMyPage = () => {
-    window.location.href = "/login";
+    window.location.href = "/wishlist";
+  };
+  const MoveBasket = () => {
+    window.location.href = "/BasketPage";
   };
   const MoveHome = () => {
     window.location.href = "/";
@@ -338,11 +341,13 @@ const NavBar = (props) => {
                 <MenuList>
                   <ShoppingCartOutlinedIcon
                     style={{ verticalAlign: "middle", fontSize: "20px" }}
+                    onClick={MoveBasket}
                   />
                 </MenuList>
                 <MenuList>
                   <FavoriteBorderOutlinedIcon
                     style={{ verticalAlign: "middle", fontSize: "20px" }}
+                    onClick={MoveMyPage}
                   />
                 </MenuList>
                 <MenuList>
