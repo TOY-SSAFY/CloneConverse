@@ -3,8 +3,6 @@ package com.ssafy.cloneconverse.dto;
 import com.ssafy.cloneconverse.domain.entity.Member;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @ToString
@@ -17,8 +15,6 @@ public class MemberDto {
     private String phone;
     private String bday;
     private String gender;
-    private LocalDateTime createdDate;
-    private LocalDateTime modifiedDate;
 
     public Member toEntity(){
         return Member.builder()
@@ -53,8 +49,6 @@ public class MemberDto {
                 ", phone='" + phone + '\'' +
                 ", bday='" + bday + '\'' +
                 ", gender='" + gender + '\'' +
-                ", createdDate=" + createdDate +
-                ", modifiedDate=" + modifiedDate +
                 '}';
     }
 }

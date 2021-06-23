@@ -37,6 +37,11 @@ public class Shoes {
 //    List<ShoesColors> shoesColors = new ArrayList<>();
 
     public Shoes() {}
+
+    public Shoes(String shoesName, String shoesType, String shoesSilhouette, String shoesCategory, String shoesPrice) {
+        this(shoesName, shoesType, shoesSilhouette, shoesCategory, shoesPrice, LocalDateTime.now());
+    }
+
     public Shoes(String shoesName, String shoesType, String shoesSilhouette, String shoesCategory, String shoesPrice, LocalDateTime shoesReleaseDate){
         this.shoesName = shoesName;
         this.shoesType = shoesType;
@@ -44,5 +49,18 @@ public class Shoes {
         this.shoesCategory = shoesCategory;
         this.shoesPrice = shoesPrice;
         this.shoesReleaseDate = shoesReleaseDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Shoes{" +
+                "id=" + id +
+                ", shoesName='" + shoesName + '\'' +
+                ", shoesType='" + shoesType + '\'' +
+                ", shoesSilhouette='" + shoesSilhouette + '\'' +
+                ", shoesCategory='" + shoesCategory + '\'' +
+                ", shoesPrice='" + shoesPrice + '\'' +
+                ", shoesReleaseDate=" + shoesReleaseDate +
+                '}';
     }
 }

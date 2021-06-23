@@ -35,4 +35,15 @@ public class ShoesColor {
         this.imagePath = imagePath;
         this.imageName = imageName;
     }
+
+    @Override
+    public String toString() {
+        return "ShoesColor{" +
+                "id=" + id +
+                ", shoes=" + shoes +
+                ", color=" + color +
+                ", imagePath='" + imagePath + '\'' +
+                ", imageName='" + imageName + '\'' +
+                '}';
+    }
 }
