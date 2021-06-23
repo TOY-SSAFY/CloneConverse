@@ -37,6 +37,9 @@ public class MemberService {
         // 이거 원래 이렇게 다 체크해줘야함??
         if(param.getId() == null) param.setId(member.getId());
         if(param.getPassword() == null) param.setPassword(member.getPassword());
+        else{
+            param.setPassword(passwordEncoder.encode(param.getPassword()));
+        }
         if(param.getName() == null) param.setName(member.getName());
         if(param.getPhone() == null) param.setPhone(member.getPhone());
         if(param.getBday() == null) param.setBday(member.getBday());
