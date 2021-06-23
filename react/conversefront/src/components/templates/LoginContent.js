@@ -71,10 +71,10 @@ const LoginContent = () => {
     setState({ ...state, [event.target.name]: event.target.value });
     console.log(state);
   };
-  const LoginClick = () => {
+  const LoginClick = async () => {
     alert("로그인");
     // console.log(email);
-    authStore.login(state.email, state.password);
+    await authStore.login(state.email, state.password);
     console.log("token", authStore.token);
   };
   return (

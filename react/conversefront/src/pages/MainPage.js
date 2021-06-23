@@ -1,15 +1,18 @@
 import React from "react";
-import {MainContent} from "../components/templates";
+import { Header, Footer, MainContent } from "../components/templates";
 import Container from "@material-ui/core/Container";
+import { withRouter } from "react-router-dom";
 
-const MainPage = () => {
+const MainPage = ({ history }) => {
   return (
     <>
       <Container maxWidth="xl" style={{ flexDirection: "column" }}>
+        <Header history />
         <MainContent />
+        <Footer />
       </Container>
     </>
   );
 };
 
-export default MainPage;
+export default withRouter(MainPage);

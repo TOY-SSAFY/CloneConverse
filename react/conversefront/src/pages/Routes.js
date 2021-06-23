@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "../helpers/PrivateRoute";
 import {
   MainPage,
@@ -13,12 +13,14 @@ import {
 export default () => {
   return (
     <Router>
-      <Route exact path="/" component={MainPage} />
-      <Route exact path="/category/shoes" component={ShoePage} />
-      <PrivateRoute exact path="/BasketPage" component={BasketPage} />
-      <Route exact path="/test" component={Test} />
-      <Route exact path="/login" component={LoginPage} />
-      <PrivateRoute exact path="/wishlist" component={WishListPage} />
+      <Switch>
+        <Route exact path="/category/shoes" component={ShoePage} />
+        <PrivateRoute exact path="/BasketPage" component={BasketPage} />
+        <Route exact path="/test" component={Test} />
+        <Route exact path="/login" component={LoginPage} />
+        <PrivateRoute exact path="/wishlist" component={WishListPage} />
+        <Route exact path="/" component={MainPage} />
+      </Switch>
     </Router>
   );
 };

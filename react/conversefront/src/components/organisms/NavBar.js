@@ -26,6 +26,7 @@ import Container from "@material-ui/core/Container";
 import converseDance from "../../resources/videos/conversedance.mp4";
 import TextField from "@material-ui/core/TextField";
 import "../../styles/Headers/NavBar.scss";
+import { Link } from "react-router-dom";
 
 const FlexBox = styled.div`
   display: flex;
@@ -253,6 +254,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NavBar = (props) => {
+  const { history } = props;
   function ElevationScroll(props) {
     const { children, window } = props;
     const trigger = useScrollTrigger({
@@ -291,7 +293,11 @@ const NavBar = (props) => {
     }
   };
   const MoveMyPage = () => {
-    window.location.href = "/wishlist";
+    // const location = useLocation();
+    // console.log(location);
+    console.log(history);
+    // history.push("/wishlist");
+    // window.location.href = "/wishlist";
   };
   const MoveBasket = () => {
     window.location.href = "/BasketPage";
@@ -333,27 +339,32 @@ const NavBar = (props) => {
             <FlexBox>
               <RowBox style={{ marginRight: "10px" }}>
                 <MenuList>
-                  <PersonOutlineOutlinedIcon
-                    style={{ verticalAlign: "middle", fontSize: "20px" }}
-                    onClick={MoveMyPage}
-                  />
+                  <Link to="/login">
+                    <PersonOutlineOutlinedIcon
+                      style={{ verticalAlign: "middle", fontSize: "20px" }}
+                    />
+                  </Link>
                 </MenuList>
                 <MenuList>
-                  <ShoppingCartOutlinedIcon
-                    style={{ verticalAlign: "middle", fontSize: "20px" }}
-                    onClick={MoveBasket}
-                  />
+                  <Link to="/BasketPage">
+                    <ShoppingCartOutlinedIcon
+                      style={{ verticalAlign: "middle", fontSize: "20px" }}
+                    />
+                  </Link>
                 </MenuList>
                 <MenuList>
-                  <FavoriteBorderOutlinedIcon
-                    style={{ verticalAlign: "middle", fontSize: "20px" }}
-                    onClick={MoveMyPage}
-                  />
+                  <Link to="/wishlist">
+                    <FavoriteBorderOutlinedIcon
+                      style={{ verticalAlign: "middle", fontSize: "20px" }}
+                    />
+                  </Link>
                 </MenuList>
                 <MenuList>
-                  <HelpOutlineOutlinedIcon
-                    style={{ verticalAlign: "middle", fontSize: "20px" }}
-                  />
+                  <Link to="/wishlist">
+                    <HelpOutlineOutlinedIcon
+                      style={{ verticalAlign: "middle", fontSize: "20px" }}
+                    />
+                  </Link>
                 </MenuList>
               </RowBox>
               <SearchBox onClick={SearchClick} id="topSearch">
@@ -392,9 +403,9 @@ const NavBar = (props) => {
         <LeftDrawer_Box>
           <LeftDrawer_ul>
             <LeftDrawer_ol>
-              <LeftDrawer_list href={"/category/shoes"}>
-                전체보기
-              </LeftDrawer_list>
+              <Link to="/category/shoes" style={{ textDecoration: "none" }}>
+                <LeftDrawer_list>전체보기</LeftDrawer_list>
+              </Link>
             </LeftDrawer_ol>
             <LeftDrawer_ol>
               <LeftDrawer_list>베스트셀러</LeftDrawer_list>
