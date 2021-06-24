@@ -22,10 +22,10 @@ public class ShoesColor {
     @JoinColumn(name = "color_id")
     private Color color;
 
-    @Column(length = 30, name = "image_path")
+    @Column(name = "image_path")
     private String imagePath;
 
-    @Column(length = 30, name = "image_name")
+    @Column(length = 50, name = "image_name")
     private String imageName;
 
     public ShoesColor() {}

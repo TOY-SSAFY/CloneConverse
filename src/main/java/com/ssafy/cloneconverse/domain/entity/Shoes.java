@@ -27,7 +27,7 @@ public class Shoes {
     private String shoesCategory;
 
     @Column(length = 30, nullable = false, name = "shoes_price")
-    private String shoesPrice;
+    private Integer shoesPrice;
 
     @Column(nullable = false, name = "shoes_release_date")
     private LocalDateTime shoesReleaseDate;
@@ -38,11 +38,11 @@ public class Shoes {
 
     public Shoes() {}
 
-    public Shoes(String shoesName, String shoesType, String shoesSilhouette, String shoesCategory, String shoesPrice) {
+    public Shoes(String shoesName, String shoesType, String shoesSilhouette, String shoesCategory, Integer shoesPrice) {
         this(shoesName, shoesType, shoesSilhouette, shoesCategory, shoesPrice, LocalDateTime.now());
     }
 
-    public Shoes(String shoesName, String shoesType, String shoesSilhouette, String shoesCategory, String shoesPrice, LocalDateTime shoesReleaseDate){
+    public Shoes(String shoesName, String shoesType, String shoesSilhouette, String shoesCategory, Integer shoesPrice, LocalDateTime shoesReleaseDate){
         this.shoesName = shoesName;
         this.shoesType = shoesType;
         this.shoesSilhouette = shoesSilhouette;

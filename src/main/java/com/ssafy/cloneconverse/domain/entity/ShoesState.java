@@ -26,4 +26,13 @@ public class ShoesState {
         this.shoes = shoes;
         this.state = state;
     }
+
+    @Override
+    public String toString() {
+        return "ShoesState{" +
+                "id=" + id +
+                ", shoes=" + shoes +
+                ", state=" + state +
+                '}';
+    }
 }
