@@ -1,5 +1,6 @@
 package com.ssafy.cloneconverse.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class Member {
     @Column(length = 30, nullable = false, unique = true)
     private String email;
 
+    @JsonIgnore
     @Column(length = 100, nullable = false)
     private String password;
 

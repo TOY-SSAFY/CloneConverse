@@ -12,12 +12,10 @@ import javax.transaction.Transactional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final AuthorityService authorityService;
 
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, AuthorityService authorityService) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
-        this.authorityService = authorityService;
     }
 
     @Transactional

@@ -30,7 +30,7 @@ public class BasketService {
         Optional<Member> memberEntity = memberRepository.findById(member_id);
         Member member = memberEntity.get();
 
-        Shoes shoes = shoesRepository.findById(shoes_id).get();
+        Shoes shoes = shoesRepository.findById(shoes_id);
         ShoesColor shoescolor = shoesColorRepository.findShoesColor(shoes.getId(), color_id).get();
         ShoesColorSize shoesColorSize = shoesColorSizeRepository.findShoesColorSize(shoescolor.getId(), size_id).get();
 
@@ -78,8 +78,7 @@ public class BasketService {
         Optional<BasketItem> basketEntity = basketItemRepository.findById(id);
 
         basketEntity.ifPresent(selectItem -> {
-            Optional<Shoes> shoesEntity = shoesRepository.findById(shoes_id);
-            Shoes shoes = shoesEntity.get();
+            Shoes shoes = shoesRepository.findById(shoes_id);
             Optional<ShoesColor> shoescolorEntity = shoesColorRepository.findShoesColor(shoes.getId(), color_id);
             ShoesColorSize shoesColorSize = shoesColorSizeRepository.findShoesColorSize(shoescolorEntity.get().getId(), size_id).get();
 

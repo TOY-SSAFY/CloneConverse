@@ -17,4 +17,11 @@ public class Color {
     public Color(String id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Color{" +
+                "id='" + id + '\'' +
+                '}';
+    }
 }

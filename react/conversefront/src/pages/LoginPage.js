@@ -1,13 +1,15 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
 
-import { LoginContent } from "../components/templates";
+import { Header, Footer, LoginContent } from "../components/templates";
 
 const LoginPage = () => {
   return (
     <>
       <Container maxWidth="xl" style={{ flexDirection: "column" }}>
-        <LoginContent></LoginContent>
+        <Header />
+        <LoginContent />
+        <Footer />
       </Container>
     </>
   );
