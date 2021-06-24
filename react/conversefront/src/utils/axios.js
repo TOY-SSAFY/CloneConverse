@@ -1,10 +1,13 @@
 import axios from "axios";
+import store from "../stores";
 
 /***********************************************************************
  * MobX 통신
  ***********************************************************************/
 
 const SERVER_URL = "http://localhost:8080";
+
+// const { authStore } = store();
 
 const apiHandler = axios.create({
   headers: {
@@ -86,10 +89,11 @@ export async function axiosApi(
 }
 
 export const createAxiosApiAuth =
-  (stores) =>
+  (token) =>
   async (url, method = "GET", data, options) => {
+    console.log("createAxiosApiAuth in", store);
     const _options = {
-      headers: { Authorization: stores.authStore.token },
+      headers: { Authorization: token },
       ...options,
     };
     return axiosApi(url, method, data, _options);

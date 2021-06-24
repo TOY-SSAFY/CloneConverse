@@ -1,13 +1,14 @@
-import React from 'react'
-import { NavBar, NoticeBar } from '../organisms'
+import React from "react";
+import { NavBar, NoticeBar } from "../organisms";
+import { withRouter } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ location, history }) => {
   return (
     <>
       <NoticeBar />
-      <NavBar/>
+      <NavBar />
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default withRouter(Header);

@@ -14,6 +14,10 @@ const authStore = observable({
     phone: "1",
   },
 
+  get getToken() {
+    return this.token;
+  },
+
   async login(email, password) {
     const data = {
       email: email,
@@ -23,7 +27,9 @@ const authStore = observable({
 
     const response = await axiosApi("/auth/login", "POST", data);
     this.user = response.data.result.member;
-    this.token = response.data.result.Token.token;
+    this.token = "Bearer " + response.data.result.Token.token;
+    console.log("login in token", this.token);
+
     localStorage.clear();
     sessionStorage.setItem("userinfo", response.data.result.member);
     sessionStorage.setItem("token", response.data.result.Token.token);

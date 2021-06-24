@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { observer } from "mobx-react";
 import styled from "styled-components";
 import "../../styles/Headers/CategoryFilter.scss";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -16,6 +17,7 @@ import chuck70mint from "../../resources/images/chuck_70_seasonal_canvas_mint.jp
 import chuck70mint2 from "../../resources/images/chuck_70_seasonal_canvas_mint2.jpg";
 import chuck70poster from "../../resources/images/chuck70_seasonal_canvas_poster.jpg";
 import { ProductCard, VideoCard, PosterCard } from "../molecules";
+import store from "../../stores";
 
 const List_Box = styled.div`
   display: flex;
@@ -226,7 +228,8 @@ const Filter_List_Img = styled.img`
   color: #000;
 `;
 
-const CategoryFilter = () => {
+const CategoryFilter = observer(() => {
+  const { shoeStore, authStore } = store();
   const [state, setState] = React.useState({
     man: false,
     woman: false,
@@ -246,6 +249,16 @@ const CategoryFilter = () => {
     document.querySelector("#rcontent").classList.toggle("over");
     document.querySelector("#lcontent").classList.toggle("over");
   };
+
+  useEffect(async () => {
+    console.log("authStore token", authStore.token);
+    console.log("sessionStorage", sessionStorage.getItem("token"));
+    await shoeStore.getShoesList(
+      "bearer " + sessionStorage.getItem("token"),
+      1
+    );
+    console.log("authStore", authStore);
+  });
 
   return (
     <>
@@ -649,6 +662,6 @@ const CategoryFilter = () => {
       </List_Box>
     </>
   );
-};
+});
 
 export default CategoryFilter;
