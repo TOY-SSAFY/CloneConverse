@@ -47,6 +47,10 @@ public class Member {
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
     private Set<Authority> authorities;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "basket_id")
+    private Basket basket;
+
     @Builder
     public Member(Long id, String email, String password, String name, String phone, String bday, String gender) {
         this(id, email, password, name, phone, bday, gender, true, Collections.singleton(Authority.builder().authorityName("ROLE_USER").build()));
@@ -63,5 +67,11 @@ public class Member {
         this.gender = gender;
         this.activated = activated;
         this.authorities = authorities;
+    }
+
+    public Basket addBasket(){
+        Basket basket = new Basket();
+        this.basket = basket;
+        return this.basket;
     }
 }

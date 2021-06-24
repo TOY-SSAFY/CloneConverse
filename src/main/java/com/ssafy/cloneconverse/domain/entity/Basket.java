@@ -3,8 +3,9 @@ package com.ssafy.cloneconverse.domain.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
 @Entity
@@ -12,19 +13,18 @@ import javax.persistence.*;
 public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "basket_id")
     private Long id;
 
-    @Column(length = 30, nullable = false)
-    private String userid;
+    @OneToMany(mappedBy = "basket")
+    private Set<BasketItem> basketList = new HashSet<>();
 
-    @Column(length = 100, nullable = false)
-    private String item;
-
+    public Basket() {
+    }
 
     @Builder
-    public Basket(Long id, String userid, String item) {
+    public Basket(Long id, Set<BasketItem> basketList) {
         this.id = id;
-        this.userid = userid;
-        this.item = item;
+        this.basketList = basketList;
     }
 }

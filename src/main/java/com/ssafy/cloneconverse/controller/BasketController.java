@@ -1,11 +1,14 @@
 package com.ssafy.cloneconverse.controller;
 
+import com.ssafy.cloneconverse.configuration.response.ErrorResponse;
 import com.ssafy.cloneconverse.domain.entity.Basket;
 import com.ssafy.cloneconverse.dto.BasketDto;
 import com.ssafy.cloneconverse.service.BasketService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin
@@ -21,25 +24,31 @@ public class BasketController {
 
     // 장바구니 추가
     @PostMapping("/add")
-    public Long addItem(@RequestBody BasketDto basketDto) {
-        return basketService.addItem(basketDto);
+    public Object addItem(@RequestParam Long member_id, @RequestParam Long shoes_id, @RequestParam String color_id, @RequestParam Integer size_id, @RequestParam Integer quantity) {
+        basketService.addItem(member_id, shoes_id, color_id, size_id, quantity);
+        return 1;
     }
 
     // 장바구니 삭제
     @PostMapping("/delete")
-    public void deleteItem(@RequestParam Long id) {
+    public Object  deleteItem(@RequestParam Long id) {
         basketService.deleteItem(id);
+        return 1;
     }
 
     // 장바구니 수정
     @PostMapping("/update")
-    public Optional<Basket> updateItem(@RequestBody BasketDto basketDto, @RequestParam Long id){
-        return basketService.updateItem(basketDto, id);
+    public Object updateItem(@RequestParam Long item_id, @RequestParam Long shoes_id, @RequestParam String color_id, @RequestParam Integer size_id, @RequestParam Integer quantity){
+        basketService.updateItem(item_id, shoes_id, color_id, size_id, quantity);
+        return 1;
     }
 
     // 장바구니 조회
     @GetMapping("/list")
-    public List<Basket> allItems(){
-        return basketService.allItems();
+    public Object allItems(@RequestParam Long member_id){
+        Map<String, Object> map = new HashMap<>();
+        map.put("basket", basketService.allItems(member_id));
+        return map;
     }
+
 }
