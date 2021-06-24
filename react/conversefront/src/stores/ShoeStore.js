@@ -13,9 +13,14 @@ const shoeStore = observable({
   },
 
   async getShoesList(token, pageNo) {
-    const apiAuth = await createAxiosApiAuth(token);
-    const response = apiAuth("/shoes", "GET", pageNo);
+    const apiAuth = createAxiosApiAuth(token);
+    const data = {
+      pageno: pageNo,
+    };
+    const response = await apiAuth("/shoes", "GET", data);
     console.log("response", response);
+    this.shoesList = response.data.result.shoesList;
+    console.log("response shoeList", response.data.result.shoesList);
 
     // const response = await axiosApi("/auth/login", "POST", data);
     // this.user = response.data.result.member;
