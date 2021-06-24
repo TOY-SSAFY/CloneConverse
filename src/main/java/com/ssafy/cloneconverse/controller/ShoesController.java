@@ -4,10 +4,7 @@ import com.ssafy.cloneconverse.dto.MemberDto;
 import com.ssafy.cloneconverse.dto.ShoesDto;
 import com.ssafy.cloneconverse.service.ShoesService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,14 +26,16 @@ public class ShoesController {
     // 임시 test
     @GetMapping("/test")
     public Object test(){
+
         return new MemberDto();
+
     }
 
     // /shoes/시작페이지 넘겨주면 신발 20개씩 가져옴
-    @GetMapping("{page}")
-    public Object getShoesList(@PathVariable Integer page){
+    @GetMapping
+    public Object getShoesList(@RequestParam Map<String, String> param){
         Map<String, List<ShoesDto>> map = new HashMap<>();
-        map.put("shoesList", shoesService.getShoesList(page, pagingSize));
+        map.put("shoesList", shoesService.getShoesList(Integer.parseInt(param.get("pageno")), pagingSize));
         return map;
     }
 
