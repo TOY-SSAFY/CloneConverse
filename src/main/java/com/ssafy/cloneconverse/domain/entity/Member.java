@@ -54,6 +54,13 @@ public class Member {
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
+    //    Member는 하나의 Wishlist만 가질 수 있고, Wishlist 또한 여러 명의 Member가 함께 사용할 수 없다.
+//    따라서 일대일 매핑으로 처리한다.
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "wishlist_id")
+    private Wishlist wishlist;
+
     @Builder
     public Member(Long id, String email, String password, String name, String phone, String bday, String gender) {
         this(id, email, password, name, phone, bday, gender, true, Collections.singleton(Authority.builder().authorityName("ROLE_USER").build()));
@@ -72,9 +79,16 @@ public class Member {
         this.authorities = authorities;
     }
 
-    public Basket addBasket(){
+    public Basket addBasket() {
         Basket basket = new Basket();
         this.basket = basket;
         return this.basket;
+    }
+
+    // 멤버 한 명당 위시리스트 한 개 만들기
+    public Wishlist addWishlist() {
+        Wishlist wishlist = new Wishlist();
+        this.wishlist = wishlist;
+        return this.wishlist;
     }
 }

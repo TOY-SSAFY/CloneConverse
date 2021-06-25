@@ -115,7 +115,7 @@ const MyPageBar = () => {
                     <Link href="/">상품 리뷰</Link>
                   </MyPage_Side_Ol>
                   <MyPage_Side_Ol>
-                    <Link href="/wishlist">위시리스트</Link>
+                    <Link href="/wish">위시리스트</Link>
                   </MyPage_Side_Ol>
                   <MyPage_Side_Ol>
                     <Link href="/">1 : 1 문의</Link>
