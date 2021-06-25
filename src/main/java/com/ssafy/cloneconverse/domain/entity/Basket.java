@@ -1,7 +1,9 @@
 package com.ssafy.cloneconverse.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import lombok.*;
+import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -17,7 +19,6 @@ public class Basket {
     @Column(name = "basket_id")
     private Long id;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "basket")
     private Set<BasketItem> basketList = new HashSet<>();
 
@@ -29,4 +30,6 @@ public class Basket {
         this.id = id;
         this.basketList = basketList;
     }
+
+
 }
