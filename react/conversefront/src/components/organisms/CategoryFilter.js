@@ -227,9 +227,11 @@ const Filter_List_Img = styled.img`
   height: 30px;
   color: #000;
 `;
+const baseImgURL = "/assets/";
 
 const CategoryFilter = observer(() => {
   const { shoeStore, authStore } = store();
+  let arr = [];
   const [state, setState] = React.useState({
     man: false,
     woman: false,
@@ -250,15 +252,19 @@ const CategoryFilter = observer(() => {
     document.querySelector("#lcontent").classList.toggle("over");
   };
 
+  // const shoesComponentList = shoeStore.shoesList.map((shoe, index) => {
+  //   return <li key={index}>{shoe.shoesName}</li>;
+  // });
+
   useEffect(async () => {
-    console.log("authStore token", authStore.token);
-    console.log("sessionStorage", sessionStorage.getItem("token"));
     await shoeStore.getShoesList(
       "bearer " + sessionStorage.getItem("token"),
       1
     );
-    console.log("authStore", authStore);
-  });
+    console.log("shoeStore.shoesList", shoeStore.shoesList);
+    arr = shoeStore.shoesList;
+    console.log("arr", arr);
+  }, []);
 
   return (
     <>
@@ -613,48 +619,21 @@ const CategoryFilter = observer(() => {
               <Grid item xs={10} id="rcontent">
                 <div id="mcontent">
                   <Grid container spacing={3}>
-                    <Grid item xs={3} md>
-                      <ProductCard
-                        image1={chuck70pink}
-                        image2={chuck70pink2}
-                        title1="BEST SELLER"
-                        title2="NEW ARRIVAL"
-                        name="척 70 시즈널 캔버스"
-                        price="99,000원"
-                      />
-                    </Grid>
-                    <Grid item xs={3} md>
-                      <ProductCard
-                        image1={chuck70pink}
-                        image2={chuck70pink2}
-                        title1="BEST SELLER"
-                        title2="NEW ARRIVAL"
-                        name="척 70 시즈널 캔버스"
-                        price="99,000원"
-                      />
-                    </Grid>
-                    <Grid item xs={3} md>
-                      <ProductCard
-                        image1={chuck70pink}
-                        image2={chuck70pink2}
-                        title1="BEST SELLER"
-                        title2="NEW ARRIVAL"
-                        name="척 70 시즈널 캔버스"
-                        price="99,000원"
-                      />
-                    </Grid>
-                    <Grid item xs={3} md>
-                      <ProductCard
-                        image1={chuck70pink}
-                        image2={chuck70pink2}
-                        title1="BEST SELLER"
-                        title2="NEW ARRIVAL"
-                        name="척 70 시즈널 캔버스"
-                        price="99,000원"
-                      />
-                    </Grid>
+                    {shoeStore.shoesList.map((shoe, index) => (
+                      <Grid item xs={3} md>
+                        <ProductCard
+                          image1={baseImgURL + shoe.imagePath + "1.jpg"}
+                          image2={baseImgURL + shoe.imagePath + "2.jpg"}
+                          name={shoe.shoesName}
+                          price={shoe.shoesPrice}
+                        />
+                      </Grid>
+                    ))}
                   </Grid>
                 </div>
+                {/* {shoeStore.shoesList.map((shoe) => {
+                  <li>{shoe.shoesName}</li>;
+                })} */}
               </Grid>
             </Grid>
           </Grid>
