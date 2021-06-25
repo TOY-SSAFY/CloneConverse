@@ -1,5 +1,6 @@
 package com.ssafy.cloneconverse.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class Basket {
     @Column(name = "basket_id")
     private Long id;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "basket")
     private Set<BasketItem> basketList = new HashSet<>();
 
