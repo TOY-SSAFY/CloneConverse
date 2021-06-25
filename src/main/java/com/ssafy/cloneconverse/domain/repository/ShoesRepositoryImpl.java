@@ -24,33 +24,40 @@ public class ShoesRepositoryImpl implements ShoesRepository{
         QShoesColor sc = QShoesColor.shoesColor;
         QShoesState ss = QShoesState.shoesState;
         QShoesColorSize scs = QShoesColorSize.shoesColorSize;
-        List<Tuple> fetch = jpaQueryFactory.selectDistinct(ss, scs)
-                .from(sc, ss, scs)
-                .innerJoin(sc.shoes, s)
-                .innerJoin(ss.shoes, s)
-                .innerJoin(scs.shoesColor, sc)
+
+        List<Shoes> fetch = jpaQueryFactory
+                .selectDistinct(s)
+                .from(s)
+                .leftJoin(s.shoesColors, sc)
+                .leftJoin(s.shoesStates, ss)
+                .fetchJoin()
                 .orderBy(s.shoesReleaseDate.desc())
                 .offset(page - 1).limit(pagingSize)
                 .fetch();
-        for (Tuple tuple : fetch) {
-            ShoesState shoesState = tuple.get(ss);
-            ShoesColorSize shoesColorSize = tuple.get(scs);
-            ShoesColor shoesColor = shoesColorSize.getShoesColor();
-            Shoes shoes = shoesColor.getShoes();
-
+        for (Shoes shoes : fetch) {
+            List<ShoesGender> shoesGenders = new ArrayList<>();
+            List<ShoesColor> shoesColors = new ArrayList<>();
+            List<ShoesState> shoesStates = new ArrayList<>();
+            for (ShoesGender shoesGender : shoes.getShoesGenders()) {
+                shoesGenders.add(new ShoesGender(shoesGender.getId(), shoesGender.getGender()));
+            }
+            for (ShoesColor shoesColor : shoes.getShoesColors()) {
+                shoesColors.add(new ShoesColor(shoesColor.getId(), shoesColor.getColor(), shoesColor.getImagePath(), shoesColor.getImageName()));
+            }
+            for (ShoesState shoesState : shoes.getShoesStates()) {
+                shoesStates.add(new ShoesState(shoesState.getId(), shoesState.getState()));
+            }
             result.add(ShoesDto.builder()
+                    .id(shoes.getId())
                     .shoesName(shoes.getShoesName())
                     .shoesType(shoes.getShoesType())
                     .shoesSilhouette(shoes.getShoesSilhouette())
                     .shoesCategory(shoes.getShoesCategory())
                     .shoesPrice(shoes.getShoesPrice())
                     .shoesReleaseDate(shoes.getShoesReleaseDate())
-                    .imagePath(shoesColor.getImagePath())
-                    .imageName(shoesColor.getImageName())
-                    .shoesColorId(shoesColor.getId())
-                    .color(shoesColor.getColor().getId())
-                    .state(shoesState.getState().getId())
-                    .stock(shoesColorSize.getStock())
+                    .shoesGenders(shoesGenders)
+                    .shoesColors(shoesColors)
+                    .shoesStates(shoesStates)
                     .build());
         }
         return result;
@@ -63,3 +70,4 @@ public class ShoesRepositoryImpl implements ShoesRepository{
         return shoes.get(0);
     }
 }
+

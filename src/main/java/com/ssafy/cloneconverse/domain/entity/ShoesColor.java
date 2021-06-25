@@ -3,6 +3,8 @@ package com.ssafy.cloneconverse.domain.entity;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -29,7 +31,13 @@ public class ShoesColor {
     private String imageName;
 
     public ShoesColor() {}
-    public ShoesColor(Shoes shoes, Color color, String imagePath, String imageName) {
+
+    public ShoesColor(Long id, Color color, String imagePath, String imageName) {
+        this(id, null, color, imagePath, imageName);
+    }
+
+    public ShoesColor(Long id, Shoes shoes, Color color, String imagePath, String imageName) {
+        this.id = id;
         this.shoes = shoes;
         this.color = color;
         this.imagePath = imagePath;
@@ -46,4 +54,5 @@ public class ShoesColor {
                 ", imageName='" + imageName + '\'' +
                 '}';
     }
+
 }

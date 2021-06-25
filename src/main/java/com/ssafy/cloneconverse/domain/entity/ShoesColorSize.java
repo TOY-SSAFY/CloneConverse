@@ -26,10 +26,12 @@ public class ShoesColorSize {
 
     public ShoesColorSize() {}
 
-    public ShoesColorSize(ShoesColor shoesColor, Size size) {
-        this(shoesColor, size, 0);
+
+    public ShoesColorSize(Long id, Size size, Integer stock) {
+        this(id,null, size, stock);
     }
-    public ShoesColorSize(ShoesColor shoesColor, Size size, Integer stock) {
+    public ShoesColorSize(Long id, ShoesColor shoesColor, Size size, Integer stock) {
+        this.id = id;
         this.shoesColor = shoesColor;
         this.size = size;
         this.stock = stock;

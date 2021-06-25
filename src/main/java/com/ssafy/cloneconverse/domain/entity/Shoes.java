@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -32,9 +34,14 @@ public class Shoes {
     @Column(nullable = false, name = "shoes_release_date")
     private LocalDateTime shoesReleaseDate;
 
-//    처음 양방향 매핑 하려다가 색깔에 따른 신발 찾을 때 shoes_colors 테이블에서 시작하면 돼서 단방향
-//    @OneToMany(mappedBy = "shoes_colors_id")
-//    List<ShoesColors> shoesColors = new ArrayList<>();
+    @OneToMany(mappedBy = "shoes")
+    List<ShoesGender> shoesGenders = new ArrayList<>();
+
+    @OneToMany(mappedBy = "shoes")
+    List<ShoesColor> shoesColors = new ArrayList<>();
+
+    @OneToMany(mappedBy = "shoes")
+    List<ShoesState> shoesStates = new ArrayList<>();
 
     public Shoes() {}
 

@@ -22,7 +22,13 @@ public class ShoesGender {
     private Gender gender;
 
     public ShoesGender() {}
-    public ShoesGender(Shoes shoes, Gender gender) {
+
+    public ShoesGender(Long id, Gender gender) {
+        this(id, null, gender);
+    }
+
+    public ShoesGender(Long id, Shoes shoes, Gender gender) {
+        this.id = id;
         this.shoes = shoes;
         this.gender = gender;
     }

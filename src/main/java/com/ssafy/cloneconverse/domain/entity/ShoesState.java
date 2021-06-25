@@ -22,7 +22,13 @@ public class ShoesState {
     private State state;
 
     public ShoesState() {}
-    public ShoesState(Shoes shoes, State state) {
+
+    public ShoesState(Long id, State state) {
+        this(id, null, state);
+    }
+
+    public ShoesState(Long id, Shoes shoes, State state) {
+        this.id = id;
         this.shoes = shoes;
         this.state = state;
     }
