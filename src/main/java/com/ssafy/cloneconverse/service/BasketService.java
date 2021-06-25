@@ -116,4 +116,14 @@ public class BasketService {
         return list;
     }
 
+    public void allDelete(Long member_id){
+        Member member = memberRepository.findById(member_id).get();
+        Basket basket = member.getBasket();
+        Set<BasketItem> baskets = basket.getBasketList();
+        baskets.forEach(i -> {
+            basketItemRepository.delete(i);
+        });
+        basket.getBasketList().clear();
+        basketRepository.save(basket);
+    }
 }
