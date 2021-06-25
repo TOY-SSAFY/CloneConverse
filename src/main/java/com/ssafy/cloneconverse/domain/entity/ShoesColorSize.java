@@ -34,4 +34,14 @@ public class ShoesColorSize {
         this.size = size;
         this.stock = stock;
     }
+
+    @Override
+    public String toString() {
+        return "ShoesColorSize{" +
+                "id=" + id +
+                ", shoesColor=" + shoesColor +
+                ", size=" + size +
+                ", stock=" + stock +
+                '}';
+    }
 }
