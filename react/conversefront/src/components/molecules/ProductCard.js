@@ -60,14 +60,13 @@ const ProductCard = ({
   price,
   membersOnly,
 }) => {
-  console.log("" + image1);
   const [imageSrc, setImageSrc] = useState(image1);
 
   const onImageHover = () => {
     setImageSrc(image2);
   };
   const onImageOut = () => {
-    // console.log("image1", require(image1).default);
+    // console.log("image1", require('123123.jpg').default);
     setImageSrc(image1);
   };
 
@@ -100,7 +99,7 @@ const ProductCard = ({
         <ProductInfoBox>
           <NameBox>{name}</NameBox>
           <br />
-          <div>{convertToPricingComma(price) + "원"}</div>
+          <div>{price}</div>
           <div style={{ color: "#00c3d7", marginTop: "3px" }}>
             {membersOnly ? "MEMBERS ONLY" : ""}
           </div>

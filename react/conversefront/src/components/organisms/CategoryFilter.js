@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react";
+import { observable, runInAction } from "mobx";
 import styled from "styled-components";
 import "../../styles/Headers/CategoryFilter.scss";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -16,8 +17,11 @@ import chuck70pink2 from "../../resources/images/chuck_70_seasonal_canvas_pink2.
 import chuck70mint from "../../resources/images/chuck_70_seasonal_canvas_mint.jpg";
 import chuck70mint2 from "../../resources/images/chuck_70_seasonal_canvas_mint2.jpg";
 import chuck70poster from "../../resources/images/chuck70_seasonal_canvas_poster.jpg";
-import { ProductCard, VideoCard, PosterCard } from "../molecules";
+import { ProductCard, VideoCard, PosterCard, ColorButton } from "../molecules";
 import store from "../../stores";
+import { convertToPricingComma } from "../../utils/string";
+import { useStateWithCallbackLazy } from "use-state-with-callback";
+import { render } from "@testing-library/react";
 
 const List_Box = styled.div`
   display: flex;
@@ -143,7 +147,7 @@ const Filter_Size_Btn = styled.button`
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  font-family: "proxima-nova", "Nanum Gothic", sans-serif;
+  font-family: "proxima-nova", "NanumGothic", sans-serif;
 `;
 const Filter_Silhouette_Btn = styled.button`
   display: inline-block;
@@ -227,6 +231,37 @@ const Filter_List_Img = styled.img`
   height: 30px;
   color: #000;
 `;
+const Product_List_Box = styled.div`
+  margin: 0 auto;
+  padding: 12px 0 0;
+  text-align: left;
+  position: relative;
+  min-height: 78px;
+`;
+const Product_List_Name = styled.div`
+  text-align: left;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  font-family: "proxima-nova", "NanumGothic", sans-serif;
+  font-size: 14px !important;
+  color: #000 !important;
+  letter-spacing: -0.025em;
+  display: block;
+  line-height: 1.6;
+`;
+const Product_Color_Chip = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+`;
+const Product_Color_Size = styled.div`
+  font-size: 14px;
+  line-height: 30px;
+  color: #000;
+`;
+
 const baseImgURL = "/assets/";
 
 const CategoryFilter = observer(() => {
@@ -240,8 +275,21 @@ const CategoryFilter = observer(() => {
     sliper: false,
     platform: false,
   });
+  const [idxnum, setIdxnum] = useState(0);
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
+  };
+  const onProductHover = (e) => {
+    const colorSize = e.currentTarget.childNodes[2].childNodes[0];
+    const colorTag = e.currentTarget.childNodes[2].childNodes[1];
+    colorSize.style.display = "none";
+    colorTag.style.display = "block";
+  };
+  const onProductOut = (e) => {
+    const colorSize = e.currentTarget.childNodes[2].childNodes[0];
+    const colorTag = e.currentTarget.childNodes[2].childNodes[1];
+    colorSize.style.display = "block";
+    colorTag.style.display = "none";
   };
 
   const filterToggle = () => {
@@ -251,10 +299,22 @@ const CategoryFilter = observer(() => {
     document.querySelector("#rcontent").classList.toggle("over");
     document.querySelector("#lcontent").classList.toggle("over");
   };
-
-  // const shoesComponentList = shoeStore.shoesList.map((shoe, index) => {
-  //   return <li key={index}>{shoe.shoesName}</li>;
-  // });
+  const colorChange = (event, imageName, array, outerIndex, colorIndex) => {
+    runInAction(() => {
+      shoeStore.imageList[outerIndex].image1 =
+        baseImgURL +
+        shoeStore.shoesList[outerIndex].shoesColors[colorIndex].imageName +
+        "1.jpg";
+      shoeStore.imageList[outerIndex].image2 =
+        baseImgURL +
+        shoeStore.shoesList[outerIndex].shoesColors[colorIndex].imageName +
+        "2.jpg";
+    });
+    event.target.parentNode.parentNode.parentNode.parentNode.firstChild.firstChild.firstChild.src =
+      baseImgURL +
+      shoeStore.shoesList[outerIndex].shoesColors[colorIndex].imageName +
+      "1.jpg";
+  };
 
   useEffect(async () => {
     await shoeStore.getShoesList(
@@ -262,8 +322,6 @@ const CategoryFilter = observer(() => {
       1
     );
     console.log("shoeStore.shoesList", shoeStore.shoesList);
-    arr = shoeStore.shoesList;
-    console.log("arr", arr);
   }, []);
 
   return (
@@ -619,14 +677,64 @@ const CategoryFilter = observer(() => {
               <Grid item xs={10} id="rcontent">
                 <div id="mcontent">
                   <Grid container spacing={3}>
-                    {shoeStore.shoesList.map((shoe, index) => (
-                      <Grid item xs={3} md>
-                        <ProductCard
-                          image1={baseImgURL + shoe.imagePath + "1.jpg"}
-                          image2={baseImgURL + shoe.imagePath + "2.jpg"}
-                          name={shoe.shoesName}
-                          price={shoe.shoesPrice}
-                        />
+                    {shoeStore.shoesList.map((shoe, index, array) => (
+                      <Grid
+                        item
+                        xs={3}
+                        onMouseOver={onProductHover}
+                        onMouseOut={onProductOut}
+                      >
+                        <Grid item xs={12}>
+                          <ProductCard
+                            image1={
+                              shoeStore.imageList[index] &&
+                              shoeStore.imageList[index].image1
+                                ? shoeStore.imageList[index].image1
+                                : baseImgURL +
+                                  shoe.shoesColors[0].imageName +
+                                  "1.jpg"
+                            }
+                            image2={
+                              shoeStore.imageList[index] &&
+                              shoeStore.imageList[index].image2
+                                ? shoeStore.imageList[index].image2
+                                : baseImgURL +
+                                  shoe.shoesColors[0].imageName +
+                                  "2.jpg"
+                            }
+                            title1={shoe.state}
+                          />
+                        </Grid>
+                        <Product_List_Box>
+                          <Product_List_Name>
+                            {shoe.shoesName}
+                          </Product_List_Name>
+                          <Product_List_Name>
+                            {convertToPricingComma(shoe.shoesPrice) + "원"}
+                          </Product_List_Name>
+                        </Product_List_Box>
+                        <Product_Color_Chip>
+                          <Product_Color_Size>
+                            {shoe.shoesColors.length + " 컬러"}
+                          </Product_Color_Size>
+                          <div style={{ display: "none" }}>
+                            {shoe.shoesColors.map((el, idx) => (
+                              <Filter_Color_li
+                                onMouseOver={(event) =>
+                                  colorChange(
+                                    event,
+                                    el.imageName,
+                                    array,
+                                    index,
+                                    idx
+                                  )
+                                }
+                              >
+                                <ColorButton color={el.color.id} />
+                              </Filter_Color_li>
+                            ))}
+                          </div>
+                        </Product_Color_Chip>
                       </Grid>
                     ))}
                   </Grid>
