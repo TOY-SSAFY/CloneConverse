@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { observable, runInAction } from "mobx";
 import { createAxiosApiAuth } from "../utils/axios";
 
 const shoeStore = observable({
@@ -11,6 +11,12 @@ const shoeStore = observable({
     sliper: false,
     platform: false,
   },
+  imageList: [
+    {
+      image1: "",
+      image2: "",
+    },
+  ],
 
   async getShoesList(token, pageNo) {
     const apiAuth = createAxiosApiAuth(token);
@@ -21,13 +27,18 @@ const shoeStore = observable({
     console.log("response", response);
     this.shoesList = response.data.result.shoesList;
     console.log("response shoeList", response.data.result.shoesList);
-
-    // const response = await axiosApi("/auth/login", "POST", data);
-    // this.user = response.data.result.member;
-    // this.token = response.data.result.Token.token;
-    // localStorage.clear();
-    // sessionStorage.setItem("userinfo", response.data.result.member);
-    // sessionStorage.setItem("token", response.data.result.Token.token);
+    const datas = [];
+    this.shoesList.forEach((shoe) => {
+      datas.push({
+        image1: "/assets/" + shoe.shoesColors[0].imageName + "1.jpg",
+        image2: "/assets/" + shoe.shoesColors[0].imageName + "2.jpg",
+      });
+    });
+    runInAction(() => {
+      this.imageList = [...datas];
+      console.log("imageList shoeStore", this.imageList);
+    });
+    console.log("imageList shoeStore1", this.imageList[0].image1);
   },
 });
 
