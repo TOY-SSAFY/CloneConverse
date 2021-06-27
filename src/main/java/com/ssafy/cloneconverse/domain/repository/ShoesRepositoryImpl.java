@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.ssafy.cloneconverse.domain.entity.QShoes.shoes;
+import static com.ssafy.cloneconverse.domain.entity.QShoesColor.shoesColor;
+import static com.ssafy.cloneconverse.domain.entity.QShoesState.shoesState;
+
 @Repository
 public class ShoesRepositoryImpl implements ShoesRepository{
     private JPAQueryFactory jpaQueryFactory;
@@ -20,18 +24,15 @@ public class ShoesRepositoryImpl implements ShoesRepository{
     @Override
     public List<ShoesDto> getShoesList(Integer page, int pagingSize){
         List<ShoesDto> result = new ArrayList<>();
-        QShoes s = QShoes.shoes;
-        QShoesColor sc = QShoesColor.shoesColor;
-        QShoesState ss = QShoesState.shoesState;
         QShoesColorSize scs = QShoesColorSize.shoesColorSize;
 
         List<Shoes> fetch = jpaQueryFactory
-                .selectDistinct(s)
-                .from(s)
-                .leftJoin(s.shoesColors, sc)
-                .leftJoin(s.shoesStates, ss)
+                .selectDistinct(shoes)
+                .from(shoes)
+                .leftJoin(shoes.shoesColors, shoesColor)
+                .leftJoin(shoes.shoesStates, shoesState)
                 .fetchJoin()
-                .orderBy(s.shoesReleaseDate.desc())
+                .orderBy(shoes.shoesReleaseDate.desc())
                 .offset(page - 1).limit(pagingSize)
                 .fetch();
         for (Shoes shoes : fetch) {
@@ -65,9 +66,11 @@ public class ShoesRepositoryImpl implements ShoesRepository{
 
     @Override
     public Shoes findById(Long shoes_id) {
-        QShoes s = QShoes.shoes;
-        List<Shoes> shoes = jpaQueryFactory.select(s).from(s).where(s.id.eq(shoes_id)).fetch();
-        return shoes.get(0);
+        return jpaQueryFactory
+                .select(shoes)
+                .from(shoes)
+                .where(shoes.id.eq(shoes_id))
+                .fetchOne();
     }
 }
 

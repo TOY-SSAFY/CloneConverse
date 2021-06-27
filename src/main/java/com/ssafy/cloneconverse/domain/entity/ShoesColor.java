@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.*;
+
 @Getter
 @Entity
 @Table(name = "shoes_color")
@@ -16,11 +18,11 @@ public class ShoesColor {
     @Column(name = "shoes_color_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "shoes_id")
     private Shoes shoes;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "color_id")
     private Color color;
 

@@ -4,6 +4,8 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Getter
 @Entity
 @Table(name = "shoes_gender")
@@ -13,11 +15,11 @@ public class ShoesGender {
     @Column(name = "shoes_gender_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "shoes_id")
     private Shoes shoes;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name="gender_id")
     private Gender gender;
 
