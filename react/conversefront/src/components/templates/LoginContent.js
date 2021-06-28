@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import store from "../../stores";
+import { useHistory } from "react-router-dom";
 
 const OuterBox = styled.div`
   margin: 80px auto;
@@ -63,6 +64,7 @@ const OuterBox_Login_Button = styled.button`
 
 const LoginContent = () => {
   const { authStore } = store();
+  const history = useHistory();
   const [state, setState] = React.useState({
     email: "",
     password: "",
@@ -75,6 +77,9 @@ const LoginContent = () => {
     alert("로그인");
     // console.log(email);
     await authStore.login(state.email, state.password);
+    if (authStore.token) {
+      history.push("/");
+    }
     console.log("token", authStore.token);
   };
   return (

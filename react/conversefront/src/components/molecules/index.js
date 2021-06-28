@@ -4,3 +4,4 @@ export { default as VideoCard } from "./VideoCard";
 export { default as SquareButton } from "./SquareButton";
 export { default as ColorButton } from "./ColorButton";
 export { default as ProductDetailCard } from "./ProductDetailCard";
+export { default as InfiniteList } from "./InfiniteList";

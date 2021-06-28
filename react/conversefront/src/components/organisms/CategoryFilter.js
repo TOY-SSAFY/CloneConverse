@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
 import { observer } from "mobx-react";
 import { observable, runInAction } from "mobx";
 import styled from "styled-components";
@@ -12,16 +16,18 @@ import icon_slip from "../../resources/images/슬립.png";
 import icon_platform from "../../resources/images/플랫폼.png";
 import icon_mid from "../../resources/images/미드.png";
 import icon_filter from "../../resources/images/icon_filter.png";
-import chuck70pink from "../../resources/images/chuck_70_seasonal_canvas_pink.jpg";
-import chuck70pink2 from "../../resources/images/chuck_70_seasonal_canvas_pink2.jpg";
-import chuck70mint from "../../resources/images/chuck_70_seasonal_canvas_mint.jpg";
-import chuck70mint2 from "../../resources/images/chuck_70_seasonal_canvas_mint2.jpg";
-import chuck70poster from "../../resources/images/chuck70_seasonal_canvas_poster.jpg";
-import { ProductCard, VideoCard, PosterCard, ColorButton } from "../molecules";
+import load_Image from "../../resources/images/load_converse.png";
+import Zoom from "@material-ui/core/Zoom";
+
+import {
+  ProductCard,
+  VideoCard,
+  PosterCard,
+  ColorButton,
+  InfiniteList,
+} from "../molecules";
 import store from "../../stores";
 import { convertToPricingComma } from "../../utils/string";
-import { useStateWithCallbackLazy } from "use-state-with-callback";
-import { render } from "@testing-library/react";
 
 const List_Box = styled.div`
   display: flex;
@@ -262,11 +268,48 @@ const Product_Color_Size = styled.div`
   color: #000;
 `;
 
+const List = styled.ul`
+  list-style: none;
+  font-size: 16px;
+  margin: 0;
+  padding: 6px;
+`;
+
+const ListItem = styled.li`
+  background-color: #fafafa;
+  border: 1px solid #99b4c0;
+  padding: 8px;
+  margin: 4px;
+`;
+
+const ListContainer = styled.div`
+  height: 600px;
+  overflow: auto;
+  background-color: #e4e4e4;
+`;
+
 const baseImgURL = "/assets/";
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    "&:focus": {
+      outline: "none",
+    },
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    outline: "none",
+  },
+}));
 
 const CategoryFilter = observer(() => {
   const { shoeStore, authStore } = store();
-  let arr = [];
+  const classes = useStyles();
   const [state, setState] = React.useState({
     man: false,
     woman: false,
@@ -275,10 +318,12 @@ const CategoryFilter = observer(() => {
     sliper: false,
     platform: false,
   });
-  const [idxnum, setIdxnum] = useState(0);
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
+
   const onProductHover = (e) => {
     const colorSize = e.currentTarget.childNodes[2].childNodes[0];
     const colorTag = e.currentTarget.childNodes[2].childNodes[1];
@@ -316,16 +361,52 @@ const CategoryFilter = observer(() => {
       "1.jpg";
   };
 
-  useEffect(async () => {
-    await shoeStore.getShoesList(
-      "bearer " + sessionStorage.getItem("token"),
-      1
+  const infiniteScroll = async () => {
+    let scrollHeight = Math.max(
+      document.documentElement.scrollHeight,
+      document.body.scrollHeight
     );
+    let scrollTop = Math.max(
+      document.documentElement.scrollTop,
+      document.body.scrollTop
+    );
+    let clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight === scrollHeight) {
+      runInAction(() => {
+        shoeStore.pageNo += 1;
+      });
+      // alert("스크롤 끝!");
+      setLoading(true);
+      await shoeStore.getShoesList("bearer " + sessionStorage.getItem("token"));
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", infiniteScroll, true);
+    console.log("scroll.shoesList", shoeStore.shoesList);
+  }, []);
+
+  useEffect(async () => {
+    await shoeStore.getShoesList("bearer " + sessionStorage.getItem("token"));
     console.log("shoeStore.shoesList", shoeStore.shoesList);
   }, []);
 
   return (
     <>
+      <Modal
+        className={classes.modal}
+        open={loading}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Zoom in={loading}>
+          <img src={load_Image}></img>
+        </Zoom>
+      </Modal>
       <List_Box>
         <Grid container spacing={0}>
           <Grid item xs={12}>
@@ -739,9 +820,6 @@ const CategoryFilter = observer(() => {
                     ))}
                   </Grid>
                 </div>
-                {/* {shoeStore.shoesList.map((shoe) => {
-                  <li>{shoe.shoesName}</li>;
-                })} */}
               </Grid>
             </Grid>
           </Grid>
