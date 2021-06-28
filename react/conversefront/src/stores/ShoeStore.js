@@ -11,21 +11,18 @@ const shoeStore = observable({
     sliper: false,
     platform: false,
   },
-  imageList: [
-    {
-      image1: "",
-      image2: "",
-    },
-  ],
+  imageList: [],
+  pageNo: 1,
 
-  async getShoesList(token, pageNo) {
+  async getShoesList(token) {
+    console.log("this.pageNo", this.pageNo);
     const apiAuth = createAxiosApiAuth(token);
     const data = {
-      pageno: pageNo,
+      pageno: this.pageNo,
     };
     const response = await apiAuth("/shoes", "GET", data);
     console.log("response", response);
-    this.shoesList = response.data.result.shoesList;
+    this.shoesList.push(...response.data.result.shoesList);
     console.log("response shoeList", response.data.result.shoesList);
     const datas = [];
     this.shoesList.forEach((shoe) => {
@@ -35,10 +32,9 @@ const shoeStore = observable({
       });
     });
     runInAction(() => {
-      this.imageList = [...datas];
+      this.imageList.push(...datas);
       console.log("imageList shoeStore", this.imageList);
     });
-    console.log("imageList shoeStore1", this.imageList[0].image1);
   },
 });
 
