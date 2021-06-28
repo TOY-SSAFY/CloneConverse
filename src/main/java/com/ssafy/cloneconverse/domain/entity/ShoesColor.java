@@ -26,11 +26,15 @@ public class ShoesColor {
     @JoinColumn(name = "color_id")
     private Color color;
 
+
     @Column(name = "image_path")
     private String imagePath;
 
     @Column(length = 50, name = "image_name")
     private String imageName;
+
+    @OneToMany(mappedBy = "shoesColor")
+    List<ShoesColorSize> shoesColorSizes = new ArrayList<>();
 
     public ShoesColor() {}
 

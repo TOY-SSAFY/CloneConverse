@@ -4,11 +4,9 @@ import com.ssafy.cloneconverse.domain.entity.*;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Builder
@@ -23,4 +21,6 @@ public class ShoesDto {
     private List<ShoesGender> shoesGenders;
     private List<ShoesColor> shoesColors;
     private List<ShoesState> shoesStates;
+    // shoesColorId, {size, ...}
+    private List<ShoesColorSizeDto> shoesColorSizes;
 }

@@ -17,4 +17,11 @@ public class Size {
     public Size(Integer id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Size{" +
+                "id=" + id +
+                '}';
+    }
 }
