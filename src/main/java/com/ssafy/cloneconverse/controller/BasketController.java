@@ -1,16 +1,13 @@
 package com.ssafy.cloneconverse.controller;
 
-import com.ssafy.cloneconverse.configuration.response.ErrorResponse;
-import com.ssafy.cloneconverse.domain.entity.Basket;
-import com.ssafy.cloneconverse.dto.BasketDto;
+import com.ssafy.cloneconverse.domain.entity.Member;
+import com.ssafy.cloneconverse.service.AuthorityService;
 import com.ssafy.cloneconverse.service.BasketService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -18,49 +15,57 @@ import java.util.Optional;
 public class BasketController {
 
     private final BasketService basketService;
+    private final AuthorityService authorityService;
 
-    public BasketController(BasketService basketService) {
+    public BasketController(BasketService basketService, AuthorityService authorityService) {
         this.basketService = basketService;
+        this.authorityService = authorityService;
     }
 
     // 장바구니 추가
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping("/add")
-    public Object addItem(@RequestParam Long member_id, @RequestParam Long shoes_id, @RequestParam String color_id, @RequestParam Integer size_id, @RequestParam Integer quantity) {
-        basketService.addItem(member_id, shoes_id, color_id, size_id, quantity);
+    public Object addItem(@RequestBody Map<String, String> map){
+        Member member = authorityService.getMyMemberWithAuthorities().get();
+        basketService.addItem(member,
+                Long.parseLong(map.get("shoes_id")), map.get("color_id"),
+                Integer.parseInt(map.get("size_id")), Integer.parseInt(map.get("quantity")));
         return 1;
     }
 
     // 장바구니 삭제
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping("/delete")
-    public Object  deleteItem(@RequestParam Long id) {
-        basketService.deleteItem(id);
+    public Object  deleteItem(@RequestBody Map<String, String> map) {
+        basketService.deleteItem(Long.parseLong(map.get("id")));
         return 1;
     }
 
     // 장바구니 수정
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping("/update")
-    public Object updateItem(@RequestParam Long item_id, @RequestParam Long shoes_id, @RequestParam String color_id, @RequestParam Integer size_id, @RequestParam Integer quantity){
-        basketService.updateItem(item_id, shoes_id, color_id, size_id, quantity);
+    public Object updateItem(@RequestBody Map<String, String> map){
+        basketService.updateItem(Long.parseLong(map.get("item_id")), Long.parseLong(map.get("shoes_id")), map.get("color_id"),
+                Integer.parseInt(map.get("size_id")), Integer.parseInt(map.get("quantity")));
         return 1;
     }
 
     // 장바구니 조회
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/list")
-    public Object allItems(@RequestParam Long member_id){
+    public Object allItems(){
+        Member member = authorityService.getMyMemberWithAuthorities().get();
         Map<String, Object> map = new HashMap<>();
-        map.put("basket", basketService.allItems(member_id));
+        map.put("basket", basketService.allItems(member));
         return map;
     }
 
     // 장바구니 비우기
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/deleteAll")
-    public Object allDelete(@RequestParam Long member_id){
-        basketService.allDelete(member_id);
+    public Object allDelete(){
+        Member member = authorityService.getMyMemberWithAuthorities().get();
+        basketService.allDelete(member);
         return 1;
     }
 

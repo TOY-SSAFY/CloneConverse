@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 public class WishlistDto {
     private Long id;
-    private ShoesColor shoesColor;
+    private ItemDto shoesColor;
 
-    public WishlistDto(String email, ShoesColor shoesColor) {
+    public WishlistDto(String email, ItemDto shoesColor) {
         this.shoesColor = shoesColor;
     }
 
@@ -16,7 +16,7 @@ public class WishlistDto {
         this.id = id;
     }
 
-    public WishlistDto(Long id, ShoesColor shoesColor) {
+    public WishlistDto(Long id, ItemDto shoesColor) {
         this.id = id;
         this.shoesColor = shoesColor;
     }
