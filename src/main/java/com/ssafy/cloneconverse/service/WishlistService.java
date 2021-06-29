@@ -1,13 +1,12 @@
 package com.ssafy.cloneconverse.service;
 
-import com.ssafy.cloneconverse.domain.entity.Member;
-import com.ssafy.cloneconverse.domain.entity.ShoesColor;
-import com.ssafy.cloneconverse.domain.entity.Wishlist;
-import com.ssafy.cloneconverse.domain.entity.WishlistShoesColor;
+import com.ssafy.cloneconverse.domain.entity.*;
 import com.ssafy.cloneconverse.domain.repository.MemberRepository;
 import com.ssafy.cloneconverse.domain.repository.ShoesColorRepository;
 import com.ssafy.cloneconverse.domain.repository.WishlistRepository;
 import com.ssafy.cloneconverse.domain.repository.WishlistShoesColorRepository;
+import com.ssafy.cloneconverse.dto.ItemDto;
+import com.ssafy.cloneconverse.dto.ShoesDto;
 import com.ssafy.cloneconverse.dto.WishlistDto;
 import org.springframework.stereotype.Service;
 
@@ -31,13 +30,15 @@ public class WishlistService {
 
     // 조회
     @Transactional
-    public Set<WishlistDto> getWishList(String email) {
-        Member member = memberRepository.findByEmail(email).get();
+    public Set<WishlistDto> getWishList(Member member) {
         Wishlist wishlist = member.getWishlist();
         if (wishlist == null) return null;
         Set<WishlistDto> items = new HashSet<>();
         wishlist.getWishList().forEach(i -> {
-            WishlistDto dto = new WishlistDto(i.getId(), i.getShoesColor());
+            Shoes shoes = i.getShoesColor().getShoes();
+            ShoesColor color = i.getShoesColor();
+            ItemDto item = new ItemDto(shoes.getShoesName(), color.getColor().getId(), color.getImagePath(), color.getImageName(), shoes.getShoesPrice(), 0, 0, 0);
+            WishlistDto dto = new WishlistDto(i.getId(), item);
             items.add(dto);
         });
         return items;
@@ -51,8 +52,7 @@ public class WishlistService {
 
     // 추가
     @Transactional
-    public void addWishList(String email, Long shoesColorId) {
-        Member member = memberRepository.findByEmail(email).get();
+    public void addWishList(Member member, Long shoesColorId) {
         Wishlist wishlist = member.getWishlist();
         ShoesColor shoescolor = shoesColorRepository.findById(shoesColorId).get();
         if (wishlist == null) {

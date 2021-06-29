@@ -1,5 +1,7 @@
 package com.ssafy.cloneconverse.controller;
 
+import com.ssafy.cloneconverse.domain.entity.Member;
+import com.ssafy.cloneconverse.service.AuthorityService;
 import com.ssafy.cloneconverse.service.WishlistService;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,25 +13,32 @@ import java.util.Set;
 @RestController
 public class WishlistController {
     private final WishlistService wishlistService;
+    private final AuthorityService authorityService;
 
-    public WishlistController(WishlistService wishlistService) {
+    public WishlistController(WishlistService wishlistService, AuthorityService authorityService) {
         this.wishlistService = wishlistService;
+        this.authorityService = authorityService;
     }
 
     // 위시리스트 조회 - selectOne
     @GetMapping("/wishlist")
-    public Object getWishlist(@RequestParam String email) {
+    public Object getWishlist() {
+        System.out.println("here");
+        Member member = authorityService.getMyMemberWithAuthorities().get();
         Map<String, Set> map = new HashMap<>();
-        map.put("wishlist", wishlistService.getWishList(email));
+        System.out.println("??????????");
+        System.out.println(member.getEmail());
+        map.put("wishlist", wishlistService.getWishList(member));
         return map;
     }
 
     // 위시리스트 추가
     @PostMapping("/wishlist")
     public Object addWishList(@RequestBody Map<String, String> param) {
-        String email = param.get("email");
+        System.out.println("hello");
+        Member member = authorityService.getMyMemberWithAuthorities().get();
         String shoesColorId = param.get("shoesColorId");
-        wishlistService.addWishList(email, Long.parseLong(shoesColorId));
+        wishlistService.addWishList(member, Long.parseLong(shoesColorId));
         return "insert success";
     }
 

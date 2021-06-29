@@ -13,3 +13,5 @@ export { default as CategoryBanner } from './CategoryBanner';
 export { default as CategoryFilter } from './CategoryFilter';
 export { default as BasketTable } from './BasketTable';
 export { default as MyPageBar } from './MyPageBar';
+export { default as ProductDetail } from './ProductDetail';
+export { default as ProductMenu } from './ProductMenu';

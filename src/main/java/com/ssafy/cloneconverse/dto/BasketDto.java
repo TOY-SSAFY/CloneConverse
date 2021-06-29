@@ -11,11 +11,11 @@ import lombok.*;
 @NoArgsConstructor
 public class BasketDto {
     private Long id;
-    private ShoesColorSize item;
+    private ItemDto item;
     private Integer quantity;
 
     @Builder
-    public BasketDto(Long id, ShoesColorSize item, Integer quantity) {
+    public BasketDto(Long id, ItemDto item, Integer quantity) {
         this.id = id;
         this.item = item;
         this.quantity = quantity;

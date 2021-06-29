@@ -2,12 +2,13 @@ package com.ssafy.cloneconverse.service;
 
 import com.ssafy.cloneconverse.domain.entity.*;
 import com.ssafy.cloneconverse.domain.repository.*;
-import com.ssafy.cloneconverse.dto.BasketDto;
+import com.ssafy.cloneconverse.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -26,10 +27,7 @@ public class BasketService {
     private BasketItemRepository basketItemRepository;
 
     @Transactional
-    public void addItem(Long member_id, Long shoes_id, String color_id, Integer size_id, Integer quantity){
-        Optional<Member> memberEntity = memberRepository.findById(member_id);
-        Member member = memberEntity.get();
-
+    public void addItem(Member member, Long shoes_id, String color_id, Integer size_id, Integer quantity){
         Shoes shoes = shoesRepository.findById(shoes_id);
         ShoesColor shoescolor = shoesColorRepository.findShoesColor(shoes.getId(), color_id).get();
         ShoesColorSize shoesColorSize = shoesColorSizeRepository.findShoesColorSize(shoescolor.getId(), size_id).get();
@@ -101,23 +99,23 @@ public class BasketService {
         });
     }
 
-    public Object allItems(Long member_id){
-        Optional<Member> memberEntity = memberRepository.findById(member_id);
-        Member member = memberEntity.get();
+    public Object allItems(Member member){
         Basket basket = member.getBasket();
         if(basket == null) return null;
         Set<BasketItem> items = basket.getBasketList();
 
         List<BasketDto> list = new ArrayList<>();
         items.forEach(i-> {
-            BasketDto temp = new BasketDto(i.getId(), i.getItem(), i.getQuantity());
+            Shoes shoes = i.getItem().getShoesColor().getShoes();
+            ShoesColor color = i.getItem().getShoesColor();
+            ItemDto item = new ItemDto(shoes.getShoesName(), color.getColor().getId(), color.getImagePath(), color.getImageName(), shoes.getShoesPrice(), i.getItem().getSize().getId(), i.getItem().getStock(), i.getQuantity());
+            BasketDto temp = new BasketDto(i.getId(), item, i.getQuantity());
             list.add(temp);
         });
         return list;
     }
 
-    public void allDelete(Long member_id){
-        Member member = memberRepository.findById(member_id).get();
+    public void allDelete(Member member){
         Basket basket = member.getBasket();
         Set<BasketItem> baskets = basket.getBasketList();
         baskets.forEach(i -> {

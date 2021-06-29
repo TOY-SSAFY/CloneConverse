@@ -8,6 +8,7 @@ import {
   BasketPage,
   LoginPage,
   WishListPage,
+  DetailPage,
 } from ".";
 
 export default () => {
@@ -19,6 +20,7 @@ export default () => {
         <Route exact path="/test" component={Test} />
         <Route exact path="/login" component={LoginPage} />
         <PrivateRoute exact path="/wishlist" component={WishListPage} />
+        <Route exact path="/detail" component={DetailPage}/>
         <Route exact path="/" component={MainPage} />
       </Switch>
     </Router>
