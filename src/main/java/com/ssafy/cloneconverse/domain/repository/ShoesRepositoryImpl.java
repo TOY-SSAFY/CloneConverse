@@ -30,15 +30,19 @@ public class ShoesRepositoryImpl implements ShoesRepository{
         List<ShoesDto> result = new ArrayList<>();
 
         jpaQueryFactory.selectFrom(shoesColor).leftJoin(shoesColor.shoesColorSizes, shoesColorSize).fetchJoin().fetch();
+        jpaQueryFactory.selectFrom(shoes).leftJoin(shoes.shoesColors, shoesColor).fetchJoin().fetch();
         List<Shoes> fetch = jpaQueryFactory
                 .selectDistinct(shoes)
                 .from(shoes)
-                .leftJoin(shoes.shoesColors, shoesColor)
+//                .leftJoin(shoes.shoesColors, shoesColor)
                 .leftJoin(shoes.shoesStates, shoesState)
                 .fetchJoin()
                 .orderBy(shoes.shoesReleaseDate.desc())
                 .offset(page - 1).limit(pagingSize)
                 .fetch();
+        for (Shoes fetch1 : fetch) {
+            System.out.println("fetch1 = " + fetch1.getShoesColors());
+        }
         return saveShoesDto(result, fetch);
     }
 
