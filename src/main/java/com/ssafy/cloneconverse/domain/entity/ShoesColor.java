@@ -26,7 +26,6 @@ public class ShoesColor {
     @JoinColumn(name = "color_id")
     private Color color;
 
-
     @Column(name = "image_path")
     private String imagePath;
 

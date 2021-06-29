@@ -29,9 +29,7 @@ public class ShoesController {
     // 임시 test
     @GetMapping("/test")
     public Object test(){
-
         return new MemberDto();
-
     }
 
     // /shoes/시작페이지 넘겨주면 신발 20개씩 가져옴
