@@ -6,3 +6,4 @@ export { default as Footer } from "./Footer";
 export { default as Header } from "./Header";
 export { default as WishListContent } from "./WishListContent";
 export { default as DetailContent } from "./DetailContent";
+export { default as MyPageContent } from "./MyPageContent";
