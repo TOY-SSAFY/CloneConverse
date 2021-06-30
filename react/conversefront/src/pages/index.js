@@ -5,3 +5,4 @@ export { default as Test } from "./Test";
 export { default as LoginPage } from "./LoginPage";
 export { default as WishListPage } from "./WishListPage";
 export { default as DetailPage } from "./DetailPage";
+export { default as MyPage } from "./MyPage";

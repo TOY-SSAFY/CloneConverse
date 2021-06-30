@@ -10,11 +10,16 @@ import "../../styles/Headers/CategoryFilter.scss";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
-import icon_high from "../../resources/images/하이.png";
-import icon_low from "../../resources/images/로우.png";
-import icon_slip from "../../resources/images/슬립.png";
-import icon_platform from "../../resources/images/플랫폼.png";
-import icon_mid from "../../resources/images/미드.png";
+// import icon_high from "../../resources/images/하이.png";
+// import icon_low from "../../resources/images/로우.png";
+// import icon_slip from "../../resources/images/슬립.png";
+// import icon_platform from "../../resources/images/플랫폼.png";
+// import icon_mid from "../../resources/images/미드.png";
+import icon_high from "../../resources/images/하이배경제거.png";
+import icon_low from "../../resources/images/로우배경제거.png";
+import icon_slip from "../../resources/images/슬립배경제거.png";
+import icon_platform from "../../resources/images/플랫폼배경제거.png";
+import icon_mid from "../../resources/images/미드배경제거.png";
 import icon_filter from "../../resources/images/icon_filter.png";
 import load_Image from "../../resources/images/load_converse.png";
 import Zoom from "@material-ui/core/Zoom";
@@ -322,6 +327,63 @@ const CategoryFilter = observer(() => {
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
+
+    runInAction(() => {
+      switch (event.target.name) {
+        case "man":
+        case "woman":
+          if (event.target.checked) {
+            shoeStore.categoryfilter.gender.add(event.target.name);
+          } else {
+            shoeStore.categoryfilter.gender.delete(event.target.name);
+          }
+          break;
+        case "mule":
+        case "snikers":
+        case "sliper":
+        case "platform":
+          if (event.target.checked) {
+            shoeStore.categoryfilter.type.add(event.target.name);
+          } else {
+            shoeStore.categoryfilter.type.delete(event.target.name);
+          }
+          break;
+      }
+    });
+  };
+
+  const colorChoice = (e) => {
+    e.target.classList.toggle("selected");
+    runInAction(() => {
+      if (shoeStore.categoryfilter.color.has(e.target.name)) {
+        shoeStore.categoryfilter.color.delete(e.target.name);
+      } else {
+        shoeStore.categoryfilter.color.add(e.target.name);
+      }
+    });
+  };
+
+  const sizeChoice = (e) => {
+    e.target.classList.toggle("btnSelected");
+    runInAction(() => {
+      if (shoeStore.categoryfilter.size.has(e.target.name)) {
+        shoeStore.categoryfilter.size.delete(e.target.name);
+      } else {
+        shoeStore.categoryfilter.size.add(e.target.name);
+      }
+    });
+  };
+  const siluChoice = (e) => {
+    if (e.target !== e.currentTarget) return;
+    e.target.classList.toggle("siluSelected");
+    runInAction(() => {
+      if (shoeStore.categoryfilter.silhouette.has(e.target.name)) {
+        shoeStore.categoryfilter.silhouette.delete(e.target.name);
+      } else {
+        shoeStore.categoryfilter.silhouette.add(e.target.name);
+      }
+    });
+    console.log(shoeStore.categoryfilter.silhouette);
   };
 
   const onProductHover = (e) => {
@@ -330,6 +392,7 @@ const CategoryFilter = observer(() => {
     colorSize.style.display = "none";
     colorTag.style.display = "block";
   };
+
   const onProductOut = (e) => {
     const colorSize = e.currentTarget.childNodes[2].childNodes[0];
     const colorTag = e.currentTarget.childNodes[2].childNodes[1];
@@ -376,18 +439,25 @@ const CategoryFilter = observer(() => {
       runInAction(() => {
         shoeStore.pageNo += 1;
       });
-      // alert("스크롤 끝!");
       setLoading(true);
-      await shoeStore.getShoesList("bearer " + sessionStorage.getItem("token"));
+      await shoeStore.addShoesList("bearer " + sessionStorage.getItem("token"));
       setLoading(false);
     }
   };
-  useEffect(() => {
-    window.addEventListener("scroll", infiniteScroll, true);
-    console.log("scroll.shoesList", shoeStore.shoesList);
-  }, []);
+  useEffect(async () => {
+    await shoeStore.getShoesList("bearer " + sessionStorage.getItem("token"));
+    console.log("shoeStore.shoesList", shoeStore.shoesList);
+    alert("값 변경");
+  }, [
+    shoeStore.categoryfilter.gender.size,
+    shoeStore.categoryfilter.type.size,
+    shoeStore.categoryfilter.color.size,
+    shoeStore.categoryfilter.size.size,
+    shoeStore.categoryfilter.silhouette.size,
+  ]);
 
   useEffect(async () => {
+    window.addEventListener("scroll", infiniteScroll, true);
     await shoeStore.getShoesList("bearer " + sessionStorage.getItem("token"));
     console.log("shoeStore.shoesList", shoeStore.shoesList);
   }, []);
@@ -572,71 +642,99 @@ const CategoryFilter = observer(() => {
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#000000" }}
+                          onClick={colorChoice}
+                          name="black"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#0000ff" }}
+                          onClick={colorChoice}
+                          name="blue"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#009900" }}
+                          onClick={colorChoice}
+                          name="green"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#131936" }}
+                          onClick={colorChoice}
+                          name="navy"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#6600CC" }}
+                          onClick={colorChoice}
+                          name="violet"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#996633" }}
+                          onClick={colorChoice}
+                          name="brown"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#999999" }}
+                          onClick={colorChoice}
+                          name="grey"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#A39264" }}
+                          onClick={colorChoice}
+                          name="khaki"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#F0E4D2" }}
+                          onClick={colorChoice}
+                          name="beige"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#FF0000" }}
+                          onClick={colorChoice}
+                          name="red"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#FF6600" }}
+                          onClick={colorChoice}
+                          name="orange"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#FFB6C1" }}
+                          onClick={colorChoice}
+                          name="pink"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#FFCC00" }}
+                          onClick={colorChoice}
+                          name="yellow"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                       <Filter_Color_li>
                         <Filter_Color_Btn
                           style={{ background: "#ffffff" }}
+                          onClick={colorChoice}
+                          name="white"
                         ></Filter_Color_Btn>
                       </Filter_Color_li>
                     </ul>
@@ -651,64 +749,104 @@ const CategoryFilter = observer(() => {
                     </Filter_Search_Title>
                     <Filter_Size_ul>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>210</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="210">
+                          210
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>215</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="215">
+                          215
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>220</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="220">
+                          220
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>225</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="225">
+                          225
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>230</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="230">
+                          230
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>235</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="235">
+                          235
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>240</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="240">
+                          240
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>245</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="245">
+                          245
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>250</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="250">
+                          250
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>255</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="255">
+                          255
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>260</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="260">
+                          260
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>265</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="265">
+                          265
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>270</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="270">
+                          270
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>275</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="275">
+                          275
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>280</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="280">
+                          280
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>285</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="285">
+                          285
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>290</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="290">
+                          290
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>295</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="295">
+                          295
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>300</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="300">
+                          300
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                       <Filter_Size_li>
-                        <Filter_Size_Btn>305</Filter_Size_Btn>
+                        <Filter_Size_Btn onClick={sizeChoice} name="305">
+                          305
+                        </Filter_Size_Btn>
                       </Filter_Size_li>
                     </Filter_Size_ul>
                     <Filter_Search_Title
@@ -722,31 +860,34 @@ const CategoryFilter = observer(() => {
                     </Filter_Search_Title>
                     <Filter_Silhouette_ul>
                       <Filter_Silhouette_li>
-                        <Filter_Silhouette_Btn>
+                        <Filter_Silhouette_Btn onClick={siluChoice} name="하이">
                           <img src={icon_high}></img>
                           하이
                         </Filter_Silhouette_Btn>
                       </Filter_Silhouette_li>
                       <Filter_Silhouette_li>
-                        <Filter_Silhouette_Btn>
+                        <Filter_Silhouette_Btn onClick={siluChoice} name="로우">
                           <img src={icon_low}></img>
                           로우
                         </Filter_Silhouette_Btn>
                       </Filter_Silhouette_li>
                       <Filter_Silhouette_li>
-                        <Filter_Silhouette_Btn>
+                        <Filter_Silhouette_Btn onClick={siluChoice} name="미드">
                           <img src={icon_mid}></img>
                           미드
                         </Filter_Silhouette_Btn>
                       </Filter_Silhouette_li>
                       <Filter_Silhouette_li>
-                        <Filter_Silhouette_Btn>
+                        <Filter_Silhouette_Btn
+                          onClick={siluChoice}
+                          name="플랫폼"
+                        >
                           <img src={icon_platform}></img>
                           플랫폼
                         </Filter_Silhouette_Btn>
                       </Filter_Silhouette_li>
                       <Filter_Silhouette_li>
-                        <Filter_Silhouette_Btn>
+                        <Filter_Silhouette_Btn onClick={siluChoice} name="슬립">
                           <img src={icon_slip}></img>
                           슬립
                         </Filter_Silhouette_Btn>
@@ -799,7 +940,7 @@ const CategoryFilter = observer(() => {
                             {shoe.shoesColors.length + " 컬러"}
                           </Product_Color_Size>
                           <div style={{ display: "none" }}>
-                            {shoe.shoesColors.map((el, idx) => (
+                            {shoe.shoesColorSizes.map((el, idx) => (
                               <Filter_Color_li
                                 onMouseOver={(event) =>
                                   colorChange(
@@ -811,7 +952,7 @@ const CategoryFilter = observer(() => {
                                   )
                                 }
                               >
-                                <ColorButton color={el.color.id} />
+                                <ColorButton color={el.color} />
                               </Filter_Color_li>
                             ))}
                           </div>

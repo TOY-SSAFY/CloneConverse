@@ -1,51 +1,28 @@
 package com.ssafy.cloneconverse.domain.repository;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.cloneconverse.domain.entity.*;
-import com.ssafy.cloneconverse.dto.FilterDto;
-import com.ssafy.cloneconverse.dto.ShoesColorSizeDto;
-import com.ssafy.cloneconverse.dto.ShoesDto;
+import com.ssafy.cloneconverse.dto.*;
+import com.ssafy.cloneconverse.util.SaveUtil;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.ssafy.cloneconverse.domain.entity.QShoes.shoes;
 import static com.ssafy.cloneconverse.domain.entity.QShoesColor.shoesColor;
 import static com.ssafy.cloneconverse.domain.entity.QShoesColorSize.shoesColorSize;
-import static com.ssafy.cloneconverse.domain.entity.QShoesState.shoesState;
 import static com.ssafy.cloneconverse.domain.entity.QShoesGender.shoesGender;
 @Repository
 public class ShoesRepositoryImpl implements ShoesRepository{
-    private JPAQueryFactory jpaQueryFactory;
-    public ShoesRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
+    private final JPAQueryFactory jpaQueryFactory;
+    private final SaveUtil saveUtil;
+
+    public ShoesRepositoryImpl(JPAQueryFactory jpaQueryFactory, SaveUtil saveUtil) {
         this.jpaQueryFactory = jpaQueryFactory;
+        this.saveUtil = saveUtil;
     }
-
-    @Override
-    public List<ShoesDto> getShoesList(Integer page, int pagingSize){
-        List<ShoesDto> result = new ArrayList<>();
-
-        jpaQueryFactory.selectFrom(shoesColor).leftJoin(shoesColor.shoesColorSizes, shoesColorSize).fetchJoin().fetch();
-        jpaQueryFactory.selectFrom(shoes).leftJoin(shoes.shoesColors, shoesColor).fetchJoin().fetch();
-        List<Shoes> fetch = jpaQueryFactory
-                .selectDistinct(shoes)
-                .from(shoes)
-//                .leftJoin(shoes.shoesColors, shoesColor)
-                .leftJoin(shoes.shoesStates, shoesState)
-                .fetchJoin()
-                .orderBy(shoes.shoesReleaseDate.desc())
-                .offset(page - 1).limit(pagingSize)
-                .fetch();
-        for (Shoes fetch1 : fetch) {
-            System.out.println("fetch1 = " + fetch1.getShoesColors());
-        }
-        return saveShoesDto(result, fetch);
-    }
-
 
     @Override
     public Shoes findById(Long shoes_id) {
@@ -57,31 +34,21 @@ public class ShoesRepositoryImpl implements ShoesRepository{
     }
 
     @Override
-    public List<ShoesDto> getShoesFilterList(FilterDto filterDto, int pagingSize) {
-        List<ShoesDto> result = new ArrayList<>();
-        jpaQueryFactory.selectFrom(shoesColor).leftJoin(shoesColor.shoesColorSizes, shoesColorSize).fetchJoin().fetch();
-        List<Shoes> fetch = jpaQueryFactory.selectDistinct(shoes)
+    public Object getShoesFilterList(FilterDto filterDto, int pagingSize) {
+        jpaQueryFactory.selectFrom(shoesColor).leftJoin(shoesColor.shoesColorSizes, shoesColorSize).fetchJoin();
+        QueryResults<Shoes> shoesQueryResults = jpaQueryFactory.selectDistinct(shoes)
                 .from(shoes)
-                .leftJoin(shoes.shoesGenders, shoesGender)
                 .leftJoin(shoes.shoesColors, shoesColor)
+                .leftJoin(shoes.shoesGenders, shoesGender)
                 .fetchJoin()
                 .where(genderEq(filterDto.getGender())
-                        ,colorEq(filterDto.getColor())
-                        ,typeEq(filterDto.getType())
-                        ,silhouetteEq(filterDto.getSilhouette()))
+                        , colorEq(filterDto.getColor())
+                        , typeEq(filterDto.getType())
+                        , silhouetteEq(filterDto.getSilhouette()))
                 .orderBy(shoes.shoesReleaseDate.desc())
-                .offset(filterDto.getPage() - 1).limit(pagingSize)
-                .fetch();
-        for (Shoes shoes : fetch) {
-            System.out.println("shoes = " + shoes);
-            for (ShoesColor shoesColor : shoes.getShoesColors()) {
-                System.out.println("shoesColor = " + shoesColor);
-                for (ShoesColorSize colorSize : shoesColor.getShoesColorSizes()) {
-                    System.out.println("colorSize = " + colorSize);
-                }
-            }
-        }
-        return saveShoesDto(result, fetch);
+                .offset((filterDto.getPage() - 1) * pagingSize).limit(pagingSize)
+                .fetchResults();
+        return saveUtil.saveShoesDto(shoesQueryResults.getResults(), shoesQueryResults.getTotal());
     }
 
     private BooleanBuilder silhouetteEq(List<String> silhouette) {
@@ -116,45 +83,6 @@ public class ShoesRepositoryImpl implements ShoesRepository{
         return builder;
     }
 
-    private List<ShoesDto> saveShoesDto(List<ShoesDto> result, List<Shoes> fetch) {
-        for (Shoes shoes : fetch) {
-            List<ShoesGender> shoesGenders = new ArrayList<>();
-            List<ShoesColor> shoesColors = new ArrayList<>();
-            List<ShoesState> shoesStates = new ArrayList<>();
-            List<ShoesColorSizeDto> shoesColorSizes = new ArrayList<>();
-            for (ShoesGender shoesGender : shoes.getShoesGenders()) {
-                shoesGenders.add(new ShoesGender(shoesGender.getId(), shoesGender.getGender()));
-            }
-            for (ShoesColor shoesColor : shoes.getShoesColors()) {
-                shoesColors.add(new ShoesColor(shoesColor.getId(), shoesColor.getColor(), shoesColor.getImagePath(), shoesColor.getImageName()));
-                Map<Integer, Integer> sizeAndStock = new HashMap<>();
-                for (ShoesColorSize shoesColorSize : shoesColor.getShoesColorSizes()) {
-                    sizeAndStock.put(shoesColorSize.getSize().getId(), shoesColorSize.getStock());
-                }
-                shoesColorSizes.add(ShoesColorSizeDto.builder()
-                                .shoes_id(shoes.getId())
-                                .color(shoesColor.getColor().getId())
-                                .sizeAndStock(sizeAndStock)
-                                .build());
-            }
-            for (ShoesState shoesState : shoes.getShoesStates()) {
-                shoesStates.add(new ShoesState(shoesState.getId(), shoesState.getState()));
-            }
-            result.add(ShoesDto.builder()
-                    .id(shoes.getId())
-                    .shoesName(shoes.getShoesName())
-                    .shoesType(shoes.getShoesType())
-                    .shoesSilhouette(shoes.getShoesSilhouette())
-                    .shoesCategory(shoes.getShoesCategory())
-                    .shoesPrice(shoes.getShoesPrice())
-                    .shoesReleaseDate(shoes.getShoesReleaseDate())
-                    .shoesGenders(shoesGenders)
-                    .shoesColors(shoesColors)
-                    .shoesStates(shoesStates)
-                    .shoesColorSizes(shoesColorSizes)
-                    .build());
-        }
-        return result;
-    }
+
 }
 

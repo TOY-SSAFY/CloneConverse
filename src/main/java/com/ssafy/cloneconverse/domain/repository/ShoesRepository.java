@@ -13,8 +13,7 @@ import java.util.Optional;
 
 @Repository
 public interface ShoesRepository {
-    List<ShoesDto> getShoesList(Integer page, int pagingSize);
     Shoes findById(Long shoes_id);
 
-    List<ShoesDto> getShoesFilterList(FilterDto filterDto, int pagingSize);
+    Object getShoesFilterList(FilterDto filterDto, int pagingSize);
 }
