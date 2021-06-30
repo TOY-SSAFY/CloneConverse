@@ -26,7 +26,7 @@ public class SaveUtil {
                 shoesGenders.add(ShoesGenderDto.builder().id(shoesGender.getId()).gender(shoesGender.getGender().getId()).build());
             }
             for (ShoesColor shoesColor : shoes.getShoesColors()) {
-                shoesColors.add(ShoesColorDto.builder().id(shoesColor.getId()).imagePath(shoesColor.getImagePath()).imageName(shoesColor.getImageName()).build());
+                shoesColors.add(ShoesColorDto.builder().id(shoesColor.getId()).color(shoesColor.getColor().getId()).imagePath(shoesColor.getImagePath()).imageName(shoesColor.getImageName()).build());
                 Map<Integer, Integer> sizeAndStock = new TreeMap<>((s1, s2)-> s1 - s2);
                 boolean sizeInFilter = false;
                 for (ShoesColorSize shoesColorSize : shoesColor.getShoesColorSizes()) {
