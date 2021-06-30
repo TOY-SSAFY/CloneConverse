@@ -33,6 +33,7 @@ import {
 } from "../molecules";
 import store from "../../stores";
 import { convertToPricingComma } from "../../utils/string";
+import { ContactlessOutlined } from "@material-ui/icons";
 
 const List_Box = styled.div`
   display: flex;
@@ -316,8 +317,8 @@ const CategoryFilter = observer(() => {
   const { shoeStore, authStore } = store();
   const classes = useStyles();
   const [state, setState] = React.useState({
-    man: false,
-    woman: false,
+    male: false,
+    female: false,
     mule: false,
     snikers: false,
     sliper: false,
@@ -330,8 +331,8 @@ const CategoryFilter = observer(() => {
 
     runInAction(() => {
       switch (event.target.name) {
-        case "man":
-        case "woman":
+        case "male":
+        case "female":
           if (event.target.checked) {
             shoeStore.categoryfilter.gender.add(event.target.name);
           } else {
@@ -418,10 +419,6 @@ const CategoryFilter = observer(() => {
         shoeStore.shoesList[outerIndex].shoesColors[colorIndex].imageName +
         "2.jpg";
     });
-    event.target.parentNode.parentNode.parentNode.parentNode.firstChild.firstChild.firstChild.src =
-      baseImgURL +
-      shoeStore.shoesList[outerIndex].shoesColors[colorIndex].imageName +
-      "1.jpg";
   };
 
   const infiniteScroll = async () => {
@@ -446,8 +443,6 @@ const CategoryFilter = observer(() => {
   };
   useEffect(async () => {
     await shoeStore.getShoesList("bearer " + sessionStorage.getItem("token"));
-    console.log("shoeStore.shoesList", shoeStore.shoesList);
-    alert("값 변경");
   }, [
     shoeStore.categoryfilter.gender.size,
     shoeStore.categoryfilter.type.size,
@@ -510,7 +505,7 @@ const CategoryFilter = observer(() => {
                           margin: 0,
                         }}
                       >
-                        총 322개의 상품
+                        총 {shoeStore.total}개의 상품
                       </span>
                     </div>
                     <Filter_List_Select>
@@ -533,10 +528,10 @@ const CategoryFilter = observer(() => {
                           <FormControlLabel
                             control={
                               <Checkbox
-                                checked={state.man}
+                                checked={state.male}
                                 color="default"
                                 onChange={handleChange}
-                                name="man"
+                                name="male"
                               />
                             }
                             label="남성"
@@ -546,10 +541,10 @@ const CategoryFilter = observer(() => {
                           <FormControlLabel
                             control={
                               <Checkbox
-                                checked={state.woman}
+                                checked={state.female}
                                 color="default"
                                 onChange={handleChange}
-                                name="woman"
+                                name="female"
                               />
                             }
                             label="여성"
