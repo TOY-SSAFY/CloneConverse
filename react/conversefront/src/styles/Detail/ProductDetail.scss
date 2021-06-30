@@ -1,0 +1,22 @@
+.ScrollFix {
+position: fixed;
+top: 130px;
+bottom: auto;
+height: 909px;
+width: 100%;
+overflow: auto;
+overflow-x: hidden;
+padding: 0;
+transition: all 0.3s;
+}
+
+.ScrollAbs{
+position: absolute;
+top: auto;
+bottom: 0px;
+height: auto;
+width: 100%;
+overflow: auto;
+overflow-x: hidden;
+padding: 0;
+}

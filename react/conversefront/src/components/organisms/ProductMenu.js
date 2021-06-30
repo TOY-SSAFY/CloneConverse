@@ -17,7 +17,22 @@ import detail10 from "../../resources/images/detail10.jpg"
 import detail11 from "../../resources/images/detail11.jpg"
 import detail12 from "../../resources/images/detail12.jpg"
 
-
+const ListImg = styled.div`
+box-sizing: border-box;
+display: flex;
+-webkit-box-orient: vertical;
+-webkit-box-direction: normal;
+flex-direction: column;
+-webkit-box-flex: 0;
+flex-grow: 0;
+flex-shrink: 0;
+flex-basis: 62%;
+max-width: 62%;
+}
+`
+const Img = styled.img`
+  width: 100%;
+`
 const ImgListUL = styled.ul`
     margin: -40px 0 0 0;
     padding: 0 68px;
@@ -36,50 +51,50 @@ const ImgListLi = styled.li`
 
 const ProductMenu = () => {
   return (
-    <>
+    <ListImg>
       <>
        <img src={bigimg}></img>
       </>
       <ImgListUL>
         <ImgListLi>
-            <img src={detail1}></img>
+            <Img src={detail1}></Img>
         </ImgListLi>
         <ImgListLi>
-            <img src={detail12}></img>
+            <Img src={detail12}></Img>
         </ImgListLi>
         <ImgListLi>
-            <img src={detail2}></img>
+            <Img src={detail2}></Img>
         </ImgListLi>
         <ImgListLi>
-            <img src={detail8}></img>
+            <Img src={detail8}></Img>
         </ImgListLi>
         <ImgListLi>
-            <img src={detail5}></img>
+            <Img src={detail5}></Img>
         </ImgListLi>
         <ImgListLi>
-            <img src={detail2}></img>
+            <Img src={detail2}></Img>
         </ImgListLi>
         <ImgListLi>
-            <img src={detail6}></img>
+            <Img src={detail6}></Img>
         </ImgListLi>
         <ImgListLi>
-            <img src={detail7}></img>
+            <Img src={detail7}></Img>
         </ImgListLi>
         <ImgListLi>
-            <img src={detail8}></img>
+            <Img src={detail8}></Img>
         </ImgListLi>
         <ImgListLi>
-            <img src={detail9}></img>
+            <Img src={detail9}></Img>
         </ImgListLi>
         <ImgListLi>
-            <img src={detail10}></img>
+            <Img src={detail10}></Img>
         </ImgListLi>
         <ImgListLi>
-            <img src={detail11}></img>
+            <Img src={detail11}></Img>
         </ImgListLi>
       </ImgListUL>
       
-    </>
+    </ListImg>
   );
 };
 
