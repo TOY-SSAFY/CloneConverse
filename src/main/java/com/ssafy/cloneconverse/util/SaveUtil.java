@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.ssafy.cloneconverse.domain.repository.ShoesRepositoryImpl.filterSizes;
+
 @Component
 public class SaveUtil {
     public SaveUtil() {
@@ -22,36 +24,49 @@ public class SaveUtil {
             List<ShoesColorDto> shoesColors = new ArrayList<>();
             List<ShoesStateDto> shoesStates = new ArrayList<>();
             List<ShoesColorSizeDto> shoesColorSizes = new ArrayList<>();
+            boolean satisfyConditions = false;
             for (ShoesGender shoesGender : shoes.getShoesGenders()) {
                 shoesGenders.add(ShoesGenderDto.builder().id(shoesGender.getId()).gender(shoesGender.getGender().getId()).build());
             }
             for (ShoesColor shoesColor : shoes.getShoesColors()) {
                 shoesColors.add(ShoesColorDto.builder().id(shoesColor.getId()).imagePath(shoesColor.getImagePath()).imageName(shoesColor.getImageName()).build());
                 Map<Integer, Integer> sizeAndStock = new HashMap<>();
+                boolean sizeInFilter = false;
                 for (ShoesColorSize shoesColorSize : shoesColor.getShoesColorSizes()) {
-                    sizeAndStock.put(shoesColorSize.getSize().getId(), shoesColorSize.getStock());
+                    if(filterSizes.isEmpty() || filterSizes.containsKey(shoesColorSize.getSize().getId())) {
+                        sizeInFilter = true;
+                        break;
+                    }
                 }
-                shoesColorSizes.add(ShoesColorSizeDto.builder()
-                        .color(shoesColor.getColor().getId())
-                        .sizeAndStock(sizeAndStock)
-                        .build());
+                if(sizeInFilter){
+                    for (ShoesColorSize shoesColorSize : shoesColor.getShoesColorSizes()) {
+                            sizeAndStock.put(shoesColorSize.getSize().getId(), shoesColorSize.getStock());
+                    }
+                    shoesColorSizes.add(ShoesColorSizeDto.builder()
+                            .color(shoesColor.getColor().getId())
+                            .sizeAndStock(sizeAndStock)
+                            .build());
+                    satisfyConditions = true;
+                }
             }
             for (ShoesState shoesState : shoes.getShoesStates()) {
                 shoesStates.add(ShoesStateDto.builder().id(shoesState.getId()).state(shoesState.getState().getId()).build());
             }
-            result.add(ShoesDto.builder()
-                    .id(shoes.getId())
-                    .shoesName(shoes.getShoesName())
-                    .shoesType(shoes.getShoesType())
-                    .shoesSilhouette(shoes.getShoesSilhouette())
-                    .shoesCategory(shoes.getShoesCategory())
-                    .shoesPrice(shoes.getShoesPrice())
-                    .shoesReleaseDate(shoes.getShoesReleaseDate())
-                    .shoesGenders(shoesGenders)
-                    .shoesColors(shoesColors)
-                    .shoesStates(shoesStates)
-                    .shoesColorSizes(shoesColorSizes)
-                    .build());
+            if(satisfyConditions) {
+                result.add(ShoesDto.builder()
+                        .id(shoes.getId())
+                        .shoesName(shoes.getShoesName())
+                        .shoesType(shoes.getShoesType())
+                        .shoesSilhouette(shoes.getShoesSilhouette())
+                        .shoesCategory(shoes.getShoesCategory())
+                        .shoesPrice(shoes.getShoesPrice())
+                        .shoesReleaseDate(shoes.getShoesReleaseDate())
+                        .shoesGenders(shoesGenders)
+                        .shoesColors(shoesColors)
+                        .shoesStates(shoesStates)
+                        .shoesColorSizes(shoesColorSizes)
+                        .build());
+            }
         }
         map.put("total", total);
         map.put("shoesList", result);

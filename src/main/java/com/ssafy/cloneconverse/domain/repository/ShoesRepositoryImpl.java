@@ -2,13 +2,17 @@ package com.ssafy.cloneconverse.domain.repository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.cloneconverse.domain.entity.*;
 import com.ssafy.cloneconverse.dto.*;
 import com.ssafy.cloneconverse.util.SaveUtil;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.ssafy.cloneconverse.domain.entity.QShoes.shoes;
 import static com.ssafy.cloneconverse.domain.entity.QShoesColor.shoesColor;
@@ -24,6 +28,7 @@ public class ShoesRepositoryImpl implements ShoesRepository{
         this.saveUtil = saveUtil;
     }
 
+    static public Map<Integer, Boolean> filterSizes;
     @Override
     public Shoes findById(Long shoes_id) {
         return jpaQueryFactory
@@ -35,6 +40,10 @@ public class ShoesRepositoryImpl implements ShoesRepository{
 
     @Override
     public Object getShoesFilterList(FilterDto filterDto, int pagingSize) {
+        filterSizes = new HashMap<>();
+        for (Integer size: filterDto.getSize()) {
+            filterSizes.put(size, true);
+        }
         jpaQueryFactory.selectFrom(shoesColor).leftJoin(shoesColor.shoesColorSizes, shoesColorSize).fetchJoin();
         QueryResults<Shoes> shoesQueryResults = jpaQueryFactory.selectDistinct(shoes)
                 .from(shoes)
@@ -82,7 +91,6 @@ public class ShoesRepositoryImpl implements ShoesRepository{
         }
         return builder;
     }
-
 
 }
 
