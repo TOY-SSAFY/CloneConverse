@@ -32,18 +32,8 @@ public class ShoesController {
         return new MemberDto();
     }
 
-    // /shoes/시작페이지 넘겨주면 신발 20개씩 가져옴
-    @GetMapping
-    public Object getShoesList(@RequestParam Map<String, String> param){
-        Map<String, List<ShoesDto>> map = new HashMap<>();
-        map.put("shoesList", shoesService.getShoesList(Integer.parseInt(param.get("pageno")), pagingSize));
-        return map;
-    }
-
     @PostMapping
     public Object getShoesFilterList(@RequestBody FilterDto filterDto){
-        Map<String, List<ShoesDto>> map = new HashMap<>();
-        map.put("shoesList", shoesService.getShoesFilterList(filterDto, pagingSize));
-        return map;
+        return shoesService.getShoesFilterList(filterDto, pagingSize);
     }
 }

@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DetailRepository {
-    ShoesDto getShoesDetail(ShoesDto param);
+    Object getShoesDetail(ShoesDto param);
 }

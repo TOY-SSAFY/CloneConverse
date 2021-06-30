@@ -16,11 +16,7 @@ public class ShoesService {
         this.shoesRepository = shoesRepository;
     }
 
-    public List<ShoesDto> getShoesList(Integer page, int pagingSize) {
-        return shoesRepository.getShoesList(page, pagingSize);
-    }
-
-    public List<ShoesDto> getShoesFilterList(@RequestBody FilterDto filterDto, int pagingSize) {
+    public Object getShoesFilterList(@RequestBody FilterDto filterDto, int pagingSize) {
         return shoesRepository.getShoesFilterList(filterDto, pagingSize);
     }
 }

@@ -7,4 +7,5 @@ import lombok.Getter;
 @Builder
 public class ShoesGenderDto {
     private Long id;
+    private String gender;
 }

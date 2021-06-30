@@ -13,7 +13,7 @@ public class DetailService {
         this.detailRepository = detailRepository;
     }
 
-    public ShoesDto getShoesDetail(ShoesDto param){
+    public Object getShoesDetail(ShoesDto param){
         return detailRepository.getShoesDetail(param);
     }
 }

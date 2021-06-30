@@ -7,4 +7,5 @@ import lombok.Getter;
 @Builder
 public class ShoesStateDto {
     private Long id;
+    private String state;
 }

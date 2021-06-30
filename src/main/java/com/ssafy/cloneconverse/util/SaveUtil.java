@@ -14,7 +14,8 @@ public class SaveUtil {
     public SaveUtil() {
     }
 
-    public List<ShoesDto> saveShoesDto(List<Shoes> fetch) {
+    public Object saveShoesDto(List<Shoes> fetch, long total) {
+        Map<String, Object> map = new HashMap<>();
         List<ShoesDto> result = new ArrayList<>();
         for (Shoes shoes : fetch) {
             List<ShoesGenderDto> shoesGenders = new ArrayList<>();
@@ -22,7 +23,7 @@ public class SaveUtil {
             List<ShoesStateDto> shoesStates = new ArrayList<>();
             List<ShoesColorSizeDto> shoesColorSizes = new ArrayList<>();
             for (ShoesGender shoesGender : shoes.getShoesGenders()) {
-                shoesGenders.add(ShoesGenderDto.builder().id(shoesGender.getId()).build());
+                shoesGenders.add(ShoesGenderDto.builder().id(shoesGender.getId()).gender(shoesGender.getGender().getId()).build());
             }
             for (ShoesColor shoesColor : shoes.getShoesColors()) {
                 shoesColors.add(ShoesColorDto.builder().id(shoesColor.getId()).imagePath(shoesColor.getImagePath()).imageName(shoesColor.getImageName()).build());
@@ -36,7 +37,7 @@ public class SaveUtil {
                         .build());
             }
             for (ShoesState shoesState : shoes.getShoesStates()) {
-                shoesStates.add(ShoesStateDto.builder().id(shoesState.getId()).build());
+                shoesStates.add(ShoesStateDto.builder().id(shoesState.getId()).state(shoesState.getState().getId()).build());
             }
             result.add(ShoesDto.builder()
                     .id(shoes.getId())
@@ -52,6 +53,8 @@ public class SaveUtil {
                     .shoesColorSizes(shoesColorSizes)
                     .build());
         }
-        return result;
+        map.put("total", total);
+        map.put("shoesList", result);
+        return map;
     }
 }
