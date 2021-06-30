@@ -4,10 +4,7 @@ import com.ssafy.cloneconverse.domain.entity.*;
 import com.ssafy.cloneconverse.dto.*;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.ssafy.cloneconverse.domain.repository.ShoesRepositoryImpl.filterSizes;
 
@@ -30,7 +27,7 @@ public class SaveUtil {
             }
             for (ShoesColor shoesColor : shoes.getShoesColors()) {
                 shoesColors.add(ShoesColorDto.builder().id(shoesColor.getId()).imagePath(shoesColor.getImagePath()).imageName(shoesColor.getImageName()).build());
-                Map<Integer, Integer> sizeAndStock = new HashMap<>();
+                Map<Integer, Integer> sizeAndStock = new TreeMap<>((s1, s2)-> s1 - s2);
                 boolean sizeInFilter = false;
                 for (ShoesColorSize shoesColorSize : shoesColor.getShoesColorSizes()) {
                     if(filterSizes.isEmpty() || filterSizes.containsKey(shoesColorSize.getSize().getId())) {
