@@ -39,6 +39,7 @@ public class MemberController {
         return map;
     }
 
+//    @LoginCheck
     @GetMapping("/read")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object readMember(){
