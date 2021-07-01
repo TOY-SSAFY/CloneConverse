@@ -7,7 +7,6 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { convertToPricingComma } from "../../utils/string";
 import store from "../../stores";
-
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -74,6 +73,7 @@ const OptionModify = styled.span`
 const StyledMenu = withStyles({
   paper: {
     border: "1px solid #d3d4d5",
+    width: "80px",
   },
 })((props) => (
   <Menu
@@ -114,6 +114,8 @@ const ProductDetailCard = ({
 }) => {
   const { basketStore, shoeStore } = store();
   const [Count, setCount] = useState(0);
+  const [SelectSize, setSelectSize] = useState();
+  const [SizeList, setSizeList] = useState([]);
   const removeItem = async () => {
     await basketStore.removeBasketItem(
       "Bearer " + sessionStorage.getItem("token"),
@@ -123,38 +125,70 @@ const ProductDetailCard = ({
       "Bearer " + sessionStorage.getItem("token")
     );
   };
+  const changeSize = (event) => {
+    console.log("event.target.textContent", event.target.textContent);
+    setSelectSize(event.target.textContent);
+    console.log("SelectSize", SelectSize);
+    handleClose();
+  };
   const PlusCount = () => {
     setCount(Count + 1);
-    console.log(Count);
+    updateBasket();
   };
   const MinusCount = () => {
     if (Count > 0) {
       setCount(Count - 1);
+      updateBasket();
     }
   };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
+  const handleClick = async (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const updateBasket = async () => {
+    const data = {
+      item_id: id,
+      shoes_id: shoesid,
+      color_id: color,
+      size_id: SelectSize,
+      quantity: Count,
+    };
+    console.log("data", data);
+    await basketStore.updateBasketItem(
+      "Bearer " + sessionStorage.getItem("token"),
+      data
+    );
+  };
 
   useEffect(async () => {
     setCount(quantity);
-    // const shoesDetail = await shoeStore.getShoeDetail(
-    //   "Bearer " + sessionStorage.getItem("token"),
-    //   shoesid
-    // );
-    // console.log("shoesDetail", shoesDetail);
+    setSelectSize(size);
+    const data = await shoeStore.getShoeDetail(
+      "Bearer " + sessionStorage.getItem("token"),
+      shoesid
+    );
+    let keyList = [];
+    data.shoesColorSizes.forEach((shoe) => {
+      if (shoe.color === color) {
+        keyList = Object.keys(shoe.sizeAndStock);
+      }
+    });
+    keyList.sort();
+    setSizeList([...keyList]);
+    console.log("SizeList", SizeList);
   }, []);
-
   useEffect(() => {
-    // setCount(quantity);
-  }, [Count]);
+    if (SelectSize) {
+      console.log(SelectSize);
+      updateBasket();
+    }
+  }, [SelectSize]);
 
   return (
     <div
@@ -175,9 +209,9 @@ const ProductDetailCard = ({
           >
             <Title>{title}</Title>
             <Info>
-              {color} / {size}
+              {color} / {SelectSize}
             </Info>
-            <Info>수량 {quantity}</Info>
+            <Info>수량 {Count}</Info>
             <Grid container spacing={0}>
               <Grid item xs={4}>
                 <Icon>
@@ -242,24 +276,14 @@ const ProductDetailCard = ({
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <StyledMenuItem>
-                    <ListItemIcon>
-                      <SendIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Sent mail" />
-                  </StyledMenuItem>
-                  <StyledMenuItem>
-                    <ListItemIcon>
-                      <DraftsIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Drafts" />
-                  </StyledMenuItem>
-                  <StyledMenuItem>
-                    <ListItemIcon>
-                      <InboxIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Inbox" />
-                  </StyledMenuItem>
+                  {SizeList.map((el) => (
+                    <StyledMenuItem onClick={changeSize} name={el}>
+                      <ListItemText
+                        primary={el}
+                        style={{ textAlign: "center" }}
+                      />
+                    </StyledMenuItem>
+                  ))}
                 </StyledMenu>
                 <OptionModify onClick={removeItem}>삭제</OptionModify>
               </span>

@@ -33,8 +33,10 @@ const basketStore = observable({
   },
 
   async updateBasketItem(token, data) {
+    console.log("update token", token);
+    console.log("update data", data);
     const apiAuth = createAxiosApiAuth(token);
-    const response = await apiAuth("/basket/update", "POST", data);
+    const response = await apiAuth("/basket/update", "PUT", data);
     console.log("update", response);
   },
 });

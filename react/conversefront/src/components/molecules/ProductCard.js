@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
-import { convertToPricingComma } from "../../utils/string";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import store from "../../stores";
 
 const Img = styled.img`
   width: 100%;
@@ -61,8 +62,12 @@ const ProductCard = ({
   name,
   price,
   membersOnly,
+  favorite,
+  shoesColorId,
 }) => {
   const [imageSrc, setImageSrc] = useState(image1);
+  const [Like, setLike] = useState(false);
+  const { wishlistStore } = store();
 
   const onImageHover = () => {
     setImageSrc(image2);
@@ -70,7 +75,40 @@ const ProductCard = ({
   const onImageOut = () => {
     setImageSrc(image1);
   };
-  useEffect(async () => {}, []);
+
+  const likeit = () => {
+    if (!Like) {
+      return (
+        <FavoriteBorderOutlinedIcon
+          style={{ fontSize: "20px" }}
+          onClick={favoriteChange}
+        />
+      );
+    } else {
+      return (
+        <FavoriteIcon style={{ fontSize: "20px" }} onClick={favoriteChange} />
+      );
+    }
+  };
+  const favoriteChange = async () => {
+    if (Like) {
+      setLike(false);
+      // await wishlistStore.removeBasketItem(
+      //   "Bearer " + sessionStorage.getItem("token"),
+      //   id
+      // );
+    } else {
+      setLike(true);
+      await wishlistStore.addWishList(
+        "Bearer " + sessionStorage.getItem("token"),
+        shoesColorId
+      );
+    }
+  };
+
+  useEffect(() => {
+    setLike(favorite ? favorite : false);
+  }, []);
 
   useEffect(async () => {
     setImageSrc(image1);
@@ -87,9 +125,7 @@ const ProductCard = ({
         >
           <Img src={imageSrc} />
         </Link>
-        <Heart>
-          <FavoriteBorderOutlinedIcon style={{ fontSize: "20px" }} />
-        </Heart>
+        <Heart>{likeit()}</Heart>
         <TitleBox>
           <span>{title1}</span>
           {title2 ? (
