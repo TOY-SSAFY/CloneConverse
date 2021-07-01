@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Grid from "@material-ui/core/Grid";
 import { MyPageBar } from "../organisms";
@@ -7,6 +7,7 @@ import chuck70pink2 from "../../resources/images/chuck_70_seasonal_canvas_pink2.
 import { ProductCard } from "../molecules";
 import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/core/styles";
+import store from "../../stores";
 
 // 마이페이지 좌측 메뉴
 const li = styled.li`
@@ -63,6 +64,19 @@ const useStyles = makeStyles((theme) => ({
 
 const WishListContent = () => {
   const classes = useStyles();
+  const [WishList, setWishList] = useState([]);
+  const { wishlistStore, shoeStore } = store();
+  useEffect(async () => {
+    const data = await wishlistStore.getWishList(
+      "Bearer " + sessionStorage.getItem("token")
+    );
+    setWishList([...data]);
+    console.log("wishlist", WishList);
+  }, []);
+  useEffect(() => {
+    console.log("wishlist", WishList);
+  }, [WishList]);
+
   return (
     <>
       <Grid container spacing={5}>
@@ -71,55 +85,37 @@ const WishListContent = () => {
         </Grid>
         <Grid item xs={10}>
           <Mypage_Content_Box>
-            <Mypage_Title>위시리스트(4)</Mypage_Title>
+            <Mypage_Title>위시리스트({WishList.length})</Mypage_Title>
             <div class="myshop-likeitprdpackage">
               <div class="myshop-likeproductlist">
                 <div id="mcontent">
                   <Grid container spacing={6}>
-                    <Grid item xs={3} md>
-                      <Mypage_Product_Box>
-                        <ProductCard
-                          image1={chuck70pink}
-                          image2={chuck70pink2}
-                        />
-                      </Mypage_Product_Box>
-                      <Mypage_Content_Button>
-                        장바구니 담기
-                      </Mypage_Content_Button>
-                    </Grid>
-                    <Grid item xs={3} md>
-                      <Mypage_Product_Box>
-                        <ProductCard
-                          image1={chuck70pink}
-                          image2={chuck70pink2}
-                        />
-                      </Mypage_Product_Box>
-                      <Mypage_Content_Button>
-                        장바구니 담기
-                      </Mypage_Content_Button>
-                    </Grid>
-                    <Grid item xs={3} md>
-                      <Mypage_Product_Box>
-                        <ProductCard
-                          image1={chuck70pink}
-                          image2={chuck70pink2}
-                        />
-                      </Mypage_Product_Box>
-                      <Mypage_Content_Button>
-                        장바구니 담기
-                      </Mypage_Content_Button>
-                    </Grid>
-                    <Grid item xs={3} md>
-                      <Mypage_Product_Box>
-                        <ProductCard
-                          image1={chuck70pink}
-                          image2={chuck70pink2}
-                        />
-                      </Mypage_Product_Box>
-                      <Mypage_Content_Button>
-                        장바구니 담기
-                      </Mypage_Content_Button>
-                    </Grid>
+                    {WishList &&
+                      WishList.map((shoe) => (
+                        <Grid item xs={3}>
+                          <Mypage_Product_Box>
+                            <ProductCard
+                              image1={
+                                "/assets/" + shoe.shoesColor.imageName + "1.jpg"
+                              }
+                              image2={
+                                "/assets/" + shoe.shoesColor.imageName + "2.jpg"
+                              }
+                              id={shoe.shoesColor.shoesId}
+                            />
+                          </Mypage_Product_Box>
+                          <Mypage_Content_Button>
+                            <Link
+                              to={{
+                                pathname: `/detail/${id}`,
+                                id: id,
+                              }}
+                            >
+                              장바구니 담기
+                            </Link>
+                          </Mypage_Content_Button>
+                        </Grid>
+                      ))}
                   </Grid>
                 </div>
               </div>

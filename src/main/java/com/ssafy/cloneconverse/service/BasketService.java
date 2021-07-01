@@ -77,9 +77,25 @@ public class BasketService {
 
         basketEntity.ifPresent(selectItem -> {
             Shoes shoes = shoesRepository.findById(shoes_id);
+            if(shoes == null) try {
+                throw new IllegalAccessException("없는 상품입니다");
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
             Optional<ShoesColor> shoescolorEntity = shoesColorRepository.findShoesColor(shoes.getId(), color_id);
-            ShoesColorSize shoesColorSize = shoesColorSizeRepository.findShoesColorSize(shoescolorEntity.get().getId(), size_id).get();
+            System.out.println(shoescolorEntity);
+            if(shoescolorEntity == null) try {
+                throw new IllegalAccessException("없는 색상입니다");
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
 
+            ShoesColorSize shoesColorSize = shoesColorSizeRepository.findShoesColorSize(shoescolorEntity.get().getId(), size_id).get();
+            if(shoesColorSize == null)try {
+                throw new IllegalAccessException("없는 사이즈입니다");
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
             Basket basket = selectItem.getBasket();
             Set<BasketItem> baskets = basket.getBasketList();
 
@@ -108,7 +124,7 @@ public class BasketService {
         items.forEach(i-> {
             Shoes shoes = i.getItem().getShoesColor().getShoes();
             ShoesColor color = i.getItem().getShoesColor();
-            ItemDto item = new ItemDto(shoes.getShoesName(), color.getColor().getId(), color.getImagePath(), color.getImageName(), shoes.getShoesPrice(), i.getItem().getSize().getId(), i.getItem().getStock(), i.getQuantity());
+            ItemDto item = new ItemDto(shoes.getId(), shoes.getShoesName(), color.getColor().getId(), color.getImagePath(), color.getImageName(), shoes.getShoesPrice(), i.getItem().getSize().getId(), i.getItem().getStock(), i.getQuantity());
             BasketDto temp = new BasketDto(i.getId(), item, i.getQuantity());
             list.add(temp);
         });

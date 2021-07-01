@@ -903,6 +903,7 @@ const CategoryFilter = observer(() => {
                       >
                         <Grid item xs={12}>
                           <ProductCard
+                            id={shoe.id}
                             image1={
                               shoeStore.imageList[index] &&
                               shoeStore.imageList[index].image1

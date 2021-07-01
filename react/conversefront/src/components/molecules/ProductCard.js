@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import { convertToPricingComma } from "../../utils/string";
@@ -51,6 +52,7 @@ const NameBox = styled.span`
 `;
 
 const ProductCard = ({
+  id,
   image1,
   image2,
   title1,
@@ -68,6 +70,7 @@ const ProductCard = ({
   const onImageOut = () => {
     setImageSrc(image1);
   };
+  useEffect(async () => {}, []);
 
   useEffect(async () => {
     setImageSrc(image1);
@@ -76,7 +79,14 @@ const ProductCard = ({
   return (
     <>
       <RelativeBox onMouseOver={onImageHover} onMouseOut={onImageOut}>
-        <Img src={imageSrc} />
+        <Link
+          to={{
+            pathname: `/detail/${id}`,
+            id: id,
+          }}
+        >
+          <Img src={imageSrc} />
+        </Link>
         <Heart>
           <FavoriteBorderOutlinedIcon style={{ fontSize: "20px" }} />
         </Heart>

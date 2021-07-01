@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from '@material-ui/core/Grid';
 import styled from "styled-components";
 import { ProductDetailCard } from "../molecules";
+import store from "../../stores";
+import { observer } from "mobx-react";
 
 import chuck70pink from "../../resources/images/chuck_70_seasonal_canvas_pink.jpg"
 import allstarmulefestival from "../../resources/images/chuck_taylor_allstar_mule_festival.jpg"
@@ -21,35 +23,35 @@ const Clear = styled.div`
   margin-top: 40px;
   cursor: pointer;
 `
-const BasketTable = () => {
+const BasketTable = observer(() => {
+  const { basketStore } = store();
+  console.log(sessionStorage.getItem("token"));
+  useEffect(async () => {
+    await basketStore.getBasketList("Bearer " + sessionStorage.getItem("token"));
+    console.log("basketStore.basketList", basketStore.basketList);
+  },[]);
+  useEffect(() => {}, [basketStore.basketList])
   return (
     <>
       <Table>
-      <tr style={{border: "1px solid #e5e5e5"}}>
-          <ProductDetailCard
-            image={chuck70pink}
-            title="척 70 시즈널 캔버스"
-            color="핑크"
-            size="230"
-            quantity="1"
-            price="99,000원"
-          />
-          </tr>
-          <tr style={{border: "1px solid #e5e5e5"}}>
-          <ProductDetailCard
-            image={allstarmulefestival}
-            title="척테일러 올스타 데인티 뮬 페스티벌"
-            color="에그렛"
-            size="225"
-            quantity="2"
-            price="75,000원"
-          />
-          </tr>
+        {basketStore.basketList.map((basket,index) => (
+            <tr style={{border: "1px solid #e5e5e5"}}>
+            <ProductDetailCard
+              image={"/assets/" + basket.item.imageName + "1.jpg"}
+              title={basket.item.shoesName}
+              color={basket.item.color}
+              size={basket.item.size}
+              quantity={basket.item.quantity}
+              price={basket.item.price}
+              id={basket.id}
+            />
+            </tr>
+        ))}
       </Table>
       <Clear>장바구니 비우기</Clear>
       </>
   );
-};
+});
 
 export default BasketTable;
 

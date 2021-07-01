@@ -3,6 +3,7 @@ package com.ssafy.cloneconverse.controller;
 import com.ssafy.cloneconverse.domain.entity.Member;
 import com.ssafy.cloneconverse.service.AuthorityService;
 import com.ssafy.cloneconverse.service.WishlistService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -22,6 +23,7 @@ public class WishlistController {
 
     // 위시리스트 조회 - selectOne
     @GetMapping("/wishlist")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object getWishlist() {
         System.out.println("here");
         Member member = authorityService.getMyMemberWithAuthorities().get();
@@ -34,6 +36,7 @@ public class WishlistController {
 
     // 위시리스트 추가
     @PostMapping("/wishlist")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object addWishList(@RequestBody Map<String, String> param) {
         System.out.println("hello");
         Member member = authorityService.getMyMemberWithAuthorities().get();
@@ -44,6 +47,7 @@ public class WishlistController {
 
     // 위시리스트 삭제
     @DeleteMapping("/wishlist")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object deleteWishlist(@RequestBody Map<String, Long> param) {
         Long id = param.get("id");
         wishlistService.deleteWishlist(id);

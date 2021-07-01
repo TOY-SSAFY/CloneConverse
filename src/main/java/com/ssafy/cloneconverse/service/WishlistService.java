@@ -37,7 +37,7 @@ public class WishlistService {
         wishlist.getWishList().forEach(i -> {
             Shoes shoes = i.getShoesColor().getShoes();
             ShoesColor color = i.getShoesColor();
-            ItemDto item = new ItemDto(shoes.getShoesName(), color.getColor().getId(), color.getImagePath(), color.getImageName(), shoes.getShoesPrice(), 0, 0, 0);
+            ItemDto item = new ItemDto(shoes.getId(), shoes.getShoesName(), color.getColor().getId(), color.getImagePath(), color.getImageName(), shoes.getShoesPrice(), 0, 0, 0);
             WishlistDto dto = new WishlistDto(i.getId(), item);
             items.add(dto);
         });
