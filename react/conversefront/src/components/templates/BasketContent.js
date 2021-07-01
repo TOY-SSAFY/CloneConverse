@@ -1,13 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Grid, Box, Button } from "@material-ui/core";
 import {BasketTable} from "../organisms"
-
-const default_container = {
-    margin: "0 auto",
-    width: "70%",
-    minHeight: "880px"
-};
+import store from "../../stores";
+import { convertToPricingComma } from "../../utils/string";
 
 const SummaryHead = styled.strong`
     font-weight: 400;
@@ -64,70 +60,89 @@ cursor: pointer;
 `
 
 const BasketContent = () => {
-    return (
-        <div style={default_container}>
-        <p style={{
-              float: "left",
-                fontWeight: "600",
-                fontSize: "20px",
-                marginTop: "70px",
-              color: "#555"
-            }}>장바구니(2)</p>
-        <Grid container spacing={5}>
-              <Grid item xs={8}>
-                    <Box style={{
-                        textAlign: "center",
-                        backgroundColor: "#f4f4f4",
-                        fontSize: "14px",
-                        height: "50px",
-                        lineHeight: "50px",
-                        margin: "20px 0"
-                    }}>
-                    신규 회원 가입 시, 즉시 사용 가능한 1만원 프로모션 코드를 발급해드립니다.(일부 상품 할인 제외, 장바구니 5만원 이상 적용 가능)</Box>
-                    <BasketTable/>
-                </Grid>
-              <Grid item xs={4}>
-                    <TotalSummary>
-                    <Title>주문금액</Title>
-                        <SummaryGroup>
-                            <div style={{ padding: "0 0 18px" }}>
-                                <div>
-                                    <SummaryHead>상품금액</SummaryHead>
-                                    <SummaryRight><span>174,000원</span></SummaryRight>
-                                </div>
-                            </div>
-                            <div style={{ padding: "0 0 18px" }}>
-                                <div>
-                                    <SummaryHead>배송비</SummaryHead>
-                                    <SummaryRight><span>0원</span></SummaryRight>
-                                </div>
-                            </div>
-                            <div style={{ padding: "0 0 18px" }}>
-                                <div>
-                                    <SummaryHead>총 할인금액</SummaryHead>
-                                    <SummaryRight><span>0원</span></SummaryRight>
-                                </div>
-                            </div>
-                            <div>
-                                <div style={{ margin: "20px 0 0"}}>
-                                    <span style={{fontSize: "14px", fontWeight: "600" }}>총 결제 금액</span>
-                                    <SummaryRight>
-                                        <span style={{ fontSize: "18px", fontWeight: "600" }}>174,000원</span>
-                                    </SummaryRight>
-                                </div>
-                            </div>
-                            
-                        </SummaryGroup>
-                        <SummaryGroup>
-                            <OrderBtn>
-                                주문하기
-                            </OrderBtn>
-                        </SummaryGroup>
-                </TotalSummary>
-              </Grid>
-            </Grid>
-      </div>
-    );
-  };
+    const { basketStore } = store();
+    const [Price, setPrice] = useState();
+    useEffect(async () => {
+    const data = await basketStore.getBasketList("Bearer " + sessionStorage.getItem("token"));
+    console.log("basketStore.basketList", basketStore.basketList);
+    console.log("리스트 크기", basketStore.basketList.length);
+    let sum = 0;
+    data.forEach((basket) => {
+        sum += basket.item.price;
+    })
+    setPrice(sum);
+  },[]);
+
   
-  export default BasketContent;
+    return (
+        <Grid container style={{minHeight: "880px"}}>
+            <Grid item xs={2}></Grid>
+            <Grid item xs={8}>
+                <div style={{
+                    float: "left",
+                    fontWeight: "600",
+                    fontSize: "20px",
+                    color: "#555",
+                    marginTop: "20px"
+                }}>장바구니({basketStore.basketList.length})</div>
+                <Grid container spacing={5}>
+                    <Grid item xs={8}>
+                            <Box style={{
+                                textAlign: "center",
+                                backgroundColor: "#f4f4f4",
+                                fontSize: "14px",
+                                minHeight: "50px",
+                                lineHeight: "50px",
+                                margin: "20px 0"
+                            }}>
+                            신규 회원 가입 시, 즉시 사용 가능한 1만원 프로모션 코드를 발급해드립니다.(일부 상품 할인 제외, 장바구니 5만원 이상 적용 가능)</Box>
+                            <BasketTable/>
+
+                        </Grid>
+                    <Grid item xs={4}>
+                            <TotalSummary>
+                            <Title>주문금액</Title>
+                                <SummaryGroup>
+                                    <div style={{ padding: "0 0 18px" }}>
+                                        <div>
+                                            <SummaryHead>상품금액</SummaryHead>
+                                            <SummaryRight><span>{Price&&convertToPricingComma(Price)}원</span></SummaryRight>
+                                        </div>
+                                    </div>
+                                    <div style={{ padding: "0 0 18px" }}>
+                                        <div>
+                                            <SummaryHead>배송비</SummaryHead>
+                                            <SummaryRight><span>0원</span></SummaryRight>
+                                        </div>
+                                    </div>
+                                    <div style={{ padding: "0 0 18px" }}>
+                                        <div>
+                                            <SummaryHead>총 할인금액</SummaryHead>
+                                            <SummaryRight><span>0원</span></SummaryRight>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div style={{ margin: "20px 0 0"}}>
+                                            <span style={{fontSize: "14px", fontWeight: "600" }}>총 결제 금액</span>
+                                            <SummaryRight>
+                                                <span style={{ fontSize: "18px", fontWeight: "600" }}>{convertToPricingComma(basketStore.totalPrice)}원</span>
+                                            </SummaryRight>
+                                        </div>
+                                    </div>
+                                    
+                                </SummaryGroup>
+                                <SummaryGroup>
+                                    <OrderBtn>
+                                        주문하기
+                                    </OrderBtn>
+                                </SummaryGroup>
+                        </TotalSummary>
+                    </Grid>
+                    </Grid>
+                </Grid>
+            <Grid item xs={2}></Grid>
+    </Grid>
+    );
+};
+
+export default BasketContent;

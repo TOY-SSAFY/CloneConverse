@@ -5,6 +5,8 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { convertToPricingComma } from "../../utils/string";
+import store from "../../stores";
 
 const Img = styled.img`
   width:80%;
@@ -65,8 +67,14 @@ const ProductDetailCard = ({
   color,
   size,
   quantity,
-  price
+  price,
+  id
 }) => {
+  const { basketStore } = store();
+  const removeItem = async() =>{
+    await basketStore.removeBasketItem("Bearer " + sessionStorage.getItem("token"), id);
+    await basketStore.getBasketList("Bearer " + sessionStorage.getItem("token"));
+  }
   return (
       <div style={{
           height: "190px"
@@ -103,7 +111,7 @@ const ProductDetailCard = ({
             height: "80%",
             margin: "20px"
           }}>
-            <div>{price}</div>
+            <div>{convertToPricingComma(price)}원</div>
             <div style={{"float" : "right", "margin-top" : "10px", "width" : "100%" , "marginBottom" : "50px"}}>
               <span style={{ "float": "right" }}>
                 <Quantity value={quantity}/>
@@ -118,7 +126,7 @@ const ProductDetailCard = ({
             <div >
               <span>
               <OptionModify>옵션변경</OptionModify>
-                <OptionModify>삭제</OptionModify>
+                <OptionModify onClick = {removeItem}>삭제</OptionModify>
 
               </span>
             
