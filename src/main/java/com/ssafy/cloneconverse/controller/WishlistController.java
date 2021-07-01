@@ -7,7 +7,6 @@ import com.ssafy.cloneconverse.service.WishlistService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -28,8 +27,7 @@ public class WishlistController {
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object getWishlist() {
         Member member = authorityService.getMyMemberWithAuthorities().get();
-        Map<String, Set> map = new HashMap<>();
-        System.out.println(member.getEmail());
+        Map<String, Object> map = new HashMap<>();
         Set<WishlistDto> wishList = wishlistService.getWishList(member);
         if (wishList != null){
             map.put("total", wishList.size());
