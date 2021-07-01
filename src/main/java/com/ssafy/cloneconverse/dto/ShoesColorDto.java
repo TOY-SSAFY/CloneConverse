@@ -7,6 +7,7 @@ import lombok.Getter;
 @Builder
 public class ShoesColorDto {
     private Long id;
+    private String color;
     private String imagePath;
     private String imageName;
 }

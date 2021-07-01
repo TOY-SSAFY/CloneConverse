@@ -11,7 +11,7 @@ public class FilterDto {
     private List<String> gender = new ArrayList<>();
     private List<String> type = new ArrayList<>();
     private List<String> color = new ArrayList<>();
-    private List<String> size = new ArrayList<>();
+    private List<Integer> size = new ArrayList<>();
     private List<String> silhouette = new ArrayList<>();
     private Integer page;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import { convertToPricingComma } from "../../utils/string";
@@ -66,9 +66,12 @@ const ProductCard = ({
     setImageSrc(image2);
   };
   const onImageOut = () => {
-    // console.log("image1", require('123123.jpg').default);
     setImageSrc(image1);
   };
+
+  useEffect(async () => {
+    setImageSrc(image1);
+  }, [image1]);
 
   return (
     <>

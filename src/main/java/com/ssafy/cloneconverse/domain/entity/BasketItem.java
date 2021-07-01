@@ -1,8 +1,6 @@
 package com.ssafy.cloneconverse.domain.entity;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -29,7 +27,7 @@ public class BasketItem {
 
     public BasketItem() {};
 
-    public BasketItem(Long id, Basket basket, ShoesColorSize item, Integer quantity) {
+    public BasketItem(Basket basket, ShoesColorSize item, Integer quantity) {
         this.id = id;
         this.basket = basket;
         this.item = item;
