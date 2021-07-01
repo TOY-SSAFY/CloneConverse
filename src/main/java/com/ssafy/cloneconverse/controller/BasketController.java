@@ -43,7 +43,7 @@ public class BasketController {
 
     // 장바구니 수정
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Object updateItem(@RequestBody Map<String, String> map){
         basketService.updateItem(Long.parseLong(map.get("item_id")), Long.parseLong(map.get("shoes_id")), map.get("color_id"),
                 Integer.parseInt(map.get("size_id")), Integer.parseInt(map.get("quantity")));
