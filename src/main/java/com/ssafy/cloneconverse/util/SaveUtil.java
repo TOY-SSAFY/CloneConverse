@@ -6,14 +6,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-import static com.ssafy.cloneconverse.domain.repository.ShoesRepositoryImpl.filterSizes;
 
 @Component
 public class SaveUtil {
     public SaveUtil() {
     }
 
-    public Object saveShoesDto(List<Shoes> fetch, long total) {
+    public Object saveShoesDto(List<Shoes> fetch, long total, Map filterSizes) {
         Map<String, Object> map = new HashMap<>();
         List<ShoesDto> result = new ArrayList<>();
         for (Shoes shoes : fetch) {

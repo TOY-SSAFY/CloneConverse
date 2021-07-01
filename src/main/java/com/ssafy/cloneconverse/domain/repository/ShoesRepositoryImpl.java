@@ -28,7 +28,6 @@ public class ShoesRepositoryImpl implements ShoesRepository{
         this.saveUtil = saveUtil;
     }
 
-    static public Map<Integer, Boolean> filterSizes;
     @Override
     public Shoes findById(Long shoes_id) {
         return jpaQueryFactory
@@ -40,7 +39,7 @@ public class ShoesRepositoryImpl implements ShoesRepository{
 
     @Override
     public Object getShoesFilterList(FilterDto filterDto, int pagingSize) {
-        filterSizes = new HashMap<>();
+        Map filterSizes = new HashMap<>();
         for (Integer size: filterDto.getSize()) {
             filterSizes.put(size, true);
         }
@@ -57,7 +56,7 @@ public class ShoesRepositoryImpl implements ShoesRepository{
                 .orderBy(shoes.shoesReleaseDate.desc())
                 .offset((filterDto.getPage() - 1) * pagingSize).limit(pagingSize)
                 .fetchResults();
-        return saveUtil.saveShoesDto(shoesQueryResults.getResults(), shoesQueryResults.getTotal());
+        return saveUtil.saveShoesDto(shoesQueryResults.getResults(), shoesQueryResults.getTotal(), filterSizes);
     }
 
     private BooleanBuilder silhouetteEq(List<String> silhouette) {
