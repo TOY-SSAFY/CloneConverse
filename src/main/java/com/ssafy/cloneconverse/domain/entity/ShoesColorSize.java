@@ -29,9 +29,6 @@ public class ShoesColorSize {
     public ShoesColorSize() {}
 
 
-    public ShoesColorSize(Long id, Size size, Integer stock) {
-        this(id,null, size, stock);
-    }
     public ShoesColorSize(Long id, ShoesColor shoesColor, Size size, Integer stock) {
         this.id = id;
         this.shoesColor = shoesColor;
