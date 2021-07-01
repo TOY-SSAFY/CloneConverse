@@ -21,7 +21,7 @@ export default () => {
         <Route exact path="/test" component={Test} />
         <Route exact path="/login" component={LoginPage} />
         <PrivateRoute exact path="/wishlist" component={WishListPage} />
-        <Route exact path="/detail" component={DetailPage} />
+        <Route exact path="/detail/:id" component={DetailPage} />
         <Route exact path="/mypage" component={MyPage} />
         <Route exact path="/" component={MainPage} />
       </Switch>

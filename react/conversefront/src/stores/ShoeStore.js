@@ -61,6 +61,16 @@ const shoeStore = observable({
       console.log("imageList shoeStore", this.imageList);
     });
   },
+
+  async getShoeDetail(token, id) {
+    const apiAuth = createAxiosApiAuth(token);
+    const data = {
+      id: id,
+    };
+    const response = await apiAuth("/detail", "POST", data);
+    console.log("response", response.data.result.shoesList[0]);
+    return response.data.result.shoesList[0];
+  },
 });
 
 export default shoeStore;
