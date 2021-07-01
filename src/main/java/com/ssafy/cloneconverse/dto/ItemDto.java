@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class ItemDto {
+    private Long shoesId;
     private String shoesName;
     private String color;
     private String imagePath;
@@ -19,7 +20,8 @@ public class ItemDto {
     private Integer stock;
     private Integer quantity;
 
-    public ItemDto(String shoesName, String color, String imagePath, String imageName, Integer price, Integer size, Integer stock, Integer quantity) {
+    public ItemDto(Long shoesId, String shoesName, String color, String imagePath, String imageName, Integer price, Integer size, Integer stock, Integer quantity) {
+        this.shoesId = shoesId;
         this.shoesName = shoesName;
         this.color = color;
         this.imagePath = imagePath;
