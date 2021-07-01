@@ -1,11 +1,13 @@
 package com.ssafy.cloneconverse.controller;
 
 import com.ssafy.cloneconverse.domain.entity.Member;
+import com.ssafy.cloneconverse.dto.WishlistDto;
 import com.ssafy.cloneconverse.service.AuthorityService;
 import com.ssafy.cloneconverse.service.WishlistService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -27,10 +29,16 @@ public class WishlistController {
     public Object getWishlist() {
         System.out.println("here");
         Member member = authorityService.getMyMemberWithAuthorities().get();
-        Map<String, Set> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         System.out.println("??????????");
         System.out.println(member.getEmail());
-        map.put("wishlist", wishlistService.getWishList(member));
+        Set<WishlistDto> wishList = wishlistService.getWishList(member);
+        if (wishList != null){
+            map.put("total", wishList.size());
+        } else{
+            map.put("total", 0);
+        }
+        map.put("wishlist", wishList);
         return map;
     }
 
