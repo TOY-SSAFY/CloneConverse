@@ -6,7 +6,6 @@ import com.ssafy.cloneconverse.domain.repository.ShoesColorRepository;
 import com.ssafy.cloneconverse.domain.repository.WishlistRepository;
 import com.ssafy.cloneconverse.domain.repository.WishlistShoesColorRepository;
 import com.ssafy.cloneconverse.dto.ItemDto;
-import com.ssafy.cloneconverse.dto.ShoesDto;
 import com.ssafy.cloneconverse.dto.WishlistDto;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +36,7 @@ public class WishlistService {
         wishlist.getWishList().forEach(i -> {
             Shoes shoes = i.getShoesColor().getShoes();
             ShoesColor color = i.getShoesColor();
-            ItemDto item = new ItemDto(shoes.getId(), shoes.getShoesName(), color.getColor().getId(), color.getImagePath(), color.getImageName(), shoes.getShoesPrice(), 0, 0, 0);
+            ItemDto item = new ItemDto(shoes.getId(), shoes.getShoesName(), color.getId(), color.getColor().getId(), color.getImagePath(), color.getImageName(), shoes.getShoesPrice(), 0, 0, 0);
             WishlistDto dto = new WishlistDto(i.getId(), item);
             items.add(dto);
         });
@@ -46,8 +45,8 @@ public class WishlistService {
 
     // 삭제
     @Transactional
-    public void deleteWishlist(Long id) {
-        wishlistShoesColorRepository.deleteById(id);
+    public void deleteWishlist(Long Id) {
+        wishlistShoesColorRepository.deleteById(Id);
     }
 
     // 추가

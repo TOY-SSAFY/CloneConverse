@@ -2,14 +2,16 @@ package com.ssafy.cloneconverse.service;
 
 import com.ssafy.cloneconverse.domain.entity.*;
 import com.ssafy.cloneconverse.domain.repository.*;
-import com.ssafy.cloneconverse.dto.*;
+import com.ssafy.cloneconverse.dto.BasketDto;
+import com.ssafy.cloneconverse.dto.ItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class BasketService {
@@ -124,7 +126,7 @@ public class BasketService {
         items.forEach(i-> {
             Shoes shoes = i.getItem().getShoesColor().getShoes();
             ShoesColor color = i.getItem().getShoesColor();
-            ItemDto item = new ItemDto(shoes.getId(), shoes.getShoesName(), color.getColor().getId(), color.getImagePath(), color.getImageName(), shoes.getShoesPrice(), i.getItem().getSize().getId(), i.getItem().getStock(), i.getQuantity());
+            ItemDto item = new ItemDto(shoes.getId(), shoes.getShoesName(), color.getId(), color.getColor().getId(), color.getImagePath(), color.getImageName(), shoes.getShoesPrice(), i.getItem().getSize().getId(), i.getItem().getStock(), i.getQuantity());
             BasketDto temp = new BasketDto(i.getId(), item, i.getQuantity());
             list.add(temp);
         });

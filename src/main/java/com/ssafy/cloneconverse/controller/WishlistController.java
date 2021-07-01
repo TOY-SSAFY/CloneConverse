@@ -25,10 +25,8 @@ public class WishlistController {
     @GetMapping("/wishlist")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object getWishlist() {
-        System.out.println("here");
         Member member = authorityService.getMyMemberWithAuthorities().get();
         Map<String, Set> map = new HashMap<>();
-        System.out.println("??????????");
         System.out.println(member.getEmail());
         map.put("wishlist", wishlistService.getWishList(member));
         return map;
