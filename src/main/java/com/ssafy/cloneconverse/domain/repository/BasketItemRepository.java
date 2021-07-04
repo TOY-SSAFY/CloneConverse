@@ -1,7 +1,6 @@
 package com.ssafy.cloneconverse.domain.repository;
 
 import com.ssafy.cloneconverse.domain.entity.BasketItem;
-import com.ssafy.cloneconverse.domain.entity.ShoesColorSize;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

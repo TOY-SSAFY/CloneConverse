@@ -2,8 +2,8 @@ package com.ssafy.cloneconverse.domain.repository;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.cloneconverse.domain.entity.*;
-import com.ssafy.cloneconverse.dto.*;
+import com.ssafy.cloneconverse.domain.entity.Shoes;
+import com.ssafy.cloneconverse.dto.ShoesDto;
 import com.ssafy.cloneconverse.util.SaveUtil;
 import org.springframework.stereotype.Repository;
 

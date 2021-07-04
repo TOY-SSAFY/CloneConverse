@@ -1,6 +1,7 @@
 package com.ssafy.cloneconverse.controller;
 
 import com.ssafy.cloneconverse.domain.entity.Member;
+import com.ssafy.cloneconverse.domain.entity.ShoesColor;
 import com.ssafy.cloneconverse.dto.WishlistDto;
 import com.ssafy.cloneconverse.service.AuthorityService;
 import com.ssafy.cloneconverse.service.WishlistService;
@@ -8,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -57,4 +59,12 @@ public class WishlistController {
         wishlistService.deleteWishlist(id);
         return "delete sucess";
     }
+    @PostMapping("/check")
+    public Object shoesColorInWishList(@RequestBody Map<String, String> param){
+        Member member = authorityService.getMyMemberWithAuthorities().get();
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("inWishlist", wishlistService.shoesInWishList(member, Long.parseLong(param.get("shoesColorId"))));
+        return map;
+    }
+
 }

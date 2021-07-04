@@ -1,10 +1,7 @@
 package com.ssafy.cloneconverse.service;
 
 import com.ssafy.cloneconverse.domain.entity.*;
-import com.ssafy.cloneconverse.domain.repository.MemberRepository;
-import com.ssafy.cloneconverse.domain.repository.ShoesColorRepository;
-import com.ssafy.cloneconverse.domain.repository.WishlistRepository;
-import com.ssafy.cloneconverse.domain.repository.WishlistShoesColorRepository;
+import com.ssafy.cloneconverse.domain.repository.*;
 import com.ssafy.cloneconverse.dto.ItemDto;
 import com.ssafy.cloneconverse.dto.WishlistDto;
 import org.springframework.stereotype.Service;
@@ -19,12 +16,14 @@ public class WishlistService {
     private final WishlistShoesColorRepository wishlistShoesColorRepository;
     private final WishlistRepository wishlistRepository;
     private final ShoesColorRepository shoesColorRepository;
+    private final EtcRepository etcRepository;
 
-    public WishlistService(MemberRepository memberRepository, WishlistShoesColorRepository wishlistShoesColorRepository, WishlistRepository wishlistRepository, ShoesColorRepository shoesColorRepository) {
+    public WishlistService(MemberRepository memberRepository, WishlistShoesColorRepository wishlistShoesColorRepository, WishlistRepository wishlistRepository, ShoesColorRepository shoesColorRepository, EtcRepository etcRepository) {
         this.memberRepository = memberRepository;
         this.wishlistShoesColorRepository = wishlistShoesColorRepository;
         this.wishlistRepository = wishlistRepository;
         this.shoesColorRepository = shoesColorRepository;
+        this.etcRepository = etcRepository;
     }
 
     // 조회
@@ -66,5 +65,10 @@ public class WishlistService {
             wishlist.addWishlistShoesColor(wishlistShoesColor);
             wishlistRepository.save(wishlist);
         }
+    }
+
+    @Transactional
+    public Boolean shoesInWishList(Member member, Long shoesColorId){
+        return etcRepository.shoesInWishList(member, shoesColorId);
     }
 }
