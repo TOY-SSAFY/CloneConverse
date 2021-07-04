@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class BasketService {
@@ -46,11 +43,17 @@ public class BasketService {
         basketItem.setBasket(member.getBasket());
 
         System.out.println(basket.getId());
-        Set<BasketItem> baskets = basket.getBasketList();
+        List<BasketItem> baskets = basket.getBasketList();
 
         if(basketItemRepository.checkCount(shoesColorSize.getId(), basket.getId()) == 0){
             basketItemRepository.save(basketItem);
             baskets.add(basketItem);
+            baskets.sort(new Comparator<BasketItem>() {
+                @Override
+                public int compare(BasketItem o1, BasketItem o2) {
+                    return (int)(o1.getId() - o2.getId());
+                }
+            });
             basket.setBasketList(baskets);
             basketRepository.save(basket);
         }
@@ -66,9 +69,15 @@ public class BasketService {
         Optional<BasketItem> basketEntity = basketItemRepository.findById(id);
         basketEntity.ifPresent(selectItem ->{
             Basket basket = selectItem.getBasket();
-            Set<BasketItem> baskets = basket.getBasketList();
+            List<BasketItem> baskets = basket.getBasketList();
             basketItemRepository.delete(selectItem);
             baskets.remove(selectItem);
+            baskets.sort(new Comparator<BasketItem>() {
+                @Override
+                public int compare(BasketItem o1, BasketItem o2) {
+                    return (int)(o1.getId() - o2.getId());
+                }
+            });
             basketRepository.save(basket);
         });
     }
@@ -99,7 +108,7 @@ public class BasketService {
                 e.printStackTrace();
             }
             Basket basket = selectItem.getBasket();
-            Set<BasketItem> baskets = basket.getBasketList();
+            List<BasketItem> baskets = basket.getBasketList();
 
             baskets.remove(selectItem);
 
@@ -120,7 +129,7 @@ public class BasketService {
     public Object allItems(Member member){
         Basket basket = member.getBasket();
         if(basket == null) return null;
-        Set<BasketItem> items = basket.getBasketList();
+        List<BasketItem> items = basket.getBasketList();
 
         List<BasketDto> list = new ArrayList<>();
         items.forEach(i-> {
@@ -135,7 +144,7 @@ public class BasketService {
 
     public void allDelete(Member member){
         Basket basket = member.getBasket();
-        Set<BasketItem> baskets = basket.getBasketList();
+        List<BasketItem> baskets = basket.getBasketList();
         baskets.forEach(i -> {
             basketItemRepository.delete(i);
         });

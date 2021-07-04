@@ -8,6 +8,7 @@ import { ProductCard } from "../molecules";
 import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/core/styles";
 import store from "../../stores";
+import { Link } from "react-router-dom";
 
 // 마이페이지 좌측 메뉴
 const li = styled.li`
@@ -65,13 +66,16 @@ const useStyles = makeStyles((theme) => ({
 const WishListContent = () => {
   const classes = useStyles();
   const [WishList, setWishList] = useState([]);
+  const [TotalSize, setTotalSize] = useState(1);
   const { wishlistStore, shoeStore } = store();
   useEffect(async () => {
     const data = await wishlistStore.getWishList(
       "Bearer " + sessionStorage.getItem("token")
     );
-    setWishList([...data]);
+    setWishList([...data.wishlist]);
+    setTotalSize(data.total);
     console.log("wishlist", WishList);
+    console.log("total", TotalSize);
   }, []);
   useEffect(() => {
     console.log("wishlist", WishList);
@@ -102,14 +106,16 @@ const WishListContent = () => {
                                 "/assets/" + shoe.shoesColor.imageName + "2.jpg"
                               }
                               id={shoe.shoesColor.shoesId}
+                              favorite={true}
                             />
                           </Mypage_Product_Box>
                           <Mypage_Content_Button>
                             <Link
                               to={{
-                                pathname: `/detail/${id}`,
-                                id: id,
+                                pathname: `/detail/${shoe.shoesColor.shoesId}`,
+                                id: shoe.shoesColor.shoesId,
                               }}
+                              style={{ textDecoration: "none", color: "white" }}
                             >
                               장바구니 담기
                             </Link>
@@ -123,7 +129,7 @@ const WishListContent = () => {
             <Grid container justify="center" style={{ marginTop: "60px" }}>
               <div className={classes.root}>
                 <Pagination
-                  count={10}
+                  count={TotalSize / 20 + 1}
                   variant="outlined"
                   shape="rounded"
                   color="dark"

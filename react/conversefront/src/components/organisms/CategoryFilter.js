@@ -921,6 +921,7 @@ const CategoryFilter = observer(() => {
                                   "2.jpg"
                             }
                             title1={shoe.state}
+                            shoesColorId={shoe.shoesColors[0].id}
                           />
                         </Grid>
                         <Product_List_Box>

@@ -1,12 +1,12 @@
 package com.ssafy.cloneconverse.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-import lombok.*;
-import org.springframework.context.annotation.Bean;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -20,13 +20,13 @@ public class Basket {
     private Long id;
 
     @OneToMany(mappedBy = "basket")
-    private Set<BasketItem> basketList = new HashSet<>();
+    private List<BasketItem> basketList = new ArrayList<>();
 
     public Basket() {
     }
 
     @Builder
-    public Basket(Long id, Set<BasketItem> basketList) {
+    public Basket(Long id, List<BasketItem> basketList) {
         this.id = id;
         this.basketList = basketList;
     }
