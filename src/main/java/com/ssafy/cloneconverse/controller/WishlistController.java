@@ -62,9 +62,7 @@ public class WishlistController {
     @PostMapping("/check")
     public Object shoesColorInWishList(@RequestBody Map<String, String> param){
         Member member = authorityService.getMyMemberWithAuthorities().get();
-        Map<String, Boolean> map = new HashMap<>();
-        map.put("inWishlist", wishlistService.shoesInWishList(member, Long.parseLong(param.get("shoesColorId"))));
-        return map;
+        return (Object)wishlistService.shoesInWishList(member, Long.parseLong(param.get("shoesColorId")));
     }
 
 }
