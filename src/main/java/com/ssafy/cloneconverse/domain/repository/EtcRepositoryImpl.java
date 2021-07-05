@@ -28,7 +28,7 @@ public class EtcRepositoryImpl implements EtcRepository{
     public Boolean shoesInWishList(Member member, Long shoesColorId) {
         List<Long> fetch = jpaQueryFactory.select(wishlistShoesColor.id)
                 .from(wishlistShoesColor)
-                .where(wishlistShoesColor.id.in(
+                .where(wishlistShoesColor.wishlist.id.in(
                         JPAExpressions.select(wishlist.id)
                                 .from(wishlist)
                                 .leftJoin(QMember.member)
